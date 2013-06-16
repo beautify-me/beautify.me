@@ -1,7 +1,10 @@
 package models;
 
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 
 import play.db.jpa.Model;
@@ -9,5 +12,6 @@ import play.db.jpa.Model;
 public class Provider extends Model {
 	public String name;
 	public String url;
-	public List<Accessory> promoted;
+	@ElementCollection
+	public Map<String, Accessory> promoted;
 }
