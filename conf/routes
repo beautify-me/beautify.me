@@ -5,6 +5,17 @@
 # Home page
 GET     /                                       Application.index
 
+# Home page
+GET     /accessories                            Application.accessories
+
+# Home page
+GET     /top                                     Application.top
+
+# Home page
+GET     /mystuff                            Application.mystuff
+
+
+
 # Ignore favicon requests
 GET     /favicon.ico                            404
 

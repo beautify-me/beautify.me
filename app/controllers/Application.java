@@ -12,5 +12,13 @@ public class Application extends Controller {
     public static void index() {
         render();
     }
-
+    public static void accessories() {
+        render();
+    }
+    public static void top() {
+        render();
+    }
+    public static void mystuff() {
+        render();
+    }
 }
