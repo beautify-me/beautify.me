@@ -1,6 +1,7 @@
 package controllers;
 
 import play.*;
+import play.db.jpa.Blob;
 import play.mvc.*;
 
 import java.util.*;
@@ -13,8 +14,18 @@ public class Application extends Controller {
         render();
     }
     public static void accessories() {
-        render();
+        List<Accessory> accessories = Accessory.findAll();
+         render(accessories);
     }
+    
+    public static void getPic(long id) {
+    	Accessory a = Accessory.findById(id);
+    	Pic im = a.image;
+    	response.setContentTypeIfNotSet(im.image.type());
+    	renderBinary(im.image.get());
+    }
+    
+    
     public static void top() {
         render();
     }

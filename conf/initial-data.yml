@@ -1,0 +1,9 @@
+Provider(hm):
+    name: H&M
+    url: hm.com
+
+Accessory(hat):
+    name: Super-shiny-hat
+    gender: 1
+    type: 12
+    provider: hm

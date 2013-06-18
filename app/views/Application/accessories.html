@@ -3,14 +3,32 @@
 
 
 
-    <div class="container">
+<div class="container">
 
-      <!-- Main hero unit for a primary marketing message or call to action -->
-      <div class="hero-unit">
-        <h1>Accessories</h1>
-       <p>welcome!</p>
-      </div>
+	<div class="page-header">
+		<h3>Accessories</h3>
+	</div>
 
-    </div> <!-- /container -->
+    #{if accessories}
+     
+            #{list items:accessories, as:'accessory'}
+                <div class="accessory">
+                
+                        <a href="#"><img src="@{Application.getPic(accessory.id)}"/></a>
+                    
+
+                          ${accessory.articleName}  by  ${accessory.provider.name}
+				</div>
+            #{/list}
+        
+        
+    #{/if}
+     
+#{else}
+    <div class="empty">
+        There is currently nothing to read here.
+    </div>
+#{/else}
+</div> <!-- /container -->
 
 

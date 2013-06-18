@@ -14,4 +14,12 @@ public class Provider extends Model {
 	public String url;
 	@ElementCollection
 	public Map<String, Accessory> promoted;
+	
+	
+	public Provider(String name, String url) {
+		this.name = name;
+		this.url = url;
+	}
+	
+	
 }
