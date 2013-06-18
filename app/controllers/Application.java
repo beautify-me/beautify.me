@@ -21,4 +21,13 @@ public class Application extends Controller {
     public static void mystuff() {
         render();
     }
+    public static void termsofuse() {
+        render();
+    }
+    public static void privacy() {
+        render();
+    }
+    public static void about() {
+        render();
+    }
 }
