@@ -7,5 +7,21 @@
 	<div class="page-header">
 		<h1>About us</h1>
 	</div>
-	<p class="lead">We are beutify.me. If you want to contact us, use the form on this page.</p>
+	<p>We are beutify.me. If you want to contact us, use the form on this page.</p>
+		   #{form @contact(), class:'form-horizontal'}
+		   <div class="control-group">
+		<fieldset>
+		  <legend>Contact us</legend> 
+		<p>
+		   <input type="text" name="address" id="address" maxlength="30"   placeholder="Email" value="${params.address}" />
+		</p>
+		<p>
+		   <textarea id="message" name="message" placeholder="Message" rows="4">${params.message}</textarea>
+		</p>
+		<p>
+		    <input class= "btn btn-inverse btn-large" type="submit" id="send" value="Send" />
+		</p>
+		 </fieldset>
+		 #{/form}
+    </div>
     </div> <!-- /container -->
