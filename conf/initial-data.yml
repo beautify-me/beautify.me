@@ -3,7 +3,69 @@ Provider(hm):
     url: hm.com
 
 Accessory(hat):
-    name: Super-shiny-hat
+    articleName: Super-shiny-hat
+    gender: 1
+    type: 12
+    provider: hm
+    
+    
+Accessory(hat2):
+    articleName: Super-shiny-hat
+    gender: 1
+    type: 12
+    provider: hm
+    
+Accessory(hat3):
+    articleName: Super-shiny-hat
+    gender: 1
+    type: 12
+    provider: hm
+    
+Accessory(hat4):
+    articleName: Super-shiny-hat
+    gender: 1
+    type: 12
+    provider: hm
+    
+Accessory(hat5):
+    articleName: Super-shiny-hat
+    gender: 1
+    type: 12
+    provider: hm
+    
+Accessory(hat6):
+    articleName: Super-shiny-hat
+    gender: 1
+    type: 12
+    provider: hm
+       
+Accessory(hat7):
+    articleName: Super-shiny-hat
+    gender: 1
+    type: 12
+    provider: hm
+       
+Accessory(hat8):
+    articleName: Super-shiny-hat
+    gender: 1
+    type: 12
+    provider: hm
+    
+    
+    Accessory(hat9):
+    articleName: Super-shiny-hat
+    gender: 1
+    type: 12
+    provider: hm
+    
+    Accessory(hat10):
+    articleName: Super-shiny-hat
+    gender: 1
+    type: 12
+    provider: hm
+    
+    Accessory(hat11):
+    articleName: Super-shiny-hat
     gender: 1
     type: 12
     provider: hm
