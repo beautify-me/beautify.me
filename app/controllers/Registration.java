@@ -1,6 +1,7 @@
 package controllers;
 
 import models.*;
+import ugot.recaptcha.*;
 import play.Play;
 import play.data.validation.Email;
 import play.data.validation.Equals;
@@ -35,6 +36,7 @@ public class Registration extends Controller{
 			@Required @MinSize(6) @Equals("confirmPassword") String password,
 			@Required @MinSize (6) String userName,
 			@Required @MinSize(6)  String confirmPassword,
+			@Recaptcha String captcha,
 			@IsTrue Boolean acceptTermsOfUse) {
 		
 		checkAuthenticity();
