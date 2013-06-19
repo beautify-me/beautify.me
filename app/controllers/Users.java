@@ -62,9 +62,31 @@ public class Users extends CRUD{
 		redirect("/admin/users/admin/new");
 	}
 	
+	public static void deleteUser(User user){
+		
+	}
 	
+	public static void lostPassword(@Required @Email String email){
+		boolean hasErrors = true;
+		checkAuthenticity();
+		hasErrors = validation.hasErrors();
+		
+		if (hasErrors) {
+			flash.error("restration.error");
+			params.flash("email");
+			validation.keep();
+			render();
+		} else {
+		
+			if (User.getUserByEmail(email) != null) {
+				User user = User.getUserByEmail(email);
+				Mails.message(user.email, "password");
+			}
+		}
+	}
 	
+}	
 	
 	
 
-}
+

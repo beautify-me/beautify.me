@@ -57,6 +57,14 @@ public class User extends Model {
 		this.lastName = lastName;
 		this.name = name;
 		this.isAdmin = isAdmin;
+		this.userName = userName;
+	}
+	
+	public User(String email, String password, String userName, boolean isAdmin){
+		this.email = email;
+		this.password = password;
+		this.userName = userName;
+		this.isAdmin = isAdmin;
 	}
 	
 	public static User connect (String email, String password){
