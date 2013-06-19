@@ -7,6 +7,7 @@ import play.mvc.*;
 import java.util.*;
 
 import models.*;
+import controllers.*;
 
 public class Application extends Controller {
 
@@ -27,9 +28,12 @@ public class Application extends Controller {
     
     public static void getPic(long id) {
     	Accessory a = Accessory.findById(id);
-    	Pic im = a.image;
+    	/*Pic im = a.image;
     	response.setContentTypeIfNotSet(im.image.type());
-    	renderBinary(im.image.get());
+    	renderBinary(im.image.get());*/
+    	Blob image = a.image;
+    	response.setContentTypeIfNotSet(image.type());
+    	renderBinary(image.get());
     }
     
     

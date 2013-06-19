@@ -21,12 +21,13 @@ public class Accessory extends Model {
 	public int gender;
 	//public String color;
 	
-	public Pic image;  //how to store images https://gist.github.com/steren/660937
+	public Blob image;  //how to store images https://gist.github.com/steren/660937
+	// http://blog.lunatech.com/2011/04/26/playframework-file-upload-blob
 	
 	@ManyToOne
 	public Provider provider;
 
-	public Accessory(String name, int type, int gender, Pic image, Provider provider) {
+	public Accessory(String name, int type, int gender, Blob image, Provider provider) {
 		this.articleName = name;
 		this.type = type;
 		this.gender = gender;

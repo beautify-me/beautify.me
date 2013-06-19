@@ -38,8 +38,8 @@ public class User extends Model {
 	@ElementCollection
 	public Map<String, Accessory> myAccesories;
 	
-	@ElementCollection
-	public Map<String, Pic> myPics;
+	//@ElementCollection
+	//public Map<String, Pic> myPics;
 	
 	//facebook
 	//gplus
@@ -66,7 +66,7 @@ public class User extends Model {
 		this.userName = userName;
 		this.isAdmin = isAdmin;
 	}
-	
+	 
 	public static User connect (String email, String password){
 		return find("byEmailAndPassword", email, password).first();
 	}
@@ -90,5 +90,6 @@ public class User extends Model {
 	public String toString(){
 		return name + " " + lastName;
 	}
+	
 		
 }

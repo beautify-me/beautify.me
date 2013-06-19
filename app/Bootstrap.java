@@ -19,7 +19,7 @@ public class Bootstrap extends Job {
             Fixtures.loadModels("initial-data.yml");
             List<Accessory> allItems = Accessory.findAll();
             for (Accessory a: allItems){
-               // DB.execute("UPDATE `Accessory` SET image='accessory_" + a.provider.name.toLowerCase() + ".png|image/png' WHERE id=" + a.getId());
+                DB.execute("UPDATE `Accessory` SET image='acce_" + a.provider.name.toLowerCase() + ".png|image/png' WHERE id=" + a.getId());
             }
         }
     }

@@ -10,17 +10,24 @@
 	</div>
 
     #{if accessories}
-     
-            #{list items:accessories, as:'accessory'}
+     <table  class="table table-bordered">
+     <tr>
+            #{list items:accessories, as:'accessory'}           
+		     #{if accessory_index.divisibleBy(7)}
+		     </tr>
+		     #{ifnot accessory_isLast}
+    			 <tr>
+     		#{/ifnot}
+		     #{/if}
+            	<td>
                 <div class="accessory">
-                
-                        <a href="#"><img src="@{Application.getPic(accessory.id)}"/></a>
-                    
-
-                          ${accessory.articleName}  by  ${accessory.provider.name}
+                        <div class="span2" ><a href="#"><img src="@{Application.getPic(accessory.id)}"/></a></div>
+                         *{ <div class="span1" >${accessory.articleName}  by  ${accessory.provider.name}</div> }*
 				</div>
+				</td>
             #{/list}
-        
+            <tr>
+        </table>
         
     #{/if}
      
