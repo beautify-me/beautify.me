@@ -23,6 +23,7 @@ public class Application extends Controller {
     
     public static void accessories() {
         List<Accessory> accessories = Accessory.findAll();
+        Collections.shuffle(accessories); // shuffle for dummy display to be suffled
          render(accessories);
     }
     

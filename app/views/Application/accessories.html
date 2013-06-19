@@ -10,10 +10,10 @@
 	</div>
 
     #{if accessories}
-     <table  class="table table-bordered">
+     <table>
      <tr>
             #{list items:accessories, as:'accessory'}           
-		     #{if accessory_index.divisibleBy(7)}
+		     #{if accessory_index.minus(1).divisibleBy(10)}
 		     </tr>
 		     #{ifnot accessory_isLast}
     			 <tr>
@@ -21,16 +21,14 @@
 		     #{/if}
             	<td>
                 <div class="accessory">
-                        <div class="span2" ><a href="#"><img src="@{Application.getPic(accessory.id)}"/></a></div>
-                         *{ <div class="span1" >${accessory.articleName}  by  ${accessory.provider.name}</div> }*
+                        <a href="#"><img src="@{Application.getPic(accessory.id)}"/></a>
+                         *{<div class="span1" >${accessory.articleName}  by  ${accessory.provider.name}</div>}*
 				</div>
 				</td>
             #{/list}
             <tr>
-        </table>
-        
-    #{/if}
-     
+        </table>        
+    #{/if}    
 #{else}
     <div class="empty">
         There is currently nothing to read here.

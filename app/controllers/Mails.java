@@ -14,7 +14,7 @@ public class Mails extends Mailer {
 
             SimpleEmail email = new SimpleEmail();
             email.setFrom(address);
-            email.addTo("annsofi.p@gmail.com");
+            email.addTo("info@beautify.me");
             email.setSubject("Question");
             email.setMsg(message);
             Mail.send(email);
