@@ -9,7 +9,14 @@
 		    		<div class="span7 offset1"><img src="@{'/public/images/girl.jpg'}"  class="img-polaroid"></div>
 				</div><!-- /row -->				
 			    <div class="row">		    		
-		    		<div class="span7 offset1"><img src="@{'/public/images/dummyhats.jpg'}"></div>
+		    		<div class="span7 offset1">
+		    		<!---Dummy code takes hats form database and displayes them -->
+		    		<a href="#"><img height="100" width="100" src="@{Application.getPic(1)}"/></a>
+		    		<a href="#"><img height="100" width="100" src="@{Application.getPic(10)}"/></a>
+		    		<a href="#"><img height="100" width="100" src="@{Application.getPic(20)}"/></a>
+		    		<a href="#"><img height="100" width="100" src="@{Application.getPic(40)}"/></a>
+		    		<a href="#"><img height="100" width="100" src="@{Application.getPic(50)}"/></a>
+		    		</div>
 				</div><!-- /row -->
 			</div><!-- /span8 -->
 			<div class="span4"><img src="@{'/public/images/side.png'}"></div>
