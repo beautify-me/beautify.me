@@ -11,8 +11,15 @@ import models.*;
 public class Application extends Controller {
 
     public static void index() {
-        render();
+       render(); 
     }
+    
+    public static void home(){
+    	String user = Security.connected();
+    	render(user);
+    }
+    
+    
     public static void accessories() {
         List<Accessory> accessories = Accessory.findAll();
          render(accessories);
