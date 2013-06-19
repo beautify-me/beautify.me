@@ -23,8 +23,8 @@ public class User extends Model {
 	public String avatarUrl;
 	@ElementCollection
 	public Map<String, Accessory> myAccesories;
-	@ElementCollection
-	public Map<String, Pic> myPics;
+	//@ElementCollection
+	//public Map<String, Pic> myPics;
 	//facebook
 	//gplus
 	//twitter
