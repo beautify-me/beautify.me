@@ -58,6 +58,10 @@ public class Application extends Controller {
     public static void registration(){
 		render();
 	}
+    
+    public static void signin(){
+    	render();
+    }
 	
 	public static void pending() {
 		render();
@@ -114,21 +118,33 @@ public class Application extends Controller {
 		login();
 	}
 	
-	public static void signin(
+	public static void signinFinish(
 			@Required @Email String email,
 			@Required @MinSize(6) String password){
 		
-		try {
-			if (Security.authenticate(email, password)) {
-				//Benutzer existiert -> einloggen
-				System.out.println("Benutzer gibt es");
-			} else {
-				//Benutzer existert nicht -> Fehler
-				System.out.println("Benutzer gibt  es nicht");
+		if (Validation.hasErrors())
+		{
+			flash.error("registration.error");
+			render("@signin");
+		} else {
+			try {
+				if (Security.authenticate(email, password)) {
+					//user exists -> log in
+					System.out.println("user exists");
+					User user = User.getUserByEmail(email);
+					session.put("userID", user.getId());
+					render();
+				} else {
+					//user does not exist -> error
+					System.out.println("user does not exist");
+					render("@signin");
+				}
+			} catch (Exception e) {
+				flash.error("authentication.error");
+				render();
 			}
-		} catch (Exception e) {
-			flash.error("authentication.error");
-		}
-		render();
+	    }
+		
+		
 	}
 }

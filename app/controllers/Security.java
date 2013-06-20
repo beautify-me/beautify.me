@@ -14,7 +14,7 @@ public class Security extends Secure.Security {
 		return user != null && user.passwordHash.equals(getHashForPassword(password));
 	}
 	
-		static boolean authentify(String username, String password){
+	static boolean authentify(String username, String password){
 		return User.connect(username, password) != null;
 	}
 	

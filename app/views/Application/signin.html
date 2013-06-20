@@ -1,10 +1,14 @@
 #{extends 'main.html' /}
 #{set title:'beautify.me - SignIn' /}
 
+
+
   <div class="container">
 	<div class="page-header">
-		<h1>Registration</h1>
+		<h1>Sign In</h1>
 	</div>
+	
+	#{form @signinFinish()}
 	
 	<fieldset>              
         <legend>Log In</legend>  
@@ -19,6 +23,9 @@
             <input id="password" type="password" name="password" value="${params.password}" class="#{errorClass 'password' /}" /> 
             <span class="error">#{error 'password' /}</span>
         </div> 
+        
+        <input type="submit" class="submit" value="&{'Sign In'}" />
+        
 	</fieldset>
 	<fieldset>              
         <legend>Forgot Password</legend>  
@@ -27,5 +34,6 @@
 	
 	<fieldset>   
 
+#{/form}
 
   </div> <!-- /container -->
