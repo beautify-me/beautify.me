@@ -1,0 +1,31 @@
+#{extends 'main.html' /}
+#{set title:'beautify.me - SignIn' /}
+
+  <div class="container">
+	<div class="page-header">
+		<h1>Registration</h1>
+	</div>
+	
+	<fieldset>              
+        <legend>Log In</legend>  
+        <div class="field">             
+            <label for="email">Email address : </label>                     
+            <input id="email" type="text" name="email" size="30" value="${params.email}" class="#{errorClass 'email' /}" /> 
+            <span class="error">#{error 'email' /}</span>
+        </div>   
+    
+        <div class="field">     
+            <label for="password">Password : </label>                   
+            <input id="password" type="password" name="password" value="${params.password}" class="#{errorClass 'password' /}" /> 
+            <span class="error">#{error 'password' /}</span>
+        </div> 
+	</fieldset>
+	<fieldset>              
+        <legend>Forgot Password</legend>  
+        
+		<a href="forgotpw">Forgot Password</a>
+	
+	<fieldset>   
+
+
+  </div> <!-- /container -->

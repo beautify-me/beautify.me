@@ -103,6 +103,7 @@ public class Application extends Controller {
                 // User already exists
                 flash.error("registration.user_exists");
                 render(user);
+                
 			}
 		}
 		
@@ -111,5 +112,23 @@ public class Application extends Controller {
 	public static void confirm(String code) {
 		System.out.println(code);
 		login();
+	}
+	
+	public static void signin(
+			@Required @Email String email,
+			@Required @MinSize(6) String password){
+		
+		try {
+			if (Security.authenticate(email, password)) {
+				//Benutzer existiert -> einloggen
+				System.out.println("Benutzer gibt es");
+			} else {
+				//Benutzer existert nicht -> Fehler
+				System.out.println("Benutzer gibt  es nicht");
+			}
+		} catch (Exception e) {
+			flash.error("authentication.error");
+		}
+		render();
 	}
 }

@@ -9,18 +9,23 @@ GET     /                                       Application.index
 GET     /accessories                            Application.accessories
 
 # Home page
-GET     /top                                     Application.top
+GET     /top                                    Application.top
 
 # Home page
-GET     /mystuff                            Application.mystuff
+GET     /mystuff                           		Application.mystuff
 
 # Home page
-GET     /privacy                            Application.privacy
+GET     /privacy                            	Application.privacy
 # Home page
 GET     /termsofuse                            Application.termsofuse
 # Home page
-GET     /about                            Application.about
+GET     /about                            		Application.about
 
+# Registration page
+GET 	/registration							Application.registration
+
+# SignIn Page
+GET 	/signin									Application.signin
 
 # Ignore favicon requests
 GET     /favicon.ico                            404
