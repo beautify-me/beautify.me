@@ -9,6 +9,7 @@ import play.data.validation.Required;
 import play.data.validation.Validation;
 import play.db.jpa.Blob;
 import play.mvc.*;
+import ugot.recaptcha.Recaptcha;
 
 import java.util.*;
 
@@ -86,7 +87,8 @@ public class Application extends Controller {
         @Required @MinSize(6) @Equals("password") String passwordConfirm,
         @Required @Email String email,
         @Required @Email @Equals("email") String emailConfirm,
-        @IsTrue boolean termsOfUse) {
+        @IsTrue boolean termsOfUse,
+        @Recaptcha String captcha) {
 				
 		if (Validation.hasErrors()) {
 			flash.error("registration.error");
