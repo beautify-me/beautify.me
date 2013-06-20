@@ -96,8 +96,9 @@ public class Application extends Controller {
 			try {
 				user.save();
 				Mails.message(user.email, "welcome to beautify.me");
-				render();
+				System.out.println("USER_ID " + user.getId());
 				session.put("userID", user.getId());
+				render();
 			} catch (Exception e) {
                 // User already exists
                 flash.error("registration.user_exists");

@@ -19,7 +19,15 @@ import java.util.Date;
 
 public class Users extends CRUD{
 	
+	public static void getUser(){
+		User user = User.findById(session.get("userID"));
+		render(user);
+	}
 	
+	public static String getUserNameFromSession(){
+		User user = User.findById(session.get("userID"));
+		return user.name;
+	}
 	
 	public static void admin(){
 		List<User> users = User.listAdminUsers();
