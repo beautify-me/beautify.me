@@ -13,3 +13,49 @@ GET     /public/                                staticDir:public
 
 # Catch all
 *       /{controller}/{action}                  {controller}.{action}
+
+
+# This file defines all module routes (Higher priority routes first)
+#
+# import these routes in the main app as :
+# *     /                       module:securesocial
+#
+# ~~~~
+
+#
+# Username Password Controller routes
+#
+GET     /signup                 securesocial.UsernamePasswordController.signup
+POST    /signup                 UsernamePasswordController.createAccount
+GET     /activate/{uuid}        UsernamePasswordController.activate
+
+#
+# Change password controller routes
+#
+GET     /change                 PasswordChangeController.changePassword
+POST    /change                 PasswordChangeController.doChange
+
+#
+# Reset Password controller routes
+#
+GET     /reset                  PasswordResetController.resetPassword
+POST    /reset                  PasswordResetController.sendEmail
+
+GET     /reset/{username}/{uuid} PasswordResetController.changePassword
+#POST    /reset/{username}/{uuid} PasswordResetController.doChange
+POST    /reset/execute           PasswordResetController.doChange
+
+#
+# Secure Social Controller routes
+#
+GET     /login                  Application.login
+GET     /logout                 Application.logout
+GET     /{type}                 Application.authenticate
+POST    /p/{type}               Application.authByPost
+POST    /p                      Application.authByPost
+
+
+#
+# Static content
+#
+GET     /public/                staticDir:public

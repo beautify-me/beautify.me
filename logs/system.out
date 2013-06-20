@@ -1,0 +1,32 @@
+CompilerOracle: exclude jregex/Pretokenizer.next
+Listening for transport dt_socket at address: 8000
+17:44:22,040 INFO  ~ Starting D:\workspace\beautify.me
+17:44:22,981 WARN  ~ You're running Play! in DEV mode
+17:44:23,060 INFO  ~ Listening for HTTP on port 9000 (Waiting a first request to start) ...
+17:44:28,700 INFO  ~ Registered Identity Provider: twitter
+17:44:28,700 INFO  ~ Registered Identity Provider: facebook
+17:44:28,700 INFO  ~ Registered Identity Provider: google
+17:44:28,700 INFO  ~ Registered Identity Provider: yahoo
+17:44:28,701 INFO  ~ Registered Identity Provider: foursquare
+17:44:28,701 INFO  ~ Registered Identity Provider: linkedin
+17:44:28,701 INFO  ~ Registered Identity Provider: wordpress
+17:44:28,701 INFO  ~ Registered Identity Provider: myopenid
+17:44:28,701 INFO  ~ Registered Identity Provider: userpass
+17:44:28,701 INFO  ~ Using default user service
+17:44:28,702 INFO  ~ Using concrete password hasher of type securesocial.utils.PlayCryptoHasher
+17:44:28,703 INFO  ~ Application 'beautify.me' is now started !
+17:44:50,468 INFO  ~ From Mock Mailer
+	New email received by
+	From: you@at.your.company.com
+	ReplyTo: you@at.your.company.com
+	To: "test@test.com" <test@test.com>
+	Subject: Activate your account
+	text/html; charset=UTF-8: <html>
+    <body>
+        <p>Hello test,</p>
+        <p>"http://localhost:9000/securesocial.usernamepasswordcontroller/activate?uuid=6e766b31-7a74-4633-98a9-e93870a8e6d0</p>
+    </body>
+</html>
+ 
+	
+
