@@ -28,14 +28,7 @@ public class Security extends Secure.Security {
 		return false;
 	}
 	
-	static void onDisconnected() {
-		Application.index();
-	}
-	
-	static void onAuthenticated(){
-		Application.home();
-	}
-	
+		
 	public static String getHashForPassword(String password){
 		String hashPassword = null;
 		

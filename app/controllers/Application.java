@@ -1,6 +1,12 @@
 package controllers;
 
 import play.*;
+import play.data.validation.Email;
+import play.data.validation.Equals;
+import play.data.validation.IsTrue;
+import play.data.validation.MinSize;
+import play.data.validation.Required;
+import play.data.validation.Validation;
 import play.db.jpa.Blob;
 import play.mvc.*;
 
@@ -12,12 +18,7 @@ import controllers.*;
 public class Application extends Controller {
 
     public static void index() {
-       render(); 
-    }
-    
-    public static void home(){
-    	String user = Security.connected();
-    	render(user);
+      	render();
     }
     
     
@@ -39,7 +40,7 @@ public class Application extends Controller {
     
     
     public static void top() {
-        render();
+    	render();
     }
     public static void mystuff() {
         render();
@@ -53,10 +54,61 @@ public class Application extends Controller {
     public static void about() {
         render();
     }
-    
+
+    public static void registration(){
+		render();
+	}
+	
+	public static void pending() {
+		render();
+	}
     public static void contact(String address, String message) {  
         Mails mail = new Mails();
         mail.message(address, message);
         render();
     }
+    
+    public static void login() {
+		render();
+	}
+	
+	
+	public static void registrationFinish(
+		@Required @MinSize(6) String username,
+		@Required String firstname, 
+		@Required String lastname,
+        Integer age,
+        @Required @MinSize(6) String password,
+        @Required @MinSize(6) @Equals("password") String passwordConfirm,
+        @Required @Email String email,
+        @Required @Email @Equals("email") String emailConfirm,
+        @IsTrue boolean termsOfUse) {
+				
+		if (Validation.hasErrors()) {
+			flash.error("registration.error");
+			//Validation.keep();
+			//params.flash();
+			//registration();
+			render("@registration");
+		} else {
+			// Valid Registration
+			User user = new User(email, password, username, false);
+			try {
+				user.save();
+				Mails.message(user.email, "welcome to beautify.me");
+				render();
+				session.put("userID", user.getId());
+			} catch (Exception e) {
+                // User already exists
+                flash.error("registration.user_exists");
+                render(user);
+			}
+		}
+		
+		}
+	
+	public static void confirm(String code) {
+		System.out.println(code);
+		login();
+	}
 }

@@ -1,0 +1,18 @@
+#{extends 'main.html' /}
+#{set title:'beautify.me - Registration' /}
+
+<div class="container">
+	<div class="page-header">
+		<h1>Registration successful!</h1>
+	</div> 
+
+<p>
+	<strong>Username</strong> is ${user.userName}
+</p>
+<p>
+	<strong>Email</strong> is ${user.email}
+</p>
+
+#{a @Application.index()}Back#{/a}
+
+</div>
