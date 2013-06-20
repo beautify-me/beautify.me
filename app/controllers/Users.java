@@ -8,6 +8,8 @@ import play.data.validation.*;
 import models.*;
 
 import java.util.*;
+import java.math.BigInteger;
+import java.security.SecureRandom;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.util.Date;
@@ -16,6 +18,7 @@ import java.util.Date;
 @With(Secure.class)
 
 public class Users extends CRUD{
+	
 	
 	
 	public static void admin(){
@@ -66,6 +69,11 @@ public class Users extends CRUD{
 		
 	}
 	
+	public static String createNewPassword(@Required User user) {
+		SecureRandom random = new SecureRandom();
+		return new BigInteger(130,random).toString(10);
+	}
+	
 	public static void lostPassword(@Required @Email String email){
 		boolean hasErrors = true;
 		checkAuthenticity();
@@ -80,7 +88,9 @@ public class Users extends CRUD{
 		
 			if (User.getUserByEmail(email) != null) {
 				User user = User.getUserByEmail(email);
-				Mails.message(user.email, "password");
+				String newPassword = createNewPassword(user);
+				Mails.message(user.email, newPassword);
+				user.passwordHash = Security.getHashForPassword(newPassword);
 			}
 		}
 	}

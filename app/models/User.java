@@ -1,14 +1,18 @@
 package models;
 
 import java.util.List;
+
 import models.*;
+import controllers.*;
 import java.util.Map;
 import java.util.Set;
 
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 
+import play.Play;
 import play.data.validation.*;
+import ugot.recaptcha.Recaptcha;
 
 import play.db.jpa.Model;
 
@@ -22,8 +26,8 @@ public class User extends Model {
 	@Required @MinSize(6) 
 	public String userName;
 	
-	@Required @MinSize(6) @Password
-	public String password;
+	@Required @Password
+	public String passwordHash;
 	
 	@Required @Email 
 	public String email;
@@ -48,12 +52,12 @@ public class User extends Model {
 	
 	public User(String email, String password){
 		this.email = email;
-		this.password = password;
+		this.passwordHash = Security.getHashForPassword(password);
 	}
 	
 	public User(String email, String password, String lastName, String name, boolean isAdmin) {
 		this.email = email;
-		this.password = password;
+		this.passwordHash = Security.getHashForPassword(password);
 		this.lastName = lastName;
 		this.name = name;
 		this.isAdmin = isAdmin;
@@ -62,7 +66,7 @@ public class User extends Model {
 	
 	public User(String email, String password, String userName, boolean isAdmin){
 		this.email = email;
-		this.password = password;
+		this.passwordHash = Security.getHashForPassword(password);
 		this.userName = userName;
 		this.isAdmin = isAdmin;
 	}
@@ -90,6 +94,7 @@ public class User extends Model {
 	public String toString(){
 		return name + " " + lastName;
 	}
+	
 	
 		
 }
