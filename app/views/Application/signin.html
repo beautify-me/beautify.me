@@ -27,13 +27,28 @@
         <input type="submit" class="submit" value="&{'Sign In'}" />
         
 	</fieldset>
+	<p>
+	</p>
+	<p>
+	</p>
+	
+	#{/form}
+	
+	#{form @lostPassword()}
+	
 	<fieldset>              
         <legend>Forgot Password</legend>  
         
-		<a href="forgotpw">Forgot Password</a>
+		   <div class="field">             
+            <label for="email">Email address : </label>                     
+            <input id="email_forgot_pw" type="text" name="email" size="30" value="${params.email}" class="#{errorClass 'email' /}" /> 
+            <span class="error">#{error 'email' /}</span>
+       	   </div>  
+       	   
+       	   <input type="submit" class="submit" value="&{'Request New'}" />
 	
 	<fieldset>   
 
-#{/form}
+    #{/form}
 
   </div> <!-- /container -->

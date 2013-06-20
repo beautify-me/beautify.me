@@ -82,26 +82,7 @@ public class Users extends CRUD{
 		return new BigInteger(130,random).toString(10);
 	}
 	
-	public static void lostPassword(@Required @Email String email){
-		boolean hasErrors = true;
-		checkAuthenticity();
-		hasErrors = validation.hasErrors();
-		
-		if (hasErrors) {
-			flash.error("restration.error");
-			params.flash("email");
-			validation.keep();
-			render();
-		} else {
-		
-			if (User.getUserByEmail(email) != null) {
-				User user = User.getUserByEmail(email);
-				String newPassword = createNewPassword(user);
-				Mails.message(user.email, newPassword);
-				user.passwordHash = Security.getHashForPassword(newPassword);
-			}
-		}
-	}
+	
 	
 }	
 	

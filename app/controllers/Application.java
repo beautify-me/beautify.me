@@ -149,4 +149,22 @@ public class Application extends Controller {
 		
 		
 	}
+	
+	public static void lostPassword(@Required @Email String email_forgot_pw){
+		boolean hasErrors = true;
+		hasErrors = validation.hasErrors();
+		
+		if (hasErrors) {
+			flash.error("email.error");
+			render("@signin");
+		} else {
+		
+			if (User.getUserByEmail(email_forgot_pw) != null) {
+				User user = User.getUserByEmail(email_forgot_pw);
+				String newPassword = Users.createNewPassword(user);
+				Mails.message(user.email, newPassword);
+				user.passwordHash = Security.getHashForPassword(newPassword);
+			}
+		}
+	}
 }
