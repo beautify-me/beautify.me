@@ -16,7 +16,7 @@ public class BasicTest extends UnitTest {
     @Test
     public void createAccessory() {
         Provider hm = new Provider("H&M", "hm.com").save();
-        Pic p = new Pic();
+        Blob p = new Blob();
     	Accessory accessory = new Accessory("Round shine hat", Accessory.TYPE_HAT,Accessory.FEMALE, p, hm).save();
         
   
