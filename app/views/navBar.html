@@ -15,9 +15,8 @@
               </li>
               <li><a href="top">Top20</a></li>
               <li><a href="mystuff">MyStuff</a>
-              
               #{if user} 
-                Welcome @{Users.getUserNameFromSession()}! 
+                Welcome ${user}! 
                 <li><a href="logout">Logout</a> #{/if} 
               #{else}
                 <li><a href="signin">Sign In</a>

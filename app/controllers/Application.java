@@ -17,11 +17,31 @@ import models.*;
 import controllers.*;
 
 public class Application extends Controller {
+	
+	
+	
+	    /*
+	     * Priority lets the Framework know
+	     * the order which the @Before's should
+	     * be run
+	     */
+	    @Before(priority=10)
+	    static void setConnectedUser()
+	    {
+	    	if(session.contains("USER_ID")) {
+	    		User user = User.findById(Long.valueOf(session.get("USER_ID")));
+	            renderArgs.put("user", user);
+	        }
+	    }
+	    @Util
+	    public static User getUser() {
+	        return (User) renderArgs.get("user");
+	    }
 
     public static void index() {
       	render();
     }
-    
+
     
     public static void accessories() {
         List<Accessory> accessories = Accessory.findAll();
@@ -100,10 +120,10 @@ public class Application extends Controller {
 			// Valid Registration
 			User user = new User(email, password, username, false);
 			try {
-				user.save();
-				Mails.message(user.email, "welcome to beautify.me");
+				user.save();			
 				System.out.println("USER_ID " + user.getId());
-				session.put("userID", user.getId());
+				session.put("USER_ID", user.id);
+				Mails.message(user.email, "welcome to beautify.me");
 				render();
 			} catch (Exception e) {
                 // User already exists
@@ -134,7 +154,7 @@ public class Application extends Controller {
 					//user exists -> log in
 					System.out.println("user exists");
 					User user = User.getUserByEmail(email);
-					session.put("userID", user.getId());
+					session.put("USER_ID", user.id);
 					render();
 				} else {
 					//user does not exist -> error
