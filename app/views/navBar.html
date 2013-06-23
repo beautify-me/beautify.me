@@ -11,18 +11,23 @@
           <div class="nav-collapse collapse">
             <ul class="nav">
               <li><a href="/">Start</a></li>
-              <li><a href="@{Application.accessories}">Accessories </a>              
-              </li>
+              <li><a href="@{Application.accessories}">Accessories </a></li>
               <li><a href="@{Application.top}">Top20</a></li>
-              <li><a href="@{Application.mystuff}">MyStuff</a> 
+              <li><a href="@{Application.mystuff}">MyStuff</a></li> 
+               </ul>
+              <div class="nav-collapse collapse pull-right">
+              <ul class="nav">
               #{if user} 
-                <li>Logged in as ${user}!</li> 
-                <li><a href="@{Registration.signout}">Logout</a> #{/if} 
+                <li><a href="@{Registration.signout}">Logged in as ${user}</a></li> 
+                <li><a href="@{Registration.signout}">Logout</a></li>
+              #{/if} 
               #{else}
-                <li><a href="signin">Sign In</a>
-                <li><a href="registration">Register</a> #{/else}
+                <li><a href="@{Registration.signin}">Sign In</a></li>
+                <li><a href="@{Registration.registration}">Register</a></li> 
+               #{/else}
             </ul>
           </div><!--/.nav-collapse -->
+        </div>
         </div>
       </div>
     </div>
