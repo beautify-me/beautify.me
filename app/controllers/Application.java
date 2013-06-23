@@ -71,7 +71,9 @@ public class Application extends Controller {
         render();
     }
 
-   
+    public static void me() {
+        render("@user");
+    }
 	
     public static void contact(String address, String message) {  
         Mails mail = new Mails();

@@ -18,7 +18,7 @@
               <div class="nav-collapse collapse pull-right">
               <ul class="nav">
               #{if user} 
-                <li><a href="@{Registration.signout}">Logged in as ${user}</a></li> 
+                <li><a href="@{Application.me}">Logged in as ${user}</a></li> 
                 <li><a href="@{Registration.signout}">Logout</a></li>
               #{/if} 
               #{else}
