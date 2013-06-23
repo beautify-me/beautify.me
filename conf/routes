@@ -22,10 +22,10 @@ GET     /termsofuse                            Application.termsofuse
 GET     /about                            		Application.about
 
 # Registration page
-GET 	/registration							Application.registration
+GET 	/registration							Registration.registration
 
 # SignIn Page
-GET 	/signin									Application.signin
+GET 	/signin									Registration.signin
 
 # Ignore favicon requests
 GET     /favicon.ico                            404
