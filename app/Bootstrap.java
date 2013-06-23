@@ -18,6 +18,7 @@ public class Bootstrap extends Job {
         	Fixtures.delete();
             Fixtures.loadModels("initial-data.yml");
             User u = new User("a@hej.se", "zxcvbn", "Pettersson", "Annsofi", true);
+            u.userName = "annsofi";
             u.save();
             
             List<Accessory> allItems = Accessory.findAll();

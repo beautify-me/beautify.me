@@ -17,13 +17,10 @@ import models.*;
 import controllers.*;
 
 public class Application extends Controller {
-	
-	
-	
-	    /*
+		 /*
 	     * Priority lets the Framework know
 	     * the order which the @Before's should
-	     * be run
+	     * be run http://seepatcode.com/2013/02/28/play-framework-1-2-5-setting-global-variables-in-controller-filters/
 	     */
 	    @Before(priority=10)
 	    static void setConnectedUser()
@@ -41,8 +38,7 @@ public class Application extends Controller {
     public static void index() {
       	render();
     }
-
-    
+   
     public static void accessories() {
         List<Accessory> accessories = Accessory.findAll();
         Collections.shuffle(accessories); // shuffle for dummy display to be suffled
@@ -58,8 +54,7 @@ public class Application extends Controller {
     	response.setContentTypeIfNotSet(image.type());
     	renderBinary(image.get());
     }
-    
-    
+       
     public static void top() {
     	render();
     }
@@ -76,115 +71,13 @@ public class Application extends Controller {
         render();
     }
 
-    public static void registration(){
-		render();
-	}
-    
-    public static void signin(){
-    	render();
-    }
+   
 	
-	public static void pending() {
-		render();
-	}
     public static void contact(String address, String message) {  
         Mails mail = new Mails();
         mail.message(address, message);
         render();
     }
     
-    public static void login() {
-		render();
-	}
-	
-	
-	public static void registrationFinish(
-		@Required @MinSize(6) String username,
-		@Required String firstname, 
-		@Required String lastname,
-        Integer age,
-        @Required @MinSize(6) String password,
-        @Required @MinSize(6) @Equals("password") String passwordConfirm,
-        @Required @Email String email,
-        @Required @Email @Equals("email") String emailConfirm,
-        @IsTrue boolean termsOfUse,
-        @Recaptcha String captcha) {
-				
-		if (Validation.hasErrors()) {
-			flash.error("registration.error");
-			//Validation.keep();
-			//params.flash();
-			//registration();
-			render("@registration");
-		} else {
-			// Valid Registration
-			User user = new User(email, password, username, false);
-			try {
-				user.save();			
-				System.out.println("USER_ID " + user.getId());
-				session.put("USER_ID", user.id);
-				Mails.message(user.email, "welcome to beautify.me");
-				render();
-			} catch (Exception e) {
-                // User already exists
-                flash.error("registration.user_exists");
-                render(user);
-                
-			}
-		}
-		
-		}
-	
-	public static void confirm(String code) {
-		System.out.println(code);
-		login();
-	}
-	
-	public static void signinFinish(
-			@Required @Email String email,
-			@Required @MinSize(6) String password){
-		
-		if (Validation.hasErrors())
-		{
-			flash.error("registration.error");
-			render("@signin");
-		} else {
-			try {
-				if (Security.authenticate(email, password)) {
-					//user exists -> log in
-					System.out.println("user exists");
-					User user = User.getUserByEmail(email);
-					session.put("USER_ID", user.id);
-					render();
-				} else {
-					//user does not exist -> error
-					System.out.println("user does not exist");
-					render("@signin");
-				}
-			} catch (Exception e) {
-				flash.error("authentication.error");
-				render();
-			}
-	    }
-		
-		
-	}
-	
-	public static void lostPassword(@Required @Email String email_forgot_pw){
-		boolean hasErrors = true;
-		hasErrors = validation.hasErrors();
-		
-		if (hasErrors) {
-			flash.error("email.error");
-			render("@signin");
-		} else {
-		
-			if (User.getUserByEmail(email_forgot_pw) != null) {
-				User user = User.getUserByEmail(email_forgot_pw);
-				String newPassword = Users.createNewPassword(user);
-				Mails.message(user.email, newPassword);
-				user.passwordHash = Security.getHashForPassword(newPassword);
-			}
-		}
-	}
+   
 }

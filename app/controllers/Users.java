@@ -18,10 +18,7 @@ import java.util.Date;
 @With(Secure.class)
 
 public class Users extends CRUD{
-	
-
-	
-	
+		
 	public static void admin(){
 		List<User> users = User.listAdminUsers();
 		render(users);
@@ -74,8 +71,6 @@ public class Users extends CRUD{
 		SecureRandom random = new SecureRandom();
 		return new BigInteger(130,random).toString(10);
 	}
-	
-	
 	
 }	
 	
