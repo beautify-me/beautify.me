@@ -78,7 +78,7 @@ public class Registration extends Controller{
 					if (Security.authenticate(email, password)) {
 						//user exists -> log in
 						System.out.println("user exists");
-						User user = User.getUserByEmail(email);
+						User user = Users.getUserByEmail(email);
 						session.put("USER_ID", user.id);
 						Application.setConnectedUser();
 						Application.index();
@@ -93,6 +93,8 @@ public class Registration extends Controller{
 				}
 		    }		
 		}
+		
+		
 	    public static void signout(){
 	        session.clear();
 	        response.removeCookie("rememberme");     
@@ -100,6 +102,8 @@ public class Registration extends Controller{
 	        Application.setConnectedUser();
 	        Application.index();
 	    }
+	    
+	    
 		public static void lostPassword(@Required @Email String email_forgot_pw){
 			boolean hasErrors = true;
 			hasErrors = validation.hasErrors();
@@ -109,8 +113,8 @@ public class Registration extends Controller{
 				render("@signin");
 			} else {
 			
-				if (User.getUserByEmail(email_forgot_pw) != null) {
-					User user = User.getUserByEmail(email_forgot_pw);
+				if (Users.getUserByEmail(email_forgot_pw) != null) {
+					User user = Users.getUserByEmail(email_forgot_pw);
 					String newPassword = Users.createNewPassword(user);
 					Mails.message(user.email, newPassword);
 					user.passwordHash = Security.getHashForPassword(newPassword);

@@ -74,23 +74,7 @@ public class User extends Model {
 	public static User connect (String email, String password){
 		return find("byEmailAndPassword", email, password).first();
 	}
-	
-	public static List<User> listAdminUsers(){
-		List<User> users = User.find("select u from User u where u.isAdmin = true").fetch();
-		return users;
-	}
-	
-	public static User getUserByEmail(String email){
-		List <User> users = User.find("select u from User u where u.email = '" + email + "'").fetch();
-		User user = users.get(0);
-		return user;
-	}
-	
-	public static List<User> listUsers(){
-		List<User> users = User.find("select u from User where u.isAdmin = false").fetch();
-		return users;
-	}
-	
+		
 	public String toString(){
 		return userName;
 	}

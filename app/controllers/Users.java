@@ -20,7 +20,7 @@ import java.util.Date;
 public class Users extends CRUD{
 		
 	public static void admin(){
-		List<User> users = User.listAdminUsers();
+		List<User> users = Users.listAdminUsers();
 		render(users);
 	}
 	
@@ -64,12 +64,28 @@ public class Users extends CRUD{
 	}
 	
 	public static void deleteUser(User user){
-		
+
 	}
 	
 	public static String createNewPassword(@Required User user) {
 		SecureRandom random = new SecureRandom();
 		return new BigInteger(130,random).toString(10);
+	}
+	
+	public static List<User> listAdminUsers(){
+		List<User> users = User.find("select u from User u where u.isAdmin = true").fetch();
+		return users;
+	}
+	
+	public static User getUserByEmail(String email){
+		List <User> users = User.find("select u from User u where u.email = '" + email + "'").fetch();
+		User user = users.get(0);
+		return user;
+	}
+	
+	public static List<User> listUsers(){
+		List<User> users = User.find("select u from User where u.isAdmin = false").fetch();
+		return users;
 	}
 	
 }	
