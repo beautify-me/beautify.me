@@ -1,25 +1,73 @@
 #{extends 'main.html' /}
 #{set title:'beautify.me - Welcome!' /}
-    <div class="container">
-	   
-	    <div class="span12">
-	     <div class="row">
-		    <div class="span8">
-		    	<div class="row">
-		    		<div class="span7 offset1"><img src="@{'/public/images/girl.jpg'}"  class="img-polaroid"></div>
-				</div><!-- /row -->				
-			    <div class="row">		    		
-		    		<div class="span7 offset1">
-		    		<!---Dummy code takes hats form database and displayes them -->
-		    		<a href="#"><img height="100" width="100" src="@{Application.getPic(1)}"/></a>
-		    		<a href="#"><img height="100" width="100" src="@{Application.getPic(10)}"/></a>
-		    		<a href="#"><img height="100" width="100" src="@{Application.getPic(20)}"/></a>
-		    		<a href="#"><img height="100" width="100" src="@{Application.getPic(40)}"/></a>
-		    		<a href="#"><img height="100" width="100" src="@{Application.getPic(50)}"/></a>
-		    		</div>
-				</div><!-- /row -->
-			</div><!-- /span8 -->
-			<div class="span4"><img src="@{'/public/images/side.png'}"></div>
-			</div> <!-- /span12 -->
-		</div><!-- /row -->
-    </div> <!-- /container -->
+
+<div id="media">
+    <video autoplay id="v" style="width:800px; height:700px; display: none"></video>
+    <div id="container"></div>
+</div>
+
+
+<div id="ads">
+
+    <button id="go">Take a photo!</button>
+    <img id="imp" style="display:none;"/>
+    <img src="@{'/public/images/side.png'}"/>
+</div>
+
+
+<div id="items">
+    <a href="#"><img height="100" width="100" src="@{Application.getPic(1)}"/></a>
+    <a href="#"><img height="100" width="100" src="@{Application.getPic(10)}"/></a>
+    <a href="#"><img height="100" width="100" src="@{Application.getPic(20)}"/></a>
+    <a href="#"><img height="100" width="100" src="@{Application.getPic(40)}"/></a>
+    <a href="#"><img height="100" width="100" src="@{Application.getPic(50)}"/></a>
+</div>
+
+<script src="@{'/public/javascripts/kinetic-v4.5.4.min.js'}"></script>
+<script src="@{'/public/javascripts/main.js'}"></script>
+<script>
+    var stage = new Kinetic.Stage({
+        container: 'container',
+        width: width,
+        height: height
+    });
+    layer = new Kinetic.Layer();
+    stage.add(layer);
+
+</script>
+<script src="@{'/public/javascripts/video-stream.js'}"></script>
+<script src="@{'/public/javascripts/canvas-control.js'}"></script>
+<script defer="defer">
+
+    var target = new Kinetic.Image({
+        name: 'video',
+        x: 0,
+        y: 0,
+        width: width,
+        height: height,
+        image: v});
+
+    layer.add(target);
+    setVideo(v, target);
+
+    function setVideo(video, target) {
+        target.setImage(video);
+        stage.draw();
+        setTimeout(setVideo, 20, video, target);
+    }
+
+    $("#items img").click(function () {
+        loadImage($(this).attr('src'));
+    });
+
+    $("#go").click(function () {
+
+        var canvas = layer.getCanvas().getElement();
+        var dataURL = canvas.toDataURL();
+        document.getElementById('imp').src = dataURL;
+
+        $("#imp").show();
+
+    });
+
+</script>

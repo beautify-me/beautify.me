@@ -1,0 +1,23 @@
+<div id="header">
+    <div id="header-inner">
+        <a id="logo" href="/">beautify.me</a>
+
+        <ul class="navigation left">
+            <li><a href="/">Start</a></li>
+            <li><a href="@{Application.accessories}">Accessories </a></li>
+            <li><a href="@{Application.top}">Top20</a></li>
+            <li><a href="@{Application.mystuff}">MyStuff</a></li>
+        </ul>
+
+        <ul class="navigation right">
+        #{if user}
+            <li><a href="@{Application.me}">Logged in as ${user}</a></li>
+            <li><a href="@{Registration.signout}">Logout</a></li>
+        #{/if}
+        #{else}
+            <li><a href="@{Registration.signin}">Sign In</a></li>
+            <li><a href="@{Registration.registration}">Register</a></li>
+        #{/else}
+        </ul>
+    </div>
+</div>
