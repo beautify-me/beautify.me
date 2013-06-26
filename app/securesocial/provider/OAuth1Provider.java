@@ -24,6 +24,8 @@ import play.mvc.results.Redirect;
 
 import java.util.Map;
 
+import models.User;
+
 /**
  * A provider that handles the OAuth1 authentication flow
  */
@@ -72,7 +74,7 @@ public abstract class OAuth1Provider extends IdentityProvider {
     }
 
     @Override
-    public SocialUser doAuth(Map<String, Object> authContext) throws AccessDeniedException {
+    public User doAuth(Map<String, Object> authContext) throws AccessDeniedException {
         Scope.Params params = Scope.Params.current();
 
         if ( params.get(DENIED) != null ) {
@@ -89,7 +91,7 @@ public abstract class OAuth1Provider extends IdentityProvider {
                 // there was an error retrieving the access token
                 throw new AuthenticationException(response.error);
             }
-            SocialUser user = createUser();
+            User user = createUser();
             user.token = response.token;
             user.secret = response.secret;
             Cache.add(key, user);
@@ -97,7 +99,7 @@ public abstract class OAuth1Provider extends IdentityProvider {
         }
 
         // the OAuth provider is redirecting back to us
-        SocialUser user = (SocialUser) Cache.get(key);
+        User user = (User) Cache.get(key);
         if ( user == null ) {
             throw new AuthenticationException();
         }

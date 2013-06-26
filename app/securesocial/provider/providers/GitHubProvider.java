@@ -19,6 +19,9 @@ package securesocial.provider.providers;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+
+import models.User;
+
 import org.apache.commons.lang.StringUtils;
 import play.Logger;
 import play.Play;
@@ -26,7 +29,6 @@ import play.libs.WS;
 import securesocial.provider.AuthenticationException;
 import securesocial.provider.OAuth2Provider;
 import securesocial.provider.ProviderType;
-import securesocial.provider.SocialUser;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -51,7 +53,7 @@ public class GitHubProvider extends OAuth2Provider {
     }
 
     @Override
-    protected void fillProfile(SocialUser user, Map<String, Object> authContext) {
+    protected void fillProfile(User user, Map<String, Object> authContext) {
         WS.HttpResponse response = WS.url(AUTHENTICATED_USER, user.accessToken).get();
 
         if (response.success()) {
@@ -61,7 +63,7 @@ public class GitHubProvider extends OAuth2Provider {
         }
     }
 
-    private void populateSocialUserInfo(SocialUser user, WS.HttpResponse response) {
+    private void populateSocialUserInfo(User user, WS.HttpResponse response) {
         JsonObject authenticatedUser = response.getJson().getAsJsonObject();
 
         String organization = (String) Play.configuration.get(GITHUB_ORGANIZATION);
@@ -104,7 +106,7 @@ public class GitHubProvider extends OAuth2Provider {
         throw new AuthenticationException();
     }
 
-    private void validateUserMembership(SocialUser user, String organization) {
+    private void validateUserMembership(User user, String organization) {
         WS.HttpResponse response = WS.url(AUTHENTICATED_USER_ORGS, user.accessToken).get();
 
         if (response.success()) {

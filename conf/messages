@@ -27,10 +27,18 @@ securesocial.authError=There was an error while trying to log you in.  Please tr
 # SignUp
 #
 securesocial.signUpTitle=Sign Up
-securesocial.signUpLabel=Complete the following form:
+securesocial.signUpLabel=
+securesocial.signUpUserInfoLabel=Who are you?
+securesocial.signUpLoginInfoLabel=How would you like to sign in?
+securesocial.signUpConditionsLabel=Conditions
 securesocial.userName=Username
-securesocial.name=Full Name
+securesocial.name=Name
+securesocial.lastName=Last Name
 securesocial.password2=Password confirmation
+securesocial.age=Age
+securesocial.gender=Gender
+securesocial.gender.male=Male
+securesocial.gender.female=Female
 securesocial.cancel=Cancel
 securesocial.passwordsMustMatch=The passwords do not match
 securesocial.userNameTaken=This username is already taken

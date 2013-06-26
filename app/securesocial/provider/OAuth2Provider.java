@@ -25,6 +25,8 @@ import play.mvc.results.Redirect;
 
 import java.util.Map;
 
+import models.User;
+
 /**
  * A provider that handles the OAuth2 authentication flow
  */
@@ -89,7 +91,7 @@ public abstract class OAuth2Provider extends IdentityProvider
      * @return
      */
     @Override
-    protected SocialUser doAuth(Map<String, Object> authContext) {
+    protected User doAuth(Map<String, Object> authContext) {
         Scope.Params params = Scope.Params.current();
 
         if ( params.get(ERROR) != null ) {
@@ -148,7 +150,7 @@ public abstract class OAuth2Provider extends IdentityProvider
                 throw new AuthenticationException();
             }
         }
-        SocialUser user =  createUser();
+        User user =  createUser();
         user.accessToken = accessTokenFromJson == null ? response.accessToken : accessTokenFromJson;
         return user;
     }

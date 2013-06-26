@@ -21,12 +21,13 @@ import play.libs.OpenID;
 import play.libs.WS;
 import securesocial.provider.OpenIDProvider;
 import securesocial.provider.ProviderType;
-import securesocial.provider.SocialUser;
 
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Map;
+
+import models.User;
 
 /**
  * A Wordpress Provider
@@ -54,7 +55,7 @@ public class WordpressProvider extends OpenIDProvider
     }
 
     @Override
-    protected void fillProfile(SocialUser user, Map<String, Object> authContext) {
+    protected void fillProfile(User user, Map<String, Object> authContext) {
         OpenID.UserInfo me = (OpenID.UserInfo) authContext.get(OpenIDProvider.USER_INFO);
         user.displayName = me.extensions.get(FULLNAME);
         user.email = me.extensions.get(EMAIL);

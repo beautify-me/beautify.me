@@ -22,6 +22,8 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
+import models.User;
+
 /**
  * The default user service provided with SecureSocial.
  * If users need to find/save users in a custom backing store they only
@@ -35,17 +37,17 @@ import java.util.Map;
  */
 public class DefaultUserService implements UserServiceDelegate {
 
-    private Map<String, SocialUser> users = Collections.synchronizedMap(new HashMap<String, SocialUser>());
-    private Map<String, SocialUser> activations = Collections.synchronizedMap(new HashMap<String, SocialUser>());
-    private Map<String, SocialUser> resetRequests = Collections.synchronizedMap(new HashMap<String, SocialUser>());
+    private Map<String, User> users = Collections.synchronizedMap(new HashMap<String, User>());
+    private Map<String, User> activations = Collections.synchronizedMap(new HashMap<String, User>());
+    private Map<String, User> resetRequests = Collections.synchronizedMap(new HashMap<String, User>());
 
 
-    public SocialUser find(UserId id) {
+    public User find(UserId id) {
         return users.get(id.id + id.provider.toString());
     }
 
-    public SocialUser find(String email) {
-        for (SocialUser su : users.values()) {
+    public User find(String email) {
+        for (User su : users.values()) {
             if (su.email.equals(email)) {
                 return su;
             }
@@ -54,18 +56,18 @@ public class DefaultUserService implements UserServiceDelegate {
         return null;
     }
 
-    public void save(SocialUser user) {
+    public void save(User user) {
         users.put(user.id.id + user.id.provider.toString(), user);
     }
 
-    public String createActivation(SocialUser user) {
+    public String createActivation(User user) {
         final String uuid = Codec.UUID();
         activations.put(uuid, user);
         return uuid;
     }
 
     public boolean activate(String uuid) {
-        SocialUser user = activations.get(uuid);
+        User user = activations.get(uuid);
         boolean result = false;
 
         if (user != null) {
@@ -78,19 +80,19 @@ public class DefaultUserService implements UserServiceDelegate {
     }
 
     @Override
-    public String createPasswordReset(SocialUser user) {
+    public String createPasswordReset(User user) {
         final String uuid = Codec.UUID();
         resetRequests.put(uuid, user);
         return uuid;
     }
 
     @Override
-    public SocialUser fetchForPasswordReset(String username, String uuid) {
+    public User fetchForPasswordReset(String username, String uuid) {
         if (!resetRequests.containsKey(uuid)) {
             return null;
         }
 
-        SocialUser socialUser = resetRequests.get(uuid);
+        User socialUser = resetRequests.get(uuid);
         if (socialUser.id.id.equals(username)) {
             return socialUser;
         }
@@ -100,7 +102,7 @@ public class DefaultUserService implements UserServiceDelegate {
 
     @Override
     public void disableResetCode(String username, String uuid) {
-        SocialUser socialUser = fetchForPasswordReset(username, uuid);
+        User socialUser = fetchForPasswordReset(username, uuid);
         if (socialUser != null) {
             resetRequests.remove(uuid);
         }

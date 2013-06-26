@@ -20,9 +20,10 @@ package securesocial.provider.providers;
 import play.libs.OpenID;
 import securesocial.provider.OpenIDProvider;
 import securesocial.provider.ProviderType;
-import securesocial.provider.SocialUser;
 
 import java.util.Map;
+
+import models.User;
 
 /**
  * A provider for MyOpenID
@@ -49,7 +50,7 @@ public class MyOpenIDProvider extends OpenIDProvider{
     }
 
     @Override
-    protected void fillProfile(SocialUser user, Map<String, Object> authContext) {
+    protected void fillProfile(User user, Map<String, Object> authContext) {
         OpenID.UserInfo me = (OpenID.UserInfo) authContext.get(OpenIDProvider.USER_INFO);
         user.displayName = me.extensions.get(FULL_NAME);
         user.email = me.extensions.get(EMAIL);

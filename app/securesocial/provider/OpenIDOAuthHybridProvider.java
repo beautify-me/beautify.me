@@ -26,6 +26,8 @@ import play.mvc.results.Redirect;
 
 import java.util.Map;
 
+import models.User;
+
 /**
  * Base class for all providers that need to support the OpenID + OAuth Hybrid protocol
  */
@@ -78,8 +80,8 @@ public abstract class OpenIDOAuthHybridProvider extends OpenIDProvider
      * @see OpenIDProvider#doAuth(java.util.Map) 
      * @see IdentityProvider#doAuth(java.util.Map)
      */
-    protected SocialUser doAuth(Map<String, Object> authContext) {
-        SocialUser user;
+    protected User doAuth(Map<String, Object> authContext) {
+        User user;
 
         try {
          user = super.doAuth(authContext);

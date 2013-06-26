@@ -24,6 +24,8 @@ import securesocial.provider.*;
 
 import java.util.Map;
 
+import models.User;
+
 /**
  * A Facebook Provider
  */
@@ -45,7 +47,7 @@ public class FacebookProvider extends OAuth2Provider
     }
 
     @Override
-    protected void fillProfile(SocialUser user, Map<String, Object> authContext) {
+    protected void fillProfile(User user, Map<String, Object> authContext) {
         JsonObject me = WS.url(ME_API, user.accessToken).get().getJson().getAsJsonObject();
         JsonObject error = me.getAsJsonObject(ERROR);
 

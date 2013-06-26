@@ -16,6 +16,8 @@
  */
 package securesocial.provider;
 
+import models.User;
+
 /**
  * A class that provides the means to find save and create users
  * for the SecureSocial Module.
@@ -38,7 +40,7 @@ public class UserService {
     /**
      * @see UserServiceDelegate#find(UserId)
      */
-    public static SocialUser find(UserId id) {
+    public static User find(UserId id) {
         checkIsInitialized();
         return service.find(id);
     }
@@ -46,7 +48,7 @@ public class UserService {
     /**
      * @see UserServiceDelegate#find(String)
      */
-    public static SocialUser find(String email) {
+    public static User find(String email) {
         checkIsInitialized();
         return service.find(email);
     }
@@ -58,17 +60,17 @@ public class UserService {
     }
 
     /**
-     * @see UserServiceDelegate#save(SocialUser)
+     * @see UserServiceDelegate#save(User)
      */
-    public static void save(SocialUser user) {
+    public static void save(User user) {
         checkIsInitialized();
         service.save(user);
     }
 
     /**
-     * @see UserServiceDelegate#createActivation(SocialUser)
+     * @see UserServiceDelegate#createActivation(User)
      */
-    public static String createActivation(SocialUser user) {
+    public static String createActivation(User user) {
         checkIsInitialized();
         return service.createActivation(user);
     }
@@ -82,9 +84,9 @@ public class UserService {
     }
 
     /**
-     * @see UserServiceDelegate#createActivation(SocialUser)
+     * @see UserServiceDelegate#createActivation(User)
      */
-    public static String createPasswordReset(SocialUser user) {
+    public static String createPasswordReset(User user) {
         checkIsInitialized();
         return service.createPasswordReset(user);
     }
@@ -92,7 +94,7 @@ public class UserService {
     /**
      * @see UserServiceDelegate#fetchForPasswordReset(String, String)
      */
-    public static SocialUser fetchForPasswordReset(String user, String uuid) {
+    public static User fetchForPasswordReset(String user, String uuid) {
         checkIsInitialized();
         return service.fetchForPasswordReset(user, uuid);
     }

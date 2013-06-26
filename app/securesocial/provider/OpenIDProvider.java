@@ -23,6 +23,8 @@ import play.mvc.Scope;
 
 import java.util.Map;
 
+import models.User;
+
 /**
  * An OpenID provider
  */
@@ -87,7 +89,7 @@ public abstract class OpenIDProvider extends IdentityProvider
      * @see IdentityProvider#doAuth(java.util.Map) 
      */
     @Override
-    protected SocialUser doAuth(Map<String, Object> authContext) {
+    protected User doAuth(Map<String, Object> authContext) {
         if ( !OpenID.isAuthenticationResponse() ) {
             OpenID openId = OpenID.id(getUser());
             final String url = getFullUrl();
@@ -104,7 +106,7 @@ public abstract class OpenIDProvider extends IdentityProvider
             throw new AuthenticationException();
         }
         authContext.put(USER_INFO, verifiedUser);
-        SocialUser user = createUser();
+        User user = createUser();
         user.id.id = verifiedUser.id;
         return user;
     }

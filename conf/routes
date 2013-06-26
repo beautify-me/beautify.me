@@ -1,31 +1,32 @@
-# Routes
-# This file defines all application routes (Higher priority routes first)
+# This file defines all module routes (Higher priority routes first)
+#
+#
 # ~~~~
 
 # Home page
 GET     /                                       Application.index
 
-# Ignore favicon requests
-GET     /favicon.ico                            404
+# Home page
+GET     /accessories                            Application.accessories
 
-# Map static resources from the /app/public folder to the /public path
-GET     /public/                                staticDir:public
+# Home page
+GET     /top                                    Application.top
 
-# Catch all
-*       /{controller}/{action}                  {controller}.{action}
+# Home page
+GET     /mystuff                           		Application.mystuff
 
+# Home page
+GET     /privacy                            	Application.privacy
+# Home page
+GET     /termsofuse                            Application.termsofuse
+# Home page
+GET     /about                            		Application.about
 
-# This file defines all module routes (Higher priority routes first)
-#
-# import these routes in the main app as :
-# *     /                       module:securesocial
-#
-# ~~~~
 
 #
 # Username Password Controller routes
 #
-GET     /signup                 securesocial.UsernamePasswordController.signup
+GET     /signup                 UsernamePasswordController.signup
 POST    /signup                 UsernamePasswordController.createAccount
 GET     /activate/{uuid}        UsernamePasswordController.activate
 
@@ -59,3 +60,19 @@ POST    /p                      Application.authByPost
 # Static content
 #
 GET     /public/                staticDir:public
+
+# Routes
+# This file defines all application routes (Higher priority routes first)
+# ~~~~
+
+# Home page
+GET     /                                       Application.index
+
+# Ignore favicon requests
+GET     /favicon.ico                            404
+
+# Map static resources from the /app/public folder to the /public path
+GET     /public/                                staticDir:public
+
+# Catch all
+*       /{controller}/{action}                  {controller}.{action}

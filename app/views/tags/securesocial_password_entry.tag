@@ -1,7 +1,7 @@
 <div class="clearfix #{ifError 'newPassword'} error #{/ifError}">
     <label for="newPassword">&{'securesocial.newPassword'}</label>
 
-    <div class="input">
+    <div class="field">
         <input id="newPassword" class="large" name="newPassword" type="password"
                value="${flash.newPassword}"/>
     #{ifError 'newPassword'}
@@ -13,7 +13,7 @@
 <div class="clearfix #{ifError 'confirmPassword'} error #{/ifError}">
     <label for="confirmPassword">&{'securesocial.confirmPassword'}</label>
 
-    <div class="input">
+    <div class="field">
         <input id="confirmPassword" class="large" name="confirmPassword" type="password"
                value="${flash.confirmPassword}"/>
     #{ifError 'confirmPassword'}

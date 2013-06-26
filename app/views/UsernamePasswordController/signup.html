@@ -1,0 +1,145 @@
+#{extends 'main.html'/}
+#{set title: messages.get('securesocial.signUpTitle') /}
+
+<div class="container">
+
+	<div class="page-header">
+		<h3>&{'securesocial.signUpTitle'}</h3>
+    </div>
+
+    #{if flash.error}
+    <div class="alert-message block-message error">
+        <div class="alert-actions">
+            ${flash.error}
+        </div>
+    </div>
+    #{/if}
+
+    <div class="clearfix" >
+        <p>&{'securesocial.signUpLabel'}</p>
+        #{form @UsernamePasswordController.createAccount(), autocomplete:'off'}
+            <fieldset>
+			<legend>&{'securesocial.signUpUserInfoLabel'}</legend>
+
+                <div class="clearfix #{ifError 'displayName'} error #{/ifError}">
+                    <label for="displayName">&{'securesocial.name'}</label>
+                    <div class="field">
+                        <input id="displayName" type="text" class="large" name="displayName" value="${flash.displayName}"/>
+                        #{ifError 'displayName'}
+                        <span class="help-inline">&{'securesocial.required'}</span>
+                        #{/ifError}
+                    </div>
+                </div>
+
+                <div class="clearfix #{ifError 'displayLastName'} error #{/ifError}">
+                    <label for="displayLastName">&{'securesocial.lastName'}</label>
+                    <div class="field">
+                        <input id="displayLastName" type="text" class="large" name="displayLastName" value="${flash.displayLastName}"/>
+                        #{ifError 'displayLastName'}
+                        <span class="help-inline">&{'securesocial.required'}</span>
+                        #{/ifError}
+                    </div>
+                </div>
+                
+                <div class="clearfix #{ifError 'age'} error #{/ifError}">
+                    <label for="age">&{'securesocial.age'}</label>
+                    <div class="field">
+                        <input id="age" type="text" class="large" name="age" value="${flash.age}"/>
+                        #{ifError 'age'}
+                        <span class="help-inline">&{'securesocial.required'}</span>
+                        #{/ifError}
+                    </div>
+                </div>
+                
+				<div class="clearfix #{ifError 'gender'} error #{/ifError}">
+                    <label for="gender">&{'securesocial.gender'}</label>
+                    <div class="field">                    
+                        <select name="gender" id="gender">
+                        	<option value="US">&{'securesocial.gender.female'}</option>
+						    <option value="ES">&{'securesocial.gender.male'}</option>
+						</select>
+                        #{ifError 'gender'}
+                        <span class="help-inline">&{'securesocial.required'}</span>
+                        #{/ifError}
+                    </div>
+                </div>
+
+			</fieldset>
+			<fieldset>
+			<legend>&{'securesocial.signUpLoginInfoLabel'}</legend>
+                <div class="clearfix #{ifError 'userName'} error #{/ifError}">
+                    <label for="userName">&{'securesocial.userName'}</label>
+                    <div class="field">
+                        <input id="userName" type="text" class="large" name="userName" value="${flash.userName}"/>
+                        #{ifError 'userName'}
+                        <span class="help-inline">#{error 'userName'/}</span>
+                        #{/ifError}
+                    </div>
+                </div>
+
+
+                <div class="clearfix #{ifError 'email'} error #{/ifError}">
+                    <label for="email">&{'securesocial.email'}</label>
+                    <div class="field">
+                        <input id="email" type="text" class="large" name="email" value="${flash.email}"/>
+                        <span class="help-inline">
+                            #{ifError 'email'}
+                            #{error 'email'/}
+                            #{/ifError}
+                            #{else}
+                            &{'securesocial.emailHelp'}
+                            #{/else}
+                        </span>
+                    </div>
+                </div>
+
+                <div class="clearfix #{ifError 'password'} error #{/ifError}">
+                    <label for="password">&{'securesocial.password'}</label>
+                    <div class="field">
+                        <input id="password" type="text" class="large" name="password" type="password"/>
+                        #{ifError 'password'}
+                        <span class="help-inline">&{'securesocial.required'}</span>
+                        #{/ifError}
+                    </div>
+                </div>
+
+                 <div class="clearfix #{ifError 'password2'} error #{/ifError}">
+                    <label for="password2">&{'securesocial.password2'}</label>
+                    <div class="field">
+                        <input id="password2" type="text" class="large" name="password2" type="password"/>
+                        #{ifError 'password2'}
+                        <span class="help-inline">#{error 'password2'/}</span>
+                        #{/ifError}
+                    </div>
+                </div>
+
+            </fieldset>
+            
+			<fieldset>
+			    <legend>&{'securesocial.signUpConditionsLabel'}</legend>
+			    <div class="field"> 
+			        <label for="termsOfUse">I accept terms of use : </label>
+			        <input id="termsOfUse" type="checkbox" value="true" name="termsOfUse" #{if params.termsOfUse}checked="true"#{/if}  class="#{errorClass 'termsOfUse' /}" />
+			        <span class="error">#{ifError 'termsOfUse'}Please accept terms of use#{/ifError}</span>
+			    </div>			   
+			    
+			    <div class="infos">
+			        Checking this box indicates that you accept terms of use. 
+			        If you do not accept these terms, do not use this website : 
+			    </div>
+			    
+			</fieldset>
+			
+			<fieldset>  
+				<p>#{ugot.recaptcha theme:"red", tabindex:"2"/}</p>
+			</fieldset>
+			<fieldset>
+			<legend></legend>
+            <div class="actions">
+                <input type="submit" value="Create Account" class="btn primary">
+                <a href="@{Application.login()}" class="btn">&{'securesocial.cancel'}</input></a>
+            </div>
+            </fieldset>
+        #{/form}
+    </div>
+</div>

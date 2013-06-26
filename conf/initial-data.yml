@@ -1,0 +1,371 @@
+Provider(hm):
+    name: H&M
+    url: hm.com
+
+Provider(zara):
+    name: zara
+    url: zara.com
+    
+Provider(newyorker):
+    name: newyorker
+    url: newyorker.com
+    
+Accessory(hat):
+    articleName: Super-shiny-hat
+    gender: 1
+    type: 12
+    provider: hm
+        
+Accessory(hat2):
+    articleName: Super-shiny-hat
+    gender: 1
+    type: 12
+    provider: hm
+    
+Accessory(hat3):
+    articleName: Super-shiny-hat
+    gender: 1
+    type: 12
+    provider: hm
+    
+Accessory(hat4):
+    articleName: Super-shiny-hat
+    gender: 1
+    type: 12
+    provider: hm
+    
+Accessory(hat5):
+    articleName: Super-shiny-hat
+    gender: 1
+    type: 12
+    provider: hm
+    
+Accessory(hat6):
+    articleName: Super-shiny-hat
+    gender: 1
+    type: 12
+    provider: hm
+       
+Accessory(hat7):
+    articleName: Super-shiny-hat
+    gender: 1
+    type: 12
+    provider: hm
+       
+Accessory(hat8):
+    articleName: Super-shiny-hat
+    gender: 1
+    type: 12
+    provider: hm
+        
+Accessory(hat9):
+    articleName: Super-shiny-hat
+    gender: 1
+    type: 12
+    provider: hm
+    
+Accessory(hat10):
+    articleName: Super-shiny-hat
+    gender: 1
+    type: 12
+    provider: hm
+    
+Accessory(hat11):
+    articleName: Super-shiny-hat
+    gender: 1
+    type: 12
+    provider: hm
+    
+Accessory(hat12):
+    articleName: Super-shiny-hat
+    gender: 1
+    type: 12
+    provider: hm
+        
+Accessory(hat13):
+    articleName: Super-shiny-hat
+    gender: 1
+    type: 12
+    provider: hm
+    
+Accessory(hat14):
+    articleName: Super-shiny-hat
+    gender: 1
+    type: 12
+    provider: hm
+    
+Accessory(hat15):
+    articleName: Super-shiny-hat
+    gender: 1
+    type: 12
+    provider: hm
+        
+Accessory(hat16):
+    articleName: Super-shiny-hat
+    gender: 1
+    type: 12
+    provider: hm
+    
+Accessory(hat17):
+    articleName: Super-shiny-hat
+    gender: 1
+    type: 12
+    provider: hm
+    
+Accessory(hat18):
+    articleName: Super-shiny-hat
+    gender: 1
+    type: 12
+    provider: hm
+    
+Accessory(hat19):
+    articleName: Super-shiny-hat
+    gender: 1
+    type: 12
+    provider: hm
+    
+Accessory(hat20):
+    articleName: Super-shiny-hat
+    gender: 1
+    type: 12
+    provider: hm
+
+Accessory(hat21):
+    articleName: Red-round-hat
+    gender: 1
+    type: 12
+    provider: zara
+       
+Accessory(hat22):
+    articleName: Red-round-hat
+    gender: 1
+    type: 12
+    provider: zara
+    
+Accessory(hat23):
+    articleName: Red-round-hat
+    gender: 1
+    type: 12
+    provider: zara
+    
+Accessory(hat24):
+    articleName: Red-round-hat
+    gender: 1
+    type: 12
+    provider: zara
+    
+Accessory(hat25):
+    articleName: Red-round-hat
+    gender: 1
+    type: 12
+    provider: zara
+    
+Accessory(hat26):
+    articleName: Red-round-hat
+    gender: 1
+    type: 12
+    provider: zara
+       
+Accessory(hat27):
+    articleName: Red-round-hat
+    gender: 1
+    type: 12
+    provider: zara
+       
+Accessory(hat28):
+    articleName: Red-round-hat
+    gender: 1
+    type: 12
+    provider: zara
+        
+Accessory(hat29):
+    articleName: Red-round-hat
+    gender: 1
+    type: 12
+    provider: zara
+    
+Accessory(hat30):
+    articleName: Red-round-hat
+    gender: 1
+    type: 12
+    provider: zara
+    
+Accessory(hat31):
+    articleName: Red-round-hat
+    gender: 1
+    type: 12
+    provider: zara
+    
+Accessory(hat32):
+    articleName: Red-round-hat
+    gender: 1
+    type: 12
+    provider: zara
+        
+Accessory(hat33):
+    articleName: Red-round-hat
+    gender: 1
+    type: 12
+    provider: zara
+    
+Accessory(hat34):
+    articleName: Red-round-hat
+    gender: 1
+    type: 12
+    provider: zara
+    
+Accessory(hat35):
+    articleName: Red-round-hat
+    gender: 1
+    type: 12
+    provider: zara
+        
+Accessory(hat36):
+    articleName: Red-round-hat
+    gender: 1
+    type: 12
+    provider: zara
+    
+Accessory(hat37):
+    articleName: Red-round-hat
+    gender: 1
+    type: 12
+    provider: zara
+    
+Accessory(hat38):
+    articleName: Red-round-hat
+    gender: 1
+    type: 12
+    provider: zara
+    
+Accessory(hat39):
+    articleName: Red-round-hat
+    gender: 1
+    type: 12
+    provider: zara
+    
+Accessory(hat40):
+    articleName: Red-round-hat
+    gender: 1
+    type: 12
+    provider: zara
+
+Accessory(hat61):
+    articleName: Red-round-hat
+    gender: 1
+    type: 12
+    provider: newyorker
+       
+Accessory(hat62):
+    articleName: Red-round-hat
+    gender: 1
+    type: 12
+    provider: newyorker
+    
+Accessory(hat63):
+    articleName: Red-round-hat
+    gender: 1
+    type: 12
+    provider: newyorker
+    
+Accessory(hat64):
+    articleName: Red-round-hat
+    gender: 1
+    type: 12
+    provider: newyorker
+    
+Accessory(hat65):
+    articleName: Red-round-hat
+    gender: 1
+    type: 12
+    provider: newyorker
+    
+Accessory(hat66):
+    articleName: Red-round-hat
+    gender: 1
+    type: 12
+    provider: newyorker
+       
+Accessory(hat67):
+    articleName: Red-round-hat
+    gender: 1
+    type: 12
+    provider: newyorker
+       
+Accessory(hat68):
+    articleName: Red-round-hat
+    gender: 1
+    type: 12
+    provider: newyorker
+        
+Accessory(hat69):
+    articleName: Red-round-hat
+    gender: 1
+    type: 12
+    provider: newyorker
+    
+Accessory(hat50):
+    articleName: Red-round-hat
+    gender: 1
+    type: 12
+    provider: newyorker
+    
+Accessory(hat51):
+    articleName: Red-round-hat
+    gender: 1
+    type: 12
+    provider: newyorker
+    
+Accessory(hat52):
+    articleName: Red-round-hat
+    gender: 1
+    type: 12
+    provider: newyorker
+        
+Accessory(hat53):
+    articleName: Red-round-hat
+    gender: 1
+    type: 12
+    provider: newyorker
+    
+Accessory(hat54):
+    articleName: Red-round-hat
+    gender: 1
+    type: 12
+    provider: newyorker
+    
+Accessory(hat55):
+    articleName: Red-round-hat
+    gender: 1
+    type: 12
+    provider: newyorker
+        
+Accessory(hat56):
+    articleName: Red-round-hat
+    gender: 1
+    type: 12
+    provider: newyorker
+    
+Accessory(hat57):
+    articleName: Red-round-hat
+    gender: 1
+    type: 12
+    provider: newyorker
+    
+Accessory(hat58):
+    articleName: Red-round-hat
+    gender: 1
+    type: 12
+    provider: newyorker
+    
+Accessory(hat59):
+    articleName: Red-round-hat
+    gender: 1
+    type: 12
+    provider: newyorker
+    
+Accessory(hat60):
+    articleName: Red-round-hat
+    gender: 1
+    type: 12
+    provider: newyorker    

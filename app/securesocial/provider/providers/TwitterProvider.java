@@ -23,6 +23,8 @@ import securesocial.provider.*;
 
 import java.util.Map;
 
+import models.User;
+
 /**
  * A Twitter Provider
  */
@@ -39,7 +41,7 @@ public class TwitterProvider extends OAuth1Provider
     }
 
     @Override
-    protected void fillProfile(SocialUser user, Map<String, Object> authContext) {
+    protected void fillProfile(User user, Map<String, Object> authContext) {
         JsonObject me = WS.url(VERIFY_CREDENTIALS).oauth(user.serviceInfo, user.token, user.secret).get().getJson().getAsJsonObject();
 
         if ( me.get(ERROR) != null ) {

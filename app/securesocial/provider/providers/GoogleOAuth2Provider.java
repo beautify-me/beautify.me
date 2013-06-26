@@ -28,9 +28,10 @@ import securesocial.provider.AuthenticationException;
 import securesocial.provider.AuthenticationMethod;
 import securesocial.provider.IdentityProvider;
 import securesocial.provider.ProviderType;
-import securesocial.provider.SocialUser;
 
 import java.util.Map;
+
+import models.User;
 
 /**
  * A Google Provider implementing Oauth2. See https://developers.google.com/accounts/docs/OAuth2
@@ -103,7 +104,7 @@ public class GoogleOAuth2Provider extends IdentityProvider {
      * @see IdentityProvider#doAuth(java.util.Map)
      */
     @Override
-    protected SocialUser doAuth(Map<String, Object> authContext) {
+    protected User doAuth(Map<String, Object> authContext) {
         Scope.Params params = Scope.Params.current();
 
         if (params.get(ERROR) != null) {
@@ -128,13 +129,13 @@ public class GoogleOAuth2Provider extends IdentityProvider {
             throw new AuthenticationException();
         }
 
-        SocialUser user = createUser();
+        User user = createUser();
         user.accessToken = accessToken;
         return user;
     }
 
     @Override
-    protected void fillProfile(SocialUser user, Map<String, Object> authContext) {
+    protected void fillProfile(User user, Map<String, Object> authContext) {
         JsonObject me = WS.url(ME_API, user.accessToken).get().getJson().getAsJsonObject();
         JsonObject error = me.getAsJsonObject(ERROR);
 

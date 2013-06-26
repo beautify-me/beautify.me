@@ -1,5 +1,5 @@
-#{extends '/main.html'/}
-#{set title: messages.get('securesocial.loginTitle') /}
+#{extends 'main.html' /}
+#{set title:'beautify.me - Log in' /}
 
 <script language="javascript" type="text/javascript" charset="utf-8">
     function openid(type) {
@@ -11,9 +11,10 @@
     }
 </script>
 
-<div class="span12 columns">
-    <div class="page-header">
-        <h1>&{'securesocial.login'}</h1>
+<div class="container">
+
+	<div class="page-header">
+		<h3>&{'securesocial.login'}</h3>
     </div>
 
     #{if flash.error}
@@ -63,7 +64,7 @@
             <fieldset>
                  <div class="clearfix #{ifError 'userName'} error #{/ifError}">
                     <label for="displayName">&{'securesocial.userName'}</label>
-                    <div class="input">
+                    <div class="field">
                         <input id="displayName" class="large" name="userName" value="${flash.userName}"/>
                         #{ifError 'userName'}
                         <span class="help-inline">#{error 'userName'/}</span>
@@ -73,7 +74,7 @@
 
                  <div class="clearfix #{ifError 'password'} error #{/ifError}">
                     <label for="password">&{'securesocial.password'}</label>
-                    <div class="input">
+                    <div class="field">
                         <input id="password" class="large" name="password" type="password"/>
                         #{ifError 'password'}
                         <span class="help-inline">&{'securesocial.required'}</span>
@@ -89,7 +90,7 @@
     </div>
 
     <div class="clearfix">
-        <p>&{'securesocial.signUp'} #{a @securesocial.UsernamePasswordController.signUp()}&{'securesocial.here'}#{/a}</p>
+        <p>&{'securesocial.signUp'} #{a @UsernamePasswordController.signUp()}&{'securesocial.here'}#{/a}</p>
     </div>
     #{/if}
 </div>

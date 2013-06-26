@@ -24,6 +24,8 @@ import securesocial.provider.*;
 
 import java.util.Map;
 
+import models.User;
+
 /**
  * A provider for LinkedIn
  */
@@ -44,7 +46,7 @@ public class LinkedInProvider extends OAuth1Provider
     }
 
     @Override
-    protected void fillProfile(SocialUser user, Map<String, Object> authContext) {
+    protected void fillProfile(User user, Map<String, Object> authContext) {
         JsonObject me = WS.url(ME_API).oauth(user.serviceInfo,user.token, user.secret).get().getJson().getAsJsonObject();
 
         if ( me.get(ERROR_CODE) != null ) {

@@ -2,4 +2,5 @@
 
 require:
     - play
-    #- play -> securesocial 0.2.6
+    - play -> crud
+    - play -> recaptcha 1.3

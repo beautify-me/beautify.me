@@ -24,6 +24,8 @@ import securesocial.provider.*;
 
 import java.util.Map;
 
+import models.User;
+
 /**
  * A provider for Foursquare 
  */
@@ -48,7 +50,7 @@ public class FoursquareProvider extends OAuth2Provider {
     }
 
     @Override
-    protected void fillProfile(SocialUser user, Map<String, Object> authContext) {
+    protected void fillProfile(User user, Map<String, Object> authContext) {
         JsonObject me = WS.url(SELF_API, user.accessToken).get().getJson().getAsJsonObject();
         JsonObject meta = me.getAsJsonObject(META);
 

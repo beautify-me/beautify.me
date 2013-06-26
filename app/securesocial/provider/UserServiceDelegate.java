@@ -1,5 +1,7 @@
 package securesocial.provider;
 
+import models.User;
+
 /**
  * This is the interface that defines the behaviour for UserService.
  * There is a default implementation in the DefaultUserService class that
@@ -15,7 +17,7 @@ public interface UserServiceDelegate {
      * @param id A UserId object
      * @return A SocialUser instance or null if no user matches the specified id.
      */
-    SocialUser find(UserId id);
+    User find(UserId id);
 
     /**
      * Finds a SocialUser that matches the given email
@@ -23,14 +25,14 @@ public interface UserServiceDelegate {
      * @param email email address to search with
      * @return A SocialUser instance with the specified email, or null if none is found
      */
-    SocialUser find(String email);
+    User find(String email);
 
     /**
      * Saves the user in the backing store.
      *
      * @param user A SocialUser object
      */
-    void save(SocialUser user);
+    void save(User user);
 
     /**
      * Creates an activation request.  This is needed for users that
@@ -39,7 +41,7 @@ public interface UserServiceDelegate {
      * @param user The user that needs to be activated
      * @return A string with a uuid that will be embedded in the welcome email.
      */
-    String createActivation(SocialUser user);
+    String createActivation(User user);
 
     /**
      * Activates a user by setting the isEmailVerified field to true.  This is only used
@@ -57,7 +59,7 @@ public interface UserServiceDelegate {
      * @param user The user that needs to be reset the password
      * @return A string with a uuid that will be embedded in the password reset email.
      */
-    String createPasswordReset(SocialUser user);
+    String createPasswordReset(User user);
 
     /**
      * Return the SocialUser for this reset request, if such a request exists.
@@ -65,7 +67,7 @@ public interface UserServiceDelegate {
      * @param username the username for this reset request
      * @param uuid     random uuid, i.e. the one-time-password for this password reset
      */
-    SocialUser fetchForPasswordReset(String username, String uuid);
+    User fetchForPasswordReset(String username, String uuid);
 
     /**
      * Disable the reset code for this user, once the password has been changed

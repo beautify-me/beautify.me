@@ -20,9 +20,10 @@ import play.libs.OpenID;
 import securesocial.provider.OpenIDOAuthHybridProvider;
 import securesocial.provider.OpenIDProvider;
 import securesocial.provider.ProviderType;
-import securesocial.provider.SocialUser;
 
 import java.util.Map;
+
+import models.User;
 
 /**
  * An Openid provider for Yahoo
@@ -49,7 +50,7 @@ public class YahooProvider extends OpenIDOAuthHybridProvider
     }
 
     @Override
-    protected void fillProfile(SocialUser user, Map<String, Object> authContext) {
+    protected void fillProfile(User user, Map<String, Object> authContext) {
         OpenID.UserInfo me = (OpenID.UserInfo) authContext.get(OpenIDProvider.USER_INFO);
         user.displayName = me.extensions.get(FULLNAME);
         user.avatarUrl = me.extensions.get(IMAGE);

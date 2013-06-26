@@ -1,9 +1,15 @@
 package controllers;
 
 import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
+
+import models.Accessory;
+import models.User;
 
 import play.Logger;
 import play.Play;
+import play.db.jpa.Blob;
 import play.i18n.Messages;
 import play.libs.OAuth;
 import play.mvc.Before;
@@ -14,11 +20,20 @@ import securesocial.provider.OAuth1Provider;
 import securesocial.provider.OpenIDOAuthHybridProvider;
 import securesocial.provider.ProviderRegistry;
 import securesocial.provider.ProviderType;
-import securesocial.provider.SocialUser;
 import securesocial.provider.UserId;
 import securesocial.provider.UserService;
 
 public class Application extends Controller {
+	
+
+	
+	
+	
+	
+	/**--------------------------------------
+	 * Attributes for secure social
+	 ----------------------------------------*/
+
     private static final String USER_COOKIE = "securesocial.user";
     private static final String NETWORK_COOKIE = "securesocial.network";
     private static final String ORIGINAL_URL = "originalUrl";
@@ -45,10 +60,46 @@ public class Application extends Controller {
     }
     
     
+
+    public static void accessories() {
+        List<Accessory> accessories = Accessory.findAll();
+        Collections.shuffle(accessories); // shuffle for dummy display to be suffled
+         render(accessories);
+    }
+    
+    public static void getPic(long id) {
+    	Accessory a = Accessory.findById(id);
+    	/*Pic im = a.image;
+    	response.setContentTypeIfNotSet(im.image.type());
+    	renderBinary(im.image.get());*/
+    	Blob image = a.image;
+    	response.setContentTypeIfNotSet(image.type());
+    	renderBinary(image.get());
+    }
+    
+    
+    public static void top() {
+    	render();
+    }
+    public static void mystuff() {
+        render();
+    }
+    public static void termsofuse() {
+        render();
+    }
+    public static void privacy() {
+        render();
+    }
+    public static void about() {
+        render();
+    }
+    
+    
+    
     /**
      * Checks if there is a user logged in and redirects to the login page if not.
      */
-    @Before(unless={"login", "authenticate", "authByPost", "logout"})
+    //@Before(unless={"login", "authenticate", "authByPost", "logout"})
     static void checkAccess() throws Throwable
     {
         final UserId userId = getUserId();
@@ -58,8 +109,8 @@ public class Application extends Controller {
             flash.put(ORIGINAL_URL, originalUrl);
             login();
         } else {
-            final SocialUser user = loadCurrentUser(userId);
-            if ( user == null ) {
+            final User user = loadCurrentUser(userId);
+            if ( user 	== null ) {
                // the user had the cookies but the UserService can't find it ...
                // it must have been erased, redirect to login again.
                clearUserId();
@@ -68,14 +119,15 @@ public class Application extends Controller {
         }
     }
 
-    public static SocialUser loadCurrentUser() {
+    public static User loadCurrentUser() {
         UserId id = getUserId();
-        final SocialUser user = id != null ? loadCurrentUser(id) : null;
+        final User user = id != null ? loadCurrentUser(id) : null;
         return user;
     }
 
-    private static SocialUser loadCurrentUser(UserId userId) {
-        SocialUser user = UserService.find(userId);
+    
+    private static User loadCurrentUser(UserId userId) {
+        User user = UserService.find(userId);
 
         if ( user != null ) {
             // if the user is using OAUTH1 or OPENID HYBRID OAUTH set the ServiceInfo
@@ -102,9 +154,9 @@ public class Application extends Controller {
      *
      * @return SocialUser the current user or null if no user is logged in.
      */
-    public static SocialUser getCurrentUser() {
+    public static User getCurrentUser() {
         // first, try to get it from the renderArgs since it should be there on secured controllers.
-        SocialUser currentUser =  (SocialUser) renderArgs.get(USER);
+        User currentUser =  (User) renderArgs.get(USER);
 
         if ( currentUser == null  ) {
             // the call is being made from an unsecured controller
@@ -133,7 +185,7 @@ public class Application extends Controller {
     /*
      * Sets the SecureSocial cookies in the session.
      */
-    private static void setUserId(SocialUser user) {
+    private static void setUserId(User user) {
         session.put(USER_COOKIE, user.id.id);
         session.put(NETWORK_COOKIE, user.id.provider.toString());
     }
@@ -206,7 +258,7 @@ public class Application extends Controller {
         String originalUrl = null;
 
         try {
-            SocialUser user = provider.authenticate();
+            User user = provider.authenticate();
             setUserId(user);
             originalUrl = flash.get(ORIGINAL_URL);
         } catch ( Exception e ) {

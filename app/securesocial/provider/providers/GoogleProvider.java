@@ -23,6 +23,8 @@ import securesocial.provider.*;
 
 import java.util.Map;
 
+import models.User;
+
 /**
  * A Google provider that implements OpenID 2 + OAuth extensions.
  * In a single flow the user gets authenticated and a token that can be used to invoke
@@ -53,7 +55,7 @@ public class GoogleProvider extends OpenIDOAuthHybridProvider {
     }
 
     @Override
-    protected void fillProfile(SocialUser user, Map<String, Object> authContext) {
+    protected void fillProfile(User user, Map<String, Object> authContext) {
         OpenID.UserInfo info = (OpenID.UserInfo) authContext.get(OpenIDProvider.USER_INFO);
         user.displayName = FoursquareProvider.fullName(info.extensions.get(FIRST_NAME),info.extensions.get(LAST_NAME));
         user.email = info.extensions.get(EMAIL);

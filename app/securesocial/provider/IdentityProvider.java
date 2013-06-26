@@ -20,6 +20,8 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import models.User;
+
 /**
  * Base class for all itendity providers
  */
@@ -61,10 +63,10 @@ public abstract class IdentityProvider {
      *
      * @return A SocialUser if the user was authenticated properly
      */
-    public SocialUser authenticate() {
+    public User authenticate() {
         // authenticate against the 3rd party service (facebook, twitter, etc)
         Map<String, Object> authContext = new HashMap<String, Object>();
-        SocialUser user = doAuth(authContext);
+        User user = doAuth(authContext);
 
         // if user authenticated correctly, retrieve some profile information
         fillProfile(user, authContext);
@@ -82,8 +84,8 @@ public abstract class IdentityProvider {
      *
      * @return A SocialUser object
      */
-    protected SocialUser createUser() {
-        SocialUser user = new SocialUser();
+    protected User createUser() {
+        User user = new User();
         user.id = new UserId();
         user.id.provider = type;
         user.authMethod = authMethod;                
@@ -107,7 +109,7 @@ public abstract class IdentityProvider {
      * @param authContext This map can be used to store information that fillProfile will need to complete the operation
      * @return SocialUser the authenticated user
      */
-    protected abstract SocialUser doAuth(Map<String, Object> authContext);
+    protected abstract User doAuth(Map<String, Object> authContext);
 
     /**
      * Once the user is authenticated this method is called to retrieve profile information from the provider.
@@ -115,7 +117,7 @@ public abstract class IdentityProvider {
      * @param user A SocialUser
      * @param authContext This map can contain information collected during the doAuth call.
      */
-    protected abstract void fillProfile(SocialUser user, Map<String, Object> authContext);
+    protected abstract void fillProfile(User user, Map<String, Object> authContext);
 
     /**
      * A helper method to return the keys for the properties required by the provider.

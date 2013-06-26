@@ -25,6 +25,8 @@ import securesocial.utils.SecureSocialPasswordHasher;
 
 import java.util.Map;
 
+import models.User;
+
 /**
  * A provider for username and password authentication
  */
@@ -42,7 +44,7 @@ public class UsernamePasswordProvider extends IdentityProvider
     }
 
     @Override
-    protected SocialUser doAuth(Map<String, Object> authContext) {
+    protected User doAuth(Map<String, Object> authContext) {
         //
         final String userName = Scope.Params.current().get(USER_NAME);
         final String password = Scope.Params.current().get(PASSWORD);
@@ -68,7 +70,7 @@ public class UsernamePasswordProvider extends IdentityProvider
         UserId id = new UserId();
         id.id = Scope.Params.current().get(USER_NAME);
         id.provider = ProviderType.userpass;
-        SocialUser user = UserService.find(id);
+        User user = UserService.find(id);
 
         Scope.Flash flash = Scope.Flash.current();
 
@@ -94,7 +96,7 @@ public class UsernamePasswordProvider extends IdentityProvider
     }
 
     @Override
-    protected void fillProfile(SocialUser user, Map<String, Object> authContext) {
+    protected void fillProfile(User user, Map<String, Object> authContext) {
         // there's nothing to do here, since the user is being loaded from the DB it should already have
         // all the required fields set.
     }
