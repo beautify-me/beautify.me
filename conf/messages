@@ -41,6 +41,7 @@ securesocial.gender.male=Male
 securesocial.gender.female=Female
 securesocial.cancel=Cancel
 securesocial.passwordsMustMatch=The passwords do not match
+securesocial.acceptTermsOfUse=Please accept terms of use
 securesocial.userNameTaken=This username is already taken
 securesocial.activationTitle=Welcome %s
 securesocial.activationSuccess=Thank you, your account has been activated. Click <a href="%s">here</a> to log in.

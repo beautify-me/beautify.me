@@ -49,7 +49,7 @@ public class TwitterProvider extends OAuth1Provider
             throw new AuthenticationException();
         }
         user.id.id = me.get(ID).getAsString();
-        user.displayName = me.get(NAME).getAsString();
+        user.name = me.get(NAME).getAsString();
         user.avatarUrl = me.get(PROFILE_IMAGE_URL).getAsString();
 
         // can't get the email because the Twitter API does not provide it.

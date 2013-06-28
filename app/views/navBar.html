@@ -1,5 +1,4 @@
-
- <div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="navbar navbar-inverse navbar-fixed-top">
       <div class="navbar-inner">
         <div class="container">
           <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
@@ -10,20 +9,26 @@
           <a class="brand" href="/">beautify.me</a>
           <div class="nav-collapse collapse">
             <ul class="nav">
-              <li class="active"><a href="/">Start</a></li>
-              <li class="dropdown"><a href="accessories" class="dropdown-toggle" data-toogle="dropdown">Accessories </a>              
-              </li>
-              <li><a href="top">Top20</a></li>
-              <li><a href="mystuff">MyStuff</a>
-              
-              #{if user} 
-                Welcome @{Users.getUserNameFromSession()}! 
-                <li><a href="logout">Logout</a> #{/if} 
+              <li><a href="/">Start</a></li>
+              <li><a href="@{Application.accessories}">Accessories </a></li>
+              #{if session.securesocial_user}
+              <li><a href="@{Application.top}">Top20</a></li>
+              <li><a href="@{Application.mystuff}">MyStuff</a></li> 
+              #{/if}
+               </ul>
+              <div class="nav-collapse collapse pull-right">
+              <ul class="nav">
+              #{if session.securesocial_user} 
+                <li><a href="">Logged in as ${session.securesocial_user}</a></li> 
+                <li><a href="@{Application.logout}">Logout</a></li>
+              #{/if} 
               #{else}
-                <li><a href="login">Log in</a>
-                <li><a href="signup">Sign up</a> #{/else}
+                <li><a href="@{Application.login}">Sign In</a></li>
+                <li><a href="@{UsernamePasswordController.signup}">Sign up</a></li> 
+               #{/else}
             </ul>
           </div><!--/.nav-collapse -->
+        </div>
         </div>
       </div>
     </div>

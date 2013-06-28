@@ -6,7 +6,6 @@ import java.util.List;
 
 import models.Accessory;
 import models.User;
-
 import play.Logger;
 import play.Play;
 import play.db.jpa.Blob;
@@ -25,17 +24,12 @@ import securesocial.provider.UserService;
 
 public class Application extends Controller {
 	
-
-	
-	
-	
-	
 	/**--------------------------------------
 	 * Attributes for secure social
 	 ----------------------------------------*/
 
-    private static final String USER_COOKIE = "securesocial.user";
-    private static final String NETWORK_COOKIE = "securesocial.network";
+    private static final String USER_COOKIE = "securesocial_user";
+    private static final String NETWORK_COOKIE = "securesocial_network";
     private static final String ORIGINAL_URL = "originalUrl";
     private static final String GET = "GET";
     private static final String ROOT = "/";
@@ -58,7 +52,7 @@ public class Application extends Controller {
     public static void index() {
         render();
     }
-    
+
     
 
     public static void accessories() {
@@ -81,15 +75,19 @@ public class Application extends Controller {
     public static void top() {
     	render();
     }
+    
     public static void mystuff() {
         render();
     }
+    
     public static void termsofuse() {
         render();
     }
+    
     public static void privacy() {
         render();
     }
+    
     public static void about() {
         render();
     }
@@ -99,33 +97,31 @@ public class Application extends Controller {
     /**
      * Checks if there is a user logged in and redirects to the login page if not.
      */
-    //@Before(unless={"login", "authenticate", "authByPost", "logout"})
+    //@Before//(unless={"login", "authenticate", "authByPost", "logout"})
     static void checkAccess() throws Throwable
     {
         final UserId userId = getUserId();
-
         if ( userId == null ) {
             final String originalUrl = request.method.equals(GET) ? request.url : ROOT;
             flash.put(ORIGINAL_URL, originalUrl);
-            login();
+            //login();
         } else {
             final User user = loadCurrentUser(userId);
-            if ( user 	== null ) {
+            if ( user == null ) {
                // the user had the cookies but the UserService can't find it ...
                // it must have been erased, redirect to login again.
                clearUserId();
-               login();
+               //login();
            }
         }
     }
 
-    public static User loadCurrentUser() {
+    static User loadCurrentUser() {
         UserId id = getUserId();
         final User user = id != null ? loadCurrentUser(id) : null;
         return user;
     }
 
-    
     private static User loadCurrentUser(UserId userId) {
         User user = UserService.find(userId);
 
@@ -152,7 +148,7 @@ public class Application extends Controller {
      * Returns the current user. This method can be called from secured and non-secured controllers giving you the
      * chance to retrieve the logged in user if there is one.
      *
-     * @return SocialUser the current user or null if no user is logged in.
+     * @return User the current user or null if no user is logged in.
      */
     public static User getCurrentUser() {
         // first, try to get it from the renderArgs since it should be there on secured controllers.
@@ -199,7 +195,6 @@ public class Application extends Controller {
     private static UserId getUserId() {
         final String userId = session.get(USER_COOKIE);
         final String networkId = session.get(NETWORK_COOKIE);
-
         UserId id = null;
 
         if ( userId != null && networkId != null ) {

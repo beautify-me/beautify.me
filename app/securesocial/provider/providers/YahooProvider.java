@@ -52,7 +52,7 @@ public class YahooProvider extends OpenIDOAuthHybridProvider
     @Override
     protected void fillProfile(User user, Map<String, Object> authContext) {
         OpenID.UserInfo me = (OpenID.UserInfo) authContext.get(OpenIDProvider.USER_INFO);
-        user.displayName = me.extensions.get(FULLNAME);
+        user.name = me.extensions.get(FULLNAME);
         user.avatarUrl = me.extensions.get(IMAGE);
         user.email = me.extensions.get(EMAIL);
     }

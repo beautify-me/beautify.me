@@ -52,7 +52,7 @@ public class MyOpenIDProvider extends OpenIDProvider{
     @Override
     protected void fillProfile(User user, Map<String, Object> authContext) {
         OpenID.UserInfo me = (OpenID.UserInfo) authContext.get(OpenIDProvider.USER_INFO);
-        user.displayName = me.extensions.get(FULL_NAME);
+        user.name = me.extensions.get(FULL_NAME);
         user.email = me.extensions.get(EMAIL);
         user.avatarUrl = me.extensions.get(IMAGE);
     }

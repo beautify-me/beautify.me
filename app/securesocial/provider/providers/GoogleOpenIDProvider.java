@@ -44,7 +44,7 @@ public class GoogleOpenIDProvider extends OpenIDProvider {
     @Override
     protected void fillProfile(User user, Map<String, Object> authContext) {
         OpenID.UserInfo info = (OpenID.UserInfo) authContext.get(OpenIDProvider.USER_INFO);
-        user.displayName = FoursquareProvider.fullName(info.extensions.get(FIRST_NAME),info.extensions.get(LAST_NAME));
+        user.name = FoursquareProvider.fullName(info.extensions.get(FIRST_NAME),info.extensions.get(LAST_NAME));
         user.email = info.extensions.get(EMAIL);
     }
 

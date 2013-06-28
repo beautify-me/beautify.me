@@ -41,7 +41,8 @@ public class UsernamePasswordController extends Controller
     private static final String SECURESOCIAL_ERROR_CREATING_ACCOUNT = "securesocial.errorCreatingAccount";
     private static final String SECURESOCIAL_ACCOUNT_CREATED = "securesocial.accountCreated";
     private static final String SECURESOCIAL_ACTIVATION_TITLE = "securesocial.activationTitle";
-    private static final String DISPLAY_NAME = "displayName";
+    private static final String NAME = "name";
+    private static final String LAST_NAME = "lastName";
     private static final String EMAIL = "email";
     private static final String SECURESOCIAL_INVALID_LINK = "securesocial.invalidLink";
     private static final String SECURESOCIAL_ACTIVATION_SUCCESS = "securesocial.activationSuccess";
@@ -59,18 +60,24 @@ public class UsernamePasswordController extends Controller
      * Creates an account
      *
      * @param userName      The username
-     * @param displayName   The user's full name
+     * @param name   The user's first name
+     * @param lastName   	The user's last name
+     * @param gender	   	The user's gender
      * @param email         The email
      * @param password      The password
      * @param password2     The password verification
      */
     public static void createAccount(@Required(message = "securesocial.required") String userName,
-                                     @Required String displayName,
+                                     @Required String name,
+                                     @Required String lastName,
+                                     @Required String gender,                                     
                                      @Required @Email(message = "securesocial.invalidEmail") String email,
                                      @Required String password,
-                                     @Required @Equals(message = "securesocial.passwordsMustMatch", value = "password") String password2) {
+                                     @Required @Equals(message = "securesocial.passwordsMustMatch", value = "password") String password2,
+                                     @Required @Equals(message = "securesocial.acceptTermsOfUse", value = "true") String termsOfUse
+    		) {
         if ( validation.hasErrors() ) {
-            tryAgain(userName, displayName, email);
+            tryAgain(userName, name, lastName, email);
         }
 
         UserId id = new UserId();
@@ -79,12 +86,14 @@ public class UsernamePasswordController extends Controller
 
         if ( UserService.find(id) != null ) {
             validation.addError(USER_NAME, Messages.get(SECURESOCIAL_USER_NAME_TAKEN));
-            tryAgain(userName, displayName, email);
+            tryAgain(userName, name,lastName,  email);
         }
         User user = new User();
         user.id = id;
-        user.displayName = displayName;
+        user.name = name;
+        user.lastName = lastName;
         user.email = email;
+        user.gender = gender;
         user.password = SecureSocialPasswordHasher.passwordHash(password);
         // the user will remain inactive until the email verification is done.
         user.isEmailVerified = false;
@@ -95,20 +104,21 @@ public class UsernamePasswordController extends Controller
         } catch ( Throwable e ) {
             Logger.error(e, "Error while invoking UserService.save()");
             flash.error(Messages.get(SECURESOCIAL_ERROR_CREATING_ACCOUNT));
-            tryAgain(userName, displayName, email);
+            tryAgain(userName, name,lastName,  email);
         }
 
         // create an activation id
         final String uuid = UserService.createActivation(user);
         Mails.sendActivationEmail(user, uuid);
         flash.success(Messages.get(SECURESOCIAL_ACCOUNT_CREATED));
-        final String title = Messages.get(SECURESOCIAL_ACTIVATION_TITLE, user.displayName);
+        final String title = Messages.get(SECURESOCIAL_ACTIVATION_TITLE, user.name);
         render(SECURESOCIAL_SECURE_SOCIAL_NOTICE_PAGE_HTML, title);
     }
 
-    private static void tryAgain(String username, String displayName, String email) {
+    private static void tryAgain(String username, String displayName, String displayLastName, String email) {
         flash.put(USER_NAME, username);
-        flash.put(DISPLAY_NAME, displayName);
+        flash.put(NAME, displayName);
+        flash.put(LAST_NAME, displayLastName);
         flash.put(EMAIL, email);
         validation.keep();
         signup();

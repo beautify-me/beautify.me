@@ -16,6 +16,7 @@
 */
 package models;
 
+import play.db.jpa.Model;
 import play.libs.OAuth;
 import securesocial.provider.AuthenticationMethod;
 import securesocial.provider.UserId;
@@ -28,17 +29,27 @@ import javax.persistence.Entity;
 /**
  * A class representing a conected user and its authentication details.
  */
-public class User implements Serializable {
+public class User extends Model{
     /**
      * The user id
      */
     public UserId id;
 
     /**
-     * The user full name.
+     * The user first name.
      */
-    public String displayName;
+    public String name;
+    
+    /**
+     * The user last name
+     */
+    public String lastName;
 
+    /**
+     * The user gender
+     */
+    public String gender;
+    
     /**
      * The user's email
      */

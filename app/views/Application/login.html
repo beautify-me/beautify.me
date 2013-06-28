@@ -50,7 +50,7 @@
             <input id="openid-type" type="hidden" name="type">
             <fieldset>
                 <div class="clearfix">
-                        <input id="openid-user" name="openid.user" class="large">
+                        <input type="text" id="openid-user" name="openid.user" class="large">
                         <input type="submit" value="&{'securesocial.login'}" class="btn small">
                 </div>                       
             </fieldset>
@@ -65,7 +65,7 @@
                  <div class="clearfix #{ifError 'userName'} error #{/ifError}">
                     <label for="displayName">&{'securesocial.userName'}</label>
                     <div class="field">
-                        <input id="displayName" class="large" name="userName" value="${flash.userName}"/>
+                        <input type="text" id="displayName" class="large" name="userName" value="${flash.userName}"/>
                         #{ifError 'userName'}
                         <span class="help-inline">#{error 'userName'/}</span>
                         #{/ifError}
@@ -86,7 +86,7 @@
                     <input type="submit" value="&{'securesocial.login'}" class="btn primary">
                 </div>
             </fieldset>
-        #{/form}
+        #{/form}	
     </div>
 
     <div class="clearfix">
