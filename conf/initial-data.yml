@@ -371,8 +371,7 @@ Accessory(hat60):
     provider: newyorker
     
 Pic(pic1):
-name: Girl
-
+    name: Girl
 
 Pic(pic2):
-name: Girl
+    name: Girl2

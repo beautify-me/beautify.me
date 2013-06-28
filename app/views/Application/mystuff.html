@@ -1,6 +1,14 @@
 #{extends 'main.html' /}
 #{set title:'beautify.me - Welcome!' /}
 
+	<style>
+	div.span6 {
+		padding-bottom: 50px;
+	}
+	div.span2 {
+		padding-bottom: 30px;
+	}
+	</style>
 
 
     <div class="container">
@@ -11,13 +19,33 @@
       
       <div class="row">
       	<div class="span6">
-      		#{list items:accessories, as:'accessory'}
-      		<div class="accessory">
-    			<a href="#"><img height="100" width="100" src="@{Application.getAccessory(accessory.id)}"/></a>
-      			*{<div class="span1">${accessory.articleName} by ${accessory.provider.name}</div>
-      		</div>
+      		#{list items:useraccessories, as:'accessory'}
+      			<div class="span2">
+      				<a href="#"><img height="100" width="100" src="@{Application.getAccessory(accessory.id)}"/></a>
+      				${accessory.articleName}  by  ${accessory.provider.name}
+      			</div>
       		#{/list}
       	</div>
+      	<div class="span6">
+      	    #{list items: userpics, as:'pic'}
+      	    	<div class="span6">
+      	    		<a href="#"><img height="15000" width="15000" src="@{Application.getPic(pic.id)}"/></a>
+      	    		${pic.name}
+      	    		
+      	    	</div>      	
+      		#{/list}
+      	
+      	
+      	</div>
+      
+      
+      
+      
+      
+      
+      
+      
+      	
       </div>
 
     </div> <!-- /container -->

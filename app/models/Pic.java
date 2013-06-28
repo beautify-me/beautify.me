@@ -20,7 +20,7 @@ public class Pic extends Model {
 	 @ElementCollection
 	 public User user;
 	 
-	 String name;
+	 public String name;
 	 
 	 public Pic(boolean isPrivate, Blob image, String name){
 		 this.isPrivate = isPrivate;
