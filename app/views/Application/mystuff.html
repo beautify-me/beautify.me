@@ -16,7 +16,6 @@
         <h3>My stuff</h3>
       </div>
       
-      
       <div class="row">
       	<div class="span6">
       		#{list items:useraccessories, as:'accessory'}
@@ -26,6 +25,7 @@
       			</div>
       		#{/list}
       	</div>
+      	<form action="@{Application.shareOnNetwork()}" method="GET">
       	<div class="span6">
       	    #{list items: userpics, as:'pic'}
       	    	<div class="span6">
@@ -37,6 +37,7 @@
       	
       	
       	</div>
+      	</form>
       
       
       
