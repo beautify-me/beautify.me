@@ -46,11 +46,11 @@ public class User extends Model {
 	
 	@ManyToMany
 	@ElementCollection
-	public Map<Long, Accessory> myAccesories;
+	public Map<Long, Accessory> myAccesories = new HashMap<Long, Accessory>();
 	
 	@OneToMany
 	@ElementCollection
-	public Map<Long, Pic> myPics;
+	public Map<Long, Pic> myPics = new HashMap<Long, Pic>();
 	
 	//@ElementCollection
 	//public Map<String, Pic> myPics;
@@ -63,10 +63,7 @@ public class User extends Model {
 	public User(String email, String password){
 		this.email = email;
 		this.passwordHash = Security.getHashForPassword(password);
-		
-		//TODO get list from database
-		myAccesories = new HashMap<Long, Accessory>();
-		myPics = new HashMap<Long, Pic>();
+
 	}
 	
 	public User(String email, String password, String lastName, String name, boolean isAdmin) {
@@ -76,10 +73,7 @@ public class User extends Model {
 		this.name = name;
 		this.isAdmin = isAdmin;
 		this.userName = userName;
-		
-		//TODO get list from database
-		myAccesories = new HashMap<Long, Accessory>();
-		myPics = new HashMap<Long, Pic>();
+
 	}
 	
 	public User(String email, String password, String userName, boolean isAdmin){
@@ -87,10 +81,7 @@ public class User extends Model {
 		this.passwordHash = Security.getHashForPassword(password);
 		this.userName = userName;
 		this.isAdmin = isAdmin;
-		
-		//TODO get list from database
-		myAccesories = new HashMap<Long, Accessory>();
-		myPics = new HashMap<Long, Pic>();
+
 	}
 	 
 	public static User connect (String email, String password){

@@ -32,7 +32,7 @@ public class Accessory extends Model {
 	
 	@ManyToMany
 	@ElementCollection
-	public Map<Long, User> myUsers;
+	public Map<Long, User> myUsers = new HashMap<Long, User>();;
 
 	public Accessory(String name, int type, int gender, Blob image, Provider provider) {
 		this.articleName = name;
@@ -40,7 +40,7 @@ public class Accessory extends Model {
 		this.gender = gender;
 		this.image = image;
 		this.provider = provider;
-		myUsers = new HashMap<Long, User>();
+		
 	}
 	
 	public void addToMyUsers(User user){
