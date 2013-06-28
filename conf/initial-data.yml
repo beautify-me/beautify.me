@@ -368,4 +368,11 @@ Accessory(hat60):
     articleName: Red-round-hat
     gender: 1
     type: 12
-    provider: newyorker    
+    provider: newyorker
+    
+Pic(pic1):
+name: Girl
+
+
+Pic(pic2):
+name: Girl

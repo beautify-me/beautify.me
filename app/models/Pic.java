@@ -1,6 +1,11 @@
 package models;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 
 import play.data.validation.Required;
 import play.db.jpa.Blob;
@@ -9,5 +14,18 @@ import play.db.jpa.Model;
 public class Pic extends Model {
 	@Required
 	public boolean isPrivate;
-	 public Blob image; 
+	public Blob image;
+	 
+	 @ManyToOne
+	 @ElementCollection
+	 public User user;
+	 
+	 String name;
+	 
+	 public Pic(boolean isPrivate, Blob image, String name){
+		 this.isPrivate = isPrivate;
+		 this.image = image;
+		 this.name = name;
+	 }
+
 }

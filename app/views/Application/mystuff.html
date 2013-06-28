@@ -7,6 +7,19 @@
       <div class="page-header">
         <h3>My stuff</h3>
       </div>
+      
+      
+      <div class="row">
+      	<div class="span6">
+      		#{list items:accessories, as:'accessory'}
+      		<div class="accessory">
+    			<a href="#"><img height="100" width="100" src="@{Application.getAccessory(accessory.id)}"/></a>
+      			*{<div class="span1">${accessory.articleName} by ${accessory.provider.name}</div>
+      		</div>
+      		#{/list}
+      	</div>
+      </div>
+
     </div> <!-- /container -->
 
  

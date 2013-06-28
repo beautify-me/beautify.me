@@ -13,6 +13,8 @@ import ugot.recaptcha.Recaptcha;
 
 import java.util.*;
 
+import com.mysql.jdbc.Constants;
+
 import models.*;
 import controllers.*;
 
@@ -41,11 +43,11 @@ public class Application extends Controller {
    
     public static void accessories() {
         List<Accessory> accessories = Accessory.findAll();
-        Collections.shuffle(accessories); // shuffle for dummy display to be suffled
+        Collections.shuffle(accessories); // shuffle for dummy display to be shuffled
          render(accessories);
     }
     
-    public static void getPic(long id) {
+    public static void getAccessory(Long id) {
     	Accessory a = Accessory.findById(id);
     	/*Pic im = a.image;
     	response.setContentTypeIfNotSet(im.image.type());
@@ -54,12 +56,24 @@ public class Application extends Controller {
     	response.setContentTypeIfNotSet(image.type());
     	renderBinary(image.get());
     }
+    
+    public static void getPic(Long id) {
+    	Pic p = Pic.findById(id);
+    	Blob image = p.image;
+    	response.setContentTypeIfNotSet(image.type());
+    	renderBinary(image.get());
+    }
        
     public static void top() {
     	render();
     }
     public static void mystuff() {
-        render();
+//    	User user = User.findById(params.get("id"));
+//    	Map<Long, Pic> userpics = user.myPics;
+//    	Map<Long, Accessory> useraccessories = user.myAccesories;
+    	List<Pic> userpics = Pic.findAll();
+    	List<Accessory> useraccessories = Accessory.findAll();
+        render(userpics, useraccessories);
     }
     public static void termsofuse() {
         render();
@@ -79,6 +93,13 @@ public class Application extends Controller {
         Mails mail = new Mails();
         mail.message(address, message);
         render();
+    }
+    
+    public static void addFavorite(User user, Accessory accessory){
+    	User currentUser = User.findById(user.id);
+    	Accessory currentAccessory = Accessory.findById(accessory.id);
+    	currentUser.addToMyAccesories(currentAccessory);
+    	currentAccessory.addToMyUsers(currentUser);
     }
     
    

@@ -1,5 +1,8 @@
 package models;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.persistence.*;
 
 import play.db.jpa.*;
@@ -26,6 +29,10 @@ public class Accessory extends Model {
 	
 	@ManyToOne
 	public Provider provider;
+	
+	@ManyToMany
+	@ElementCollection
+	public Map<Long, User> myUsers;
 
 	public Accessory(String name, int type, int gender, Blob image, Provider provider) {
 		this.articleName = name;
@@ -33,5 +40,15 @@ public class Accessory extends Model {
 		this.gender = gender;
 		this.image = image;
 		this.provider = provider;
+		myUsers = new HashMap<Long, User>();
+	}
+	
+	public void addToMyUsers(User user){
+		myUsers.put(user.id, user);
+		
+	}
+	
+	public void removeFromMyUsers(User user){
+		myUsers.remove(user.id);
 	}
 }
