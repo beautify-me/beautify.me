@@ -102,5 +102,7 @@ public class Application extends Controller {
     	currentAccessory.addToMyUsers(currentUser);
     }
     
-   
+    public void shareOnNetwork(){
+    	
+    }
 }

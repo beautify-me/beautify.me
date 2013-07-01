@@ -31,7 +31,10 @@
       	    	<div class="span6">
       	    		<a href="#"><img height="15000" width="15000" src="@{Application.getPic(pic.id)}"/></a>
       	    		${pic.name}
-      	    		
+      	    	<!-- <input id="pic" type="image" src="@{Application.getPic(pic.id)}" value="${params.picture}"/>  -->
+					<input id="googlebutton" type="image" src="@{'/public/images/google.png'}" value="${params.button}"/>
+      	    		<input id="facebookbutton" type="image" src="@{'/public/images/facebook.png'}" value="${params.button}"/>
+      	    		<input id="twitterbutton" type="image" src="@{'/public/images/twitter.png'}" value="${params.button}"/>
       	    	</div>      	
       		#{/list}
       	
