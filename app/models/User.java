@@ -5,8 +5,7 @@ import java.util.List;
 import models.*;
 import controllers.*;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
 import java.util.Set;
 
 import javax.persistence.ElementCollection;
@@ -46,11 +45,11 @@ public class User extends Model {
 	
 	@ManyToMany
 	@ElementCollection
-	public Map<Long, Accessory> myAccesories = new HashMap<Long, Accessory>();
+	public List<Accessory> myAccesories = new ArrayList<Accessory>();
 	
 	@OneToMany
 	@ElementCollection
-	public Map<Long, Pic> myPics = new HashMap<Long, Pic>();
+	public List<Pic> myPics = new ArrayList<Pic>();
 	
 	//@ElementCollection
 	//public Map<String, Pic> myPics;
@@ -93,19 +92,19 @@ public class User extends Model {
 	}
 	
 	public void addToMyAccesories(Accessory accessory){
-		myAccesories.put(accessory.id, accessory);
+		myAccesories.add(accessory);
 	}
 	
 	public void removeFromMyAccessories(Accessory accessory){
-		myAccesories.remove(accessory.id);
+		myAccesories.remove(accessory);
 	}
 	
 	public void addPic(Pic pic){
-		myPics.put(pic.id, pic);
+		myPics.add(pic);
 	}
 	
 	public void removePic(Pic pic){
-		myPics.remove(pic.id);
+		myPics.remove(pic);
 	}
 	
 	
