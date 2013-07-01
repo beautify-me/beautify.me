@@ -1,6 +1,8 @@
 package models;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.persistence.*;
@@ -30,9 +32,8 @@ public class Accessory extends Model {
 	@ManyToOne
 	public Provider provider;
 	
-	@ManyToMany
-	@ElementCollection
-	public Map<Long, User> myUsers = new HashMap<Long, User>();;
+	@OneToMany
+	public List<User> myUsers = new ArrayList<User>();;
 
 	public Accessory(String name, int type, int gender, Blob image, Provider provider) {
 		this.articleName = name;
@@ -43,12 +44,12 @@ public class Accessory extends Model {
 		
 	}
 	
-	public void addToMyUsers(User user){
-		myUsers.put(user.id, user);
+	public void addToMyUsers(User user){	
+		myUsers.add(user);
 		
 	}
 	
 	public void removeFromMyUsers(User user){
-		myUsers.remove(user.id);
+		myUsers.remove(user);
 	}
 }

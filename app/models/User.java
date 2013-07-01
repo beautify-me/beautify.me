@@ -5,6 +5,7 @@ import java.util.List;
 import models.*;
 import controllers.*;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
@@ -44,21 +45,11 @@ public class User extends Model {
 	
 	public String avatarUrl;
 	
-	@ManyToMany
-	@ElementCollection
-	public Map<Long, Accessory> myAccesories = new HashMap<Long, Accessory>();
+	@OneToMany
+	public List<Accessory> myAccesories = new ArrayList<Accessory>();
 	
 	@OneToMany
-	@ElementCollection
-	public Map<Long, Pic> myPics = new HashMap<Long, Pic>();
-	
-	//@ElementCollection
-	//public Map<String, Pic> myPics;
-	
-	//facebook
-	//gplus
-	//twitter
-	//openid
+	public List<Pic> myPics = new ArrayList<Pic>();
 	
 	public User(String email, String password){
 		this.email = email;
@@ -72,8 +63,6 @@ public class User extends Model {
 		this.lastName = lastName;
 		this.name = name;
 		this.isAdmin = isAdmin;
-		this.userName = userName;
-
 	}
 	
 	public User(String email, String password, String userName, boolean isAdmin){
@@ -93,19 +82,19 @@ public class User extends Model {
 	}
 	
 	public void addToMyAccesories(Accessory accessory){
-		myAccesories.put(accessory.id, accessory);
+		myAccesories.add(accessory);
 	}
 	
 	public void removeFromMyAccessories(Accessory accessory){
-		myAccesories.remove(accessory.id);
+		myAccesories.remove(accessory);
 	}
 	
 	public void addPic(Pic pic){
-		myPics.put(pic.id, pic);
+		myPics.add(pic);
 	}
 	
 	public void removePic(Pic pic){
-		myPics.remove(pic.id);
+		myPics.remove(pic);
 	}
 	
 	

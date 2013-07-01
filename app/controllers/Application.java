@@ -64,9 +64,28 @@ public class Application extends Controller {
     	renderBinary(image.get());
     }
        
-    public static void top() {
-    	render();
-    }
+  /*  public static void top(){
+    	List<User> users= User.findAll();
+    	Map<Accessory, Integer> allAccessories = new HashMap<Accessory,Integer>();
+    	
+    	for (Iterator iterator = users.iterator(); iterator.hasNext();) {
+	    	User user = (User) iterator.next();
+	    	List<Accessory> userAccessories = user.myAccesories;
+	    	for (Iterator iterator2 = userAccessories.iterator(); iterator2.hasNext();) {
+		    	Accessory accessory = (Accessory) iterator2.next();
+		    	if(allAccessories.containsKey(accessory)){
+		    		int value = allAccessories.get(accessory);
+		    		allAccessories.put(accessory, value++);
+		    	}
+		    	else
+		    	{
+		    		allAccessories.put(accessory, 1);
+		    	}
+	    	}
+	    }
+    }*/
+    
+    
     public static void mystuff() {
 //    	User user = User.findById(params.get("id"));
 //    	Map<Long, Pic> userpics = user.myPics;
@@ -95,11 +114,13 @@ public class Application extends Controller {
         render();
     }
     
-    public static void addFavorite(User user, Accessory accessory){
-    	User currentUser = User.findById(user.id);
-    	Accessory currentAccessory = Accessory.findById(accessory.id);
+    public static void addFavorite(Long accessoryID){
+    	User currentUser = getUser(); 
+    	Accessory currentAccessory = Accessory.findById(accessoryID);
     	currentUser.addToMyAccesories(currentAccessory);
     	currentAccessory.addToMyUsers(currentUser);
+    	currentAccessory.save();
+    	currentUser.save();
     }
     
    
