@@ -1,6 +1,13 @@
 package controllers;
 
-import play.*;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
+
+import models.Accessory;
+import models.User;
+import play.Logger;
+import play.Play;
 import play.data.validation.Email;
 import play.data.validation.Equals;
 import play.data.validation.IsTrue;
@@ -8,15 +15,46 @@ import play.data.validation.MinSize;
 import play.data.validation.Required;
 import play.data.validation.Validation;
 import play.db.jpa.Blob;
-import play.mvc.*;
+import play.i18n.Messages;
+import play.libs.OAuth;
+import play.mvc.Controller;
+import securesocial.provider.AuthenticationMethod;
+import securesocial.provider.IdentityProvider;
+import securesocial.provider.OAuth1Provider;
+import securesocial.provider.OpenIDOAuthHybridProvider;
+import securesocial.provider.ProviderRegistry;
+import securesocial.provider.ProviderType;
+import securesocial.provider.UserId;
+import securesocial.provider.UserService;
 import ugot.recaptcha.Recaptcha;
 
-import java.util.*;
-
-import models.*;
-import controllers.*;
 
 public class Application extends Controller {
+	
+	/**--------------------------------------
+	 * Attributes for secure social
+	 ----------------------------------------*/
+
+    private static final String USER_COOKIE = "securesocial_user";
+    private static final String NETWORK_COOKIE = "securesocial_network";
+    private static final String ORIGINAL_URL = "originalUrl";
+    private static final String GET = "GET";
+    private static final String ROOT = "/";
+    static final String USER = "user";
+    private static final String ERROR = "error";
+    private static final String SECURESOCIAL_AUTH_ERROR = "securesocial.authError";
+    private static final String SECURESOCIAL_LOGIN_REDIRECT = "securesocial.login.redirect";
+    private static final String SECURESOCIAL_LOGOUT_REDIRECT = "securesocial.logout.redirect";
+    private static final String SECURESOCIAL_SECURE_SOCIAL_LOGIN = "Application.login";
+
+    // Strings used from multiple places
+    public static final String USERNAME = "username";
+    public static final String EMAIL = "email";
+    public static final String UUID = "uuid";
+    public static final String NEW_PASSWORD = "newPassword";
+    public static final String CONFIRM_PASSWORD = "confirmPassword";
+    public static final String CURRENT_PASSWORD = "currentPassword";
+
 
     public static void index() {
       	render();
@@ -56,115 +94,202 @@ public class Application extends Controller {
         render();
     }
 
-    public static void registration(){
-		render();
-	}
-    
-    public static void signin(){
-    	render();
+      
+    /**
+     * Checks if there is a user logged in and redirects to the login page if not.
+     */
+    //@Before//(unless={"login", "authenticate", "authByPost", "logout"})
+    static void checkAccess() throws Throwable
+    {
+        final UserId userId = getUserId();
+        if ( userId == null ) {
+            final String originalUrl = request.method.equals(GET) ? request.url : ROOT;
+            flash.put(ORIGINAL_URL, originalUrl);
+            //login();
+        } else {
+            final User user = loadCurrentUser(userId);
+            if ( user == null ) {
+               // the user had the cookies but the UserService can't find it ...
+               // it must have been erased, redirect to login again.
+               clearUserId();
+               //login();
+           }
+        }
     }
-	
-	public static void pending() {
-		render();
-	}
-    public static void contact(String address, String message) {  
-        Mails mail = new Mails();
-        mail.message(address, message);
-        render();
+
+    static User loadCurrentUser() {
+        UserId id = getUserId();
+        final User user = id != null ? loadCurrentUser(id) : null;
+        return user;
     }
-    
+
+    private static User loadCurrentUser(UserId userId) {
+        User user = UserService.find(userId);
+
+        if ( user != null ) {
+            // if the user is using OAUTH1 or OPENID HYBRID OAUTH set the ServiceInfo
+            // so the app using this module can access it easily to invoke the APIs.
+            if ( user.authMethod == AuthenticationMethod.OAUTH1 || user.authMethod == AuthenticationMethod.OPENID_OAUTH_HYBRID ) {
+                final OAuth.ServiceInfo sinfo;
+                IdentityProvider provider = ProviderRegistry.get(user.id.provider);
+                if ( user.authMethod == AuthenticationMethod.OAUTH1 ) {
+                    sinfo = ((OAuth1Provider)provider).getServiceInfo();
+                } else {
+                    sinfo = ((OpenIDOAuthHybridProvider)provider).getServiceInfo();
+                }
+                user.serviceInfo = sinfo;
+            }
+            // make the user available in templates
+            renderArgs.put(USER, user);
+        }
+        return user;
+    }
+
+    /**
+     * Returns the current user. This method can be called from secured and non-secured controllers giving you the
+     * chance to retrieve the logged in user if there is one.
+     *
+     * @return User the current user or null if no user is logged in.
+     */
+    public static User getCurrentUser() {
+        // first, try to get it from the renderArgs since it should be there on secured controllers.
+        User currentUser =  (User) renderArgs.get(USER);
+
+        if ( currentUser == null  ) {
+            // the call is being made from an unsecured controller
+            // try to provide a current user if there is one in the session
+            currentUser = loadCurrentUser();
+        }
+        return currentUser;
+    }
+
+    /**
+     * Returns true if there is a user logged in or false otherwise.
+     * @return a boolean
+     */
+    public static boolean isUserLoggedIn() {
+        return getUserId() != null;
+    }
+
+    /*
+     * Removes the SecureSocial cookies from the session.
+     */
+    private static void clearUserId() {
+        session.remove(USER_COOKIE);
+        session.remove(NETWORK_COOKIE);
+    }
+
+    /*
+     * Sets the SecureSocial cookies in the session.
+     */
+    private static void setUserId(User user) {
+        session.put(USER_COOKIE, user.id.id);
+        session.put(NETWORK_COOKIE, user.id.provider.toString());
+    }
+
+    /*
+     * Creates a UserId object from the values stored in the session.
+     *
+     * @see UserId
+     * @returns  UserId the user id
+     */
+    private static UserId getUserId() {
+        final String userId = session.get(USER_COOKIE);
+        final String networkId = session.get(NETWORK_COOKIE);
+        UserId id = null;
+
+        if ( userId != null && networkId != null ) {
+            id = new UserId();
+            id.id = userId;
+            id.provider = ProviderType.valueOf(networkId);
+        }
+        return id;
+    }
+
+    /**
+     * The action for the login page.
+     */
     public static void login() {
-		render();
-	}
-	
-	
-	public static void registrationFinish(
-		@Required @MinSize(6) String username,
-		@Required String firstname, 
-		@Required String lastname,
-        Integer age,
-        @Required @MinSize(6) String password,
-        @Required @MinSize(6) @Equals("password") String passwordConfirm,
-        @Required @Email String email,
-        @Required @Email @Equals("email") String emailConfirm,
-        @IsTrue boolean termsOfUse,
-        @Recaptcha String captcha) {
-				
-		if (Validation.hasErrors()) {
-			flash.error("registration.error");
-			//Validation.keep();
-			//params.flash();
-			//registration();
-			render("@registration");
-		} else {
-			// Valid Registration
-			User user = new User(email, password, username, false);
-			try {
-				user.save();
-				Mails.message(user.email, "welcome to beautify.me");
-				System.out.println("USER_ID " + user.getId());
-				session.put("userID", user.getId());
-				render();
-			} catch (Exception e) {
-                // User already exists
-                flash.error("registration.user_exists");
-                render(user);
-                
-			}
-		}
-		
-		}
-	
-	public static void confirm(String code) {
-		System.out.println(code);
-		login();
-	}
-	
-	public static void signinFinish(
-			@Required @Email String email,
-			@Required @MinSize(6) String password){
-		
-		if (Validation.hasErrors())
-		{
-			flash.error("registration.error");
-			render("@signin");
-		} else {
-			try {
-				if (Security.authenticate(email, password)) {
-					//user exists -> log in
-					System.out.println("user exists");
-					User user = User.getUserByEmail(email);
-					session.put("userID", user.getId());
-					render();
-				} else {
-					//user does not exist -> error
-					System.out.println("user does not exist");
-					render("@signin");
-				}
-			} catch (Exception e) {
-				flash.error("authentication.error");
-				render();
-			}
-	    }
-		
-		
-	}
-	
-	public static void lostPassword(@Required @Email String email_forgot_pw){
-		boolean hasErrors = true;
-		hasErrors = validation.hasErrors();
-		
-		if (hasErrors) {
-			flash.error("email.error");
-			render("@signin");
-		} else {
-		
-			if (User.getUserByEmail(email_forgot_pw) != null) {
-				User user = User.getUserByEmail(email_forgot_pw);
-				String newPassword = Users.createNewPassword(user);
-				Mails.message(user.email, newPassword);
-				user.passwordHash = Security.getHashForPassword(newPassword);
-			}
-		}
-	}
+        final Collection providers = ProviderRegistry.all();
+        flash.keep(ORIGINAL_URL);
+        boolean userPassEnabled = ProviderRegistry.get(ProviderType.userpass) != null;
+        render(providers, userPassEnabled);
+
+    }
+
+    /**
+     * The logout action.
+     */
+    public static void logout() {
+        clearUserId();
+        final String redirectTo = Play.configuration.getProperty(SECURESOCIAL_LOGOUT_REDIRECT, SECURESOCIAL_SECURE_SOCIAL_LOGIN);
+        redirect(redirectTo);
+    }
+
+    /**
+     * This is the entry point for all authentication requests from the login page.
+     * The type is used to invoke the right provider.
+     *
+     * @param type   The provider type as selected by the user in the login page
+     * @see ProviderType
+     * @see IdentityProvider
+     */
+    public static void authenticate(ProviderType type) {
+        doAuthenticate(type);
+    }
+
+    public static void authByPost(ProviderType type) {
+        doAuthenticate(type);
+    }
+
+    private static void doAuthenticate(ProviderType type) {
+        if ( type == null ) {
+            Logger.error("Provider type was missing in request");
+            // just throw a 404 error
+            notFound();
+        }
+        flash.keep(ORIGINAL_URL);
+
+        IdentityProvider provider = ProviderRegistry.get(type);
+        String originalUrl = null;
+
+        try {
+            User user = provider.authenticate();
+            setUserId(user);
+            originalUrl = flash.get(ORIGINAL_URL);
+        } catch ( Exception e ) {
+            e.printStackTrace();
+            Logger.error(e, "Error authenticating user");
+            if ( flash.get(ERROR) == null ) {
+                flash.error(Messages.get(SECURESOCIAL_AUTH_ERROR));
+            }
+            flash.keep(ORIGINAL_URL);
+            login();
+        }
+        final String redirectTo = Play.configuration.getProperty(SECURESOCIAL_LOGIN_REDIRECT, ROOT);
+        redirect( originalUrl != null ? originalUrl : redirectTo);
+    }
+
+    /**
+     * A helper class to integrate SecureSocial with the Deadbolt module.
+     *
+     * Basically the integration is done by calling SecureSocial.Deadbolt.beforeRoleCheck()
+     * within the DeadboltHandler.beforeRoleCheck implementation.
+     *
+     * Eg:
+     *
+     * public class MyDeadboltHandler extends Controller implements DeadboltHandler
+     * {
+     *      try {
+     *          SecureSocial.DeadboltHelper.beforeRoleCheck();
+     *      } catch ( Throwable t) {
+     *          // handle the exception in an application specific way
+     *      }
+     * }
+     */
+    public static class DeadboltHelper {
+        public static void beforeRoleCheck() throws Throwable {
+            checkAccess();
+        }
+    }
 }

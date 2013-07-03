@@ -1,4 +1,6 @@
 # Application dependencies
 
 require:
-    - play -> secure
+    - play
+    - play -> crud
+    - play -> recaptcha 1.3

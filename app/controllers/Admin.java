@@ -8,7 +8,7 @@ import java.util.*;
 import models.*;
 
 
-@With(Secure.class)
+//@With(Secure.class)
 public class Admin extends Controller{
 
 		public static void index(){

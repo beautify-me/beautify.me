@@ -1,102 +1,90 @@
 package models;
 
-import java.util.List;
+import play.db.jpa.Model;
+import play.libs.OAuth;
+import securesocial.provider.AuthenticationMethod;
+import securesocial.provider.UserId;
 
-import models.*;
-import controllers.*;
-import java.util.Map;
-import java.util.Set;
+import java.io.Serializable;
+import java.util.Date;
 
-import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 
-import play.Play;
-import play.data.validation.*;
-import ugot.recaptcha.Recaptcha;
+/**
+ * A class representing a conected user and its authentication details.
+ */
+public class User extends Model{
+    /**
+     * The user id
+     */
+    public UserId id;
 
-import play.db.jpa.Model;
+    /**
+     * The user first name.
+     */
+    public String name;
+    
+    /**
+     * The user last name
+     */
+    public String lastName;
 
-@Entity
-public class User extends Model {
-	
-	public String name;
-	
-	public String lastName;
-	
-	@Required @MinSize(6) 
-	public String userName;
-	
-	@Required @Password
-	public String passwordHash;
-	
-	@Required @Email 
-	public String email;
-	
-	@Range(min=12, max=120) 
-	public Integer age;
-	
-	public boolean isAdmin;
-	
-	public String avatarUrl;
-	
-	@ElementCollection
-	public Map<String, Accessory> myAccesories;
-	
-	//@ElementCollection
-	//public Map<String, Pic> myPics;
-	
-	//facebook
-	//gplus
-	//twitter
-	//openid
-	
-	public User(String email, String password){
-		this.email = email;
-		this.passwordHash = Security.getHashForPassword(password);
-	}
-	
-	public User(String email, String password, String lastName, String name, boolean isAdmin) {
-		this.email = email;
-		this.passwordHash = Security.getHashForPassword(password);
-		this.lastName = lastName;
-		this.name = name;
-		this.isAdmin = isAdmin;
-		this.userName = userName;
-	}
-	
-	public User(String email, String password, String userName, boolean isAdmin){
-		this.email = email;
-		this.passwordHash = Security.getHashForPassword(password);
-		this.userName = userName;
-		this.isAdmin = isAdmin;
-	}
-	 
-	public static User connect (String email, String password){
-		return find("byEmailAndPassword", email, password).first();
-	}
-	
-	public static List<User> listAdminUsers(){
-		List<User> users = User.find("select u from User u where u.isAdmin = true").fetch();
-		return users;
-	}
-	
-	public static User getUserByEmail(String email){
-		List <User> users = User.find("select u from User u where u.email = '" + email + "'").fetch();
-		User user = users.get(0);
-		return user;
-	}
-	
-	public static List<User> listUsers(){
-		List<User> users = User.find("select u from User where u.isAdmin = false").fetch();
-		return users;
-	}
-	
-	public String toString(){
-		return name + " " + lastName;
-	}
-	
-	
-	
-	
-		
+    /**
+     * The user gender
+     */
+    public String gender;
+    
+    /**
+     * The user's email
+     */
+    public String email;
+
+    /**
+     * A URL pointing to an avatar
+     */
+    public String avatarUrl;
+
+    /**
+     * The time of the last login.  This is set by the SecureSocial controller.
+     */
+    public Date lastAccess;
+
+    /**
+     * The method that was used to authenticate the user.
+     */
+    public AuthenticationMethod authMethod;
+
+    /**
+     * The service info required to make calls to the API for OAUTH1 users
+     * (available when authMethod is OAUTH1 or OPENID_OAUTH_HYBRID)
+     *
+     * Note: this value does not need to be persisted by UserService since it is set automatically
+     * in the SecureSocial Controller for each request that needs it.
+     */
+    public OAuth.ServiceInfo serviceInfo;
+
+    /**
+     * The OAuth1 token (available when authMethod is OAUTH1 or OPENID_OAUTH_HYBRID)
+     */
+    public String token;
+
+    /**
+     * The OAuth1 secret (available when authMethod is OAUTH1 or OPENID_OAUTH_HYBRID)
+     */
+    public String secret;
+
+    /**
+     * The OAuth2 access token (available when authMethod is OAUTH2)
+     */
+    public String accessToken;
+
+    /**
+     * The user password (available when authMethod is USER_PASSWORD)
+     */
+    public String password;
+
+    /**
+     * A boolean indicating if the user has validated his email adddress (available when authMethod is USER_PASSWORD)
+     */
+    public boolean isEmailVerified;
 }

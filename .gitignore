@@ -25,6 +25,8 @@
 *.log
 *.sql
 *.sqlite
+*.bak
+*.out
 
 # OS generated files #
 ######################
@@ -37,5 +39,7 @@ Icon?
 ehthumbs.db
 Thumbs.db
 
-tmp/
-eclipse/
+/tmp
+/eclipse
+/logs
+*.pid

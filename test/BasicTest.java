@@ -16,11 +16,10 @@ public class BasicTest extends UnitTest {
     @Test
     public void createAccessory() {
         Provider hm = new Provider("H&M", "hm.com").save();
-        Pic p = new Pic();
-    	Accessory accessory = new Accessory("Round shine hat", Accessory.TYPE_HAT,Accessory.FEMALE, p, hm).save();
-        
-  
-        
+        Blob p = new Blob();
+    	Accessory accessory = new Accessory("Round hat", Accessory.TYPE_HAT,Accessory.FEMALE, p, hm);
+        accessory.save();
+         
         // Test that the post has been created
         assertEquals(1, Accessory.count());
         
