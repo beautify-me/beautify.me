@@ -100,44 +100,22 @@ public class User extends Model{
      * A boolean indicating if the user has validated his email adddress (available when authMethod is USER_PASSWORD)
      */
     public boolean isEmailVerified;
+    
+	/**
+	 * A boolean indicating if the user is an administrator
+	 */
+	public boolean isAdmin = false;
 	
 	@Required
 	@ManyToMany(cascade = {CascadeType.ALL})
-    @JoinTable/**(name="USER_ACCESORY", 
-                joinColumns={@JoinColumn(name="id")}, 
-                inverseJoinColumns={@JoinColumn(name="id")})**/
+    @JoinTable
 	public List<Accessory> myAccesories = new ArrayList<Accessory>();
 	
 	@Required
 	@OneToMany
 	public List<Pic> myPics = new ArrayList<Pic>();
-
-	/**public User(String email, String password){
-		this.email = email;
-		this.passwordHash = Security.getHashForPassword(password);
-
-	}
 	
-	public User(String email, String password, String lastName, String name, boolean isAdmin) {
-		this.email = email;
-		this.passwordHash = Security.getHashForPassword(password);
-		this.lastName = lastName;
-		this.name = name;
-		this.isAdmin = isAdmin;
-	}
-	
-	public User(String email, String password, String userName, boolean isAdmin){
-		this.email = email;
-		this.passwordHash = Security.getHashForPassword(password);
-		this.userName = userName;
-		this.isAdmin = isAdmin;
 
-	}
-	 
-	public static User connect (String email, String password){
-		return find("byEmailAndPassword", email, password).first();
-	}**/
-		
 	public String toString(){
 		return idUser.id;
 	}

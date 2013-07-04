@@ -72,7 +72,7 @@ public class UsernamePasswordController extends Controller
     public static void createAccount(@Required(message = "securesocial.required") String userName,
                                      @Required String name,
                                      @Required String lastName,
-                                     @Required String gender,                                     
+                                     @Required String gender,
                                      @Required @Email(message = "securesocial.invalidEmail") String email,
                                      @Required String password,
                                      @Required @Equals(message = "securesocial.passwordsMustMatch", value = "password") String password2,
@@ -115,6 +115,61 @@ public class UsernamePasswordController extends Controller
         final String title = Messages.get(SECURESOCIAL_ACTIVATION_TITLE, user.name);
         render(SECURESOCIAL_SECURE_SOCIAL_NOTICE_PAGE_HTML, title);
     }
+    
+    /**
+     * Creates an admin account
+     *
+     * @param userName      The admin username
+     * @param name   		The admin's first name
+     * @param lastName   	The admin's last name
+     * @param email         The admin's email
+     * @param password      The password
+     * @param password2     The password verification
+     */
+    public static void createAdminAccount(@Required(message = "securesocial.required") String userName,
+                                     @Required String name,
+                                     @Required String lastName,
+                                     @Required @Email(message = "securesocial.invalidEmail") String email,
+                                     @Required String password,
+                                     @Required @Equals(message = "securesocial.passwordsMustMatch", value = "password") String password2
+    		) {
+        if ( validation.hasErrors() ) {
+            tryAgain(userName, name, lastName, email);
+        }
+        UserId id = new UserId();
+        id.id = userName;
+        id.provider = ProviderType.userpass;
+
+        if ( UserService.find(id) != null ) {
+            validation.addError(USER_NAME, Messages.get(SECURESOCIAL_USER_NAME_TAKEN));
+            tryAgain(userName, name,lastName,  email);
+        }
+        User user = new User();
+        user.idUser = id;
+        user.name = name;
+        user.lastName = lastName;
+        user.email = email;
+        user.password = SecureSocialPasswordHasher.passwordHash(password);
+        // the user is automatically active
+        user.isEmailVerified = true;
+        user.isAdmin = true;
+        user.authMethod = AuthenticationMethod.USER_PASSWORD;
+
+        try {
+            UserService.save(user);
+        } catch ( Throwable e ) {
+            Logger.error(e, "Error while invoking UserService.save()");
+            flash.error(Messages.get(SECURESOCIAL_ERROR_CREATING_ACCOUNT));
+            tryAgain(userName, name,lastName,  email);
+        }
+
+        // create an activation id
+        UserService.activate(UserService.createActivation(user));
+        flash.success(Messages.get(SECURESOCIAL_ACCOUNT_CREATED));
+        final String title = Messages.get(SECURESOCIAL_ACTIVATION_TITLE, user.name);
+        render(SECURESOCIAL_SECURE_SOCIAL_NOTICE_PAGE_HTML, title);
+    }
+    
 
     private static void tryAgain(String username, String displayName, String displayLastName, String email) {
         flash.put(USER_NAME, username);
