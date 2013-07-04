@@ -5,18 +5,20 @@
         <ul class="navigation left">
             <li><a href="/">Start</a></li>
             <li><a href="@{Application.accessories}">Accessories </a></li>
-            <li><a href="@{Application.top}">Top20</a></li>
+        #{if session.securesocial_user}
+            <li><a href="@{Application.top}">Top</a></li>
             <li><a href="@{Application.mystuff}">MyStuff</a></li>
+        #{/if}
         </ul>
 
         <ul class="navigation right">
-        #{if user}
-            <li><a href="@{Application.me}">Logged in as ${user}</a></li>
-            <li><a href="@{Registration.signout}">Logout</a></li>
+        #{if session.securesocial_user}
+            <li><a href="">Logged in as ${session.securesocial_user}</a></li>
+            <li><a href="@{Application.logout}">Logout</a></li>
         #{/if}
         #{else}
-            <li><a href="@{Registration.signin}">Sign In</a></li>
-            <li><a href="@{Registration.registration}">Register</a></li>
+            <li><a href="@{Application.login}">Sign In</a></li>
+            <li><a href="@{UsernamePasswordController.signup}">Sign up</a></li>
         #{/else}
         </ul>
     </div>
