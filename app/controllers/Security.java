@@ -9,6 +9,8 @@ import controllers.Secure;
 
 public class Security extends Secure.Security {
 	
+	
+	
 	static boolean authenticate (String username, String password){
 		User user = User.find("byEmail", username).first();
 		return user != null && user.passwordHash.equals(getHashForPassword(password));
@@ -43,6 +45,37 @@ public class Security extends Secure.Security {
 			}
 		return hashPassword;
 	}
+	   /**
+     * This method is called after a successful authentication.
+     * You need to override this method if you with to perform specific actions (eg. Record the time the user signed in)
+     */
+    static void onAuthenticated() {
+		//session.put("USER_ID", user.id);
+		Application.setConnectedUser();
+		try {
+			Secure.redirectToOriginalURL();
+		} catch (Throwable e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			Application.index();
+		}
+    }
+
+
+     /**
+     * This method is called after a successful sign off.
+     * You need to override this method if you wish to perform specific actions (eg. Record the time the user signed off)
+     */
+    static void onDisconnected() {
+		Application.setConnectedUser();
+		try {
+			Secure.redirectToOriginalURL();
+		} catch (Throwable e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			Application.index();
+		}
+    }
 
 
 }

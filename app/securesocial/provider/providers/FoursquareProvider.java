@@ -71,7 +71,7 @@ public class FoursquareProvider extends OAuth2Provider {
             throw new AuthenticationException();
         }
 
-        user.id.id = userInfo.get(ID).getAsString();
+        user.idUser.id = userInfo.get(ID).getAsString();
         user.name = userInfo.get(FIRST_NAME).getAsString();
         final JsonElement lastName = userInfo.get(LAST_NAME);
         if ( lastName != null ) {

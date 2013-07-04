@@ -64,7 +64,7 @@ public class Mails extends Mailer {
 		setFrom(Play.configuration.getProperty(SECURESOCIAL_MAILER_FROM));
 		addRecipient(user.email);
 		Map<String, Object> args = new HashMap<String, Object>();
-		args.put(USERNAME, user.id.id);
+		args.put(USERNAME, user.idUser.id);
 		args.put(UUID, uuid);
 		String activationUrl = Router.getFullUrl(
 				SECURESOCIAL_RESET_PASSWORD_CONTROLLER_CHANGE, args);

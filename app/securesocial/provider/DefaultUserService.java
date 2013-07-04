@@ -57,7 +57,7 @@ public class DefaultUserService implements UserServiceDelegate {
     }
 
     public void save(User user) {
-        users.put(user.id.id + user.id.provider.toString(), user);
+        users.put(user.idUser.id + user.idUser.provider.toString(), user);
     }
 
     public String createActivation(User user) {
@@ -93,7 +93,7 @@ public class DefaultUserService implements UserServiceDelegate {
         }
 
         User socialUser = resetRequests.get(uuid);
-        if (socialUser.id.id.equals(username)) {
+        if (socialUser.idUser.id.equals(username)) {
             return socialUser;
         }
 

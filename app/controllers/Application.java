@@ -2,9 +2,13 @@ package controllers;
 
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import models.Accessory;
+import models.Pic;
 import models.User;
 import play.Logger;
 import play.Play;
@@ -26,7 +30,6 @@ import securesocial.provider.ProviderRegistry;
 import securesocial.provider.ProviderType;
 import securesocial.provider.UserId;
 import securesocial.provider.UserService;
-import ugot.recaptcha.Recaptcha;
 
 
 public class Application extends Controller {
@@ -55,19 +58,17 @@ public class Application extends Controller {
     public static final String CONFIRM_PASSWORD = "confirmPassword";
     public static final String CURRENT_PASSWORD = "currentPassword";
 
-
     public static void index() {
       	render();
     }
-    
-    
+   
     public static void accessories() {
         List<Accessory> accessories = Accessory.findAll();
-        Collections.shuffle(accessories); // shuffle for dummy display to be suffled
+        Collections.shuffle(accessories); // shuffle for dummy display to be shuffled
          render(accessories);
     }
     
-    public static void getPic(long id) {
+    public static void getAccessory(Long id) {
     	Accessory a = Accessory.findById(id);
     	/*Pic im = a.image;
     	response.setContentTypeIfNotSet(im.image.type());
@@ -77,12 +78,43 @@ public class Application extends Controller {
     	renderBinary(image.get());
     }
     
-    
-    public static void top() {
+    public static void getPic(Long id) {
+    	Pic p = Pic.findById(id);
+    	Blob image = p.image;
+    	response.setContentTypeIfNotSet(image.type());
+    	renderBinary(image.get());
+    }
+       
+    public static void top(){
+    	List<User> users= User.findAll();
+    	Map<Accessory, Integer> allAccessories = new HashMap<Accessory,Integer>();
+    	
+    	for (Iterator iterator = users.iterator(); iterator.hasNext();) {
+	    	User user = (User) iterator.next();
+	    	List<Accessory> userAccessories = user.myAccesories;
+	    	for (Iterator iterator2 = userAccessories.iterator(); iterator2.hasNext();) {
+		    	Accessory accessory = (Accessory) iterator2.next();
+		    	if(allAccessories.containsKey(accessory)){
+		    		int value = allAccessories.get(accessory);
+		    		allAccessories.put(accessory, value++);
+		    	}
+		    	else
+		    	{
+		    		allAccessories.put(accessory, 1);
+		    	}
+	    	}
+	    }
     	render();
     }
+    
+    
     public static void mystuff() {
-        render();
+//    	User user = User.findById(params.get("id"));
+//    	Map<Long, Pic> userpics = user.myPics;
+//    	Map<Long, Accessory> useraccessories = user.myAccesories;
+    	List<Pic> userpics = Pic.findAll();
+    	List<Accessory> useraccessories = Accessory.findAll();
+        render(userpics, useraccessories);
     }
     public static void termsofuse() {
         render();
@@ -93,7 +125,6 @@ public class Application extends Controller {
     public static void about() {
         render();
     }
-
       
     /**
      * Checks if there is a user logged in and redirects to the login page if not.
@@ -116,6 +147,11 @@ public class Application extends Controller {
            }
         }
     }
+    
+    public static void shareOnNetwork()
+    {
+    	
+    }
 
     static User loadCurrentUser() {
         UserId id = getUserId();
@@ -131,7 +167,7 @@ public class Application extends Controller {
             // so the app using this module can access it easily to invoke the APIs.
             if ( user.authMethod == AuthenticationMethod.OAUTH1 || user.authMethod == AuthenticationMethod.OPENID_OAUTH_HYBRID ) {
                 final OAuth.ServiceInfo sinfo;
-                IdentityProvider provider = ProviderRegistry.get(user.id.provider);
+                IdentityProvider provider = ProviderRegistry.get(user.idUser.provider);
                 if ( user.authMethod == AuthenticationMethod.OAUTH1 ) {
                     sinfo = ((OAuth1Provider)provider).getServiceInfo();
                 } else {
@@ -183,8 +219,8 @@ public class Application extends Controller {
      * Sets the SecureSocial cookies in the session.
      */
     private static void setUserId(User user) {
-        session.put(USER_COOKIE, user.id.id);
-        session.put(NETWORK_COOKIE, user.id.provider.toString());
+        session.put(USER_COOKIE, user.idUser.id);
+        session.put(NETWORK_COOKIE, user.idUser.provider.toString());
     }
 
     /*
@@ -292,4 +328,23 @@ public class Application extends Controller {
             checkAccess();
         }
     }
+
+
+    public static void me() {
+        render("@user");
+    }
+	
+    public static void contact(String address, String message) {  
+        Mails mail = new Mails();
+        mail.message(address, message);
+        render();
+    }
+    
+    public static void addFavorite(Long accessoryID){
+    	User currentUser = getCurrentUser(); 
+    	Accessory currentAccessory = Accessory.findById(accessoryID);
+    	currentUser.addToMyAccesories(currentAccessory);
+    	currentUser.save();
+    }
+    
 }

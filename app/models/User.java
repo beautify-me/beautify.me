@@ -1,5 +1,6 @@
 package models;
 
+import play.data.validation.Required;
 import play.db.jpa.Model;
 import play.libs.OAuth;
 import securesocial.provider.AuthenticationMethod;
@@ -8,16 +9,27 @@ import securesocial.provider.UserId;
 import java.io.Serializable;
 import java.util.Date;
 
-import javax.persistence.Entity;
+import models.*;
+import controllers.*;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import javax.persistence.*;
 
 /**
  * A class representing a conected user and its authentication details.
  */
+@Entity
 public class User extends Model{
+	
     /**
      * The user id
      */
-    public UserId id;
+    public UserId idUser;
 
     /**
      * The user first name.
@@ -61,6 +73,7 @@ public class User extends Model{
      * Note: this value does not need to be persisted by UserService since it is set automatically
      * in the SecureSocial Controller for each request that needs it.
      */
+    @Transient
     public OAuth.ServiceInfo serviceInfo;
 
     /**
@@ -87,4 +100,61 @@ public class User extends Model{
      * A boolean indicating if the user has validated his email adddress (available when authMethod is USER_PASSWORD)
      */
     public boolean isEmailVerified;
+	
+	@Required
+	@ManyToMany(cascade = {CascadeType.ALL})
+    @JoinTable/**(name="USER_ACCESORY", 
+                joinColumns={@JoinColumn(name="id")}, 
+                inverseJoinColumns={@JoinColumn(name="id")})**/
+	public List<Accessory> myAccesories = new ArrayList<Accessory>();
+	
+	@Required
+	@OneToMany
+	public List<Pic> myPics = new ArrayList<Pic>();
+
+	/**public User(String email, String password){
+		this.email = email;
+		this.passwordHash = Security.getHashForPassword(password);
+
+	}
+	
+	public User(String email, String password, String lastName, String name, boolean isAdmin) {
+		this.email = email;
+		this.passwordHash = Security.getHashForPassword(password);
+		this.lastName = lastName;
+		this.name = name;
+		this.isAdmin = isAdmin;
+	}
+	
+	public User(String email, String password, String userName, boolean isAdmin){
+		this.email = email;
+		this.passwordHash = Security.getHashForPassword(password);
+		this.userName = userName;
+		this.isAdmin = isAdmin;
+
+	}
+	 
+	public static User connect (String email, String password){
+		return find("byEmailAndPassword", email, password).first();
+	}**/
+		
+	public String toString(){
+		return idUser.id;
+	}
+	
+	public void addToMyAccesories(Accessory accessory){
+		myAccesories.add(accessory);
+	}
+	
+	public void removeFromMyAccessories(Accessory accessory){
+		myAccesories.remove(accessory);
+	}
+	
+	public void addPic(Pic pic){
+		myPics.add(pic);
+	}
+	
+	public void removePic(Pic pic){
+		myPics.remove(pic);
+	}
 }

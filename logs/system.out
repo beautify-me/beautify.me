@@ -1,18 +1,16 @@
 CompilerOracle: exclude jregex/Pretokenizer.next
 Listening for transport dt_socket at address: 8000
-12:45:01,316 INFO  ~ Starting D:\workspace\beautify.me
-12:45:01,322 WARN  ~ Declaring modules in application.conf is deprecated. Use dependencies.yml instead (module.crud)
-12:45:01,323 INFO  ~ Module crud is available (D:\play-1.2.5\modules\crud)
-12:45:01,324 INFO  ~ Module crud is available (D:\play-1.2.5\modules\crud)
-12:45:01,324 INFO  ~ Module recaptcha is available (D:\play-1.2.5\modules\recaptcha-1.3)
-12:45:03,126 WARN  ~ You're running Play! in DEV mode
-12:45:03,255 INFO  ~ Listening for HTTP on port 9000 (Waiting a first request to start) ...
-12:45:25,152 INFO  ~ Connected to jdbc:h2:mem:play;MODE=MYSQL
-12:45:27,696 INFO  ~ Registered Identity Provider: google
-12:45:27,697 INFO  ~ Registered Identity Provider: facebook
-12:45:27,697 INFO  ~ Registered Identity Provider: twitter
-12:45:27,697 INFO  ~ Registered Identity Provider: myopenid
-12:45:27,698 INFO  ~ Registered Identity Provider: userpass
-12:45:27,698 INFO  ~ Using default user service
-12:45:27,700 INFO  ~ Using concrete password hasher of type securesocial.utils.PlayCryptoHasher
-12:45:27,701 INFO  ~ Application 'beautify.me' is now started !
+10:39:39,887 INFO  ~ Starting D:\workspace\beautify.me
+10:39:39,893 INFO  ~ Module crud is available (D:\play-1.2.5\modules\crud)
+10:39:39,894 INFO  ~ Module recaptcha is available (D:\play-1.2.5\modules\recaptcha-1.3)
+10:39:41,817 WARN  ~ You're running Play! in DEV mode
+10:39:41,954 INFO  ~ Listening for HTTP on port 9000 (Waiting a first request to start) ...
+10:39:49,021 INFO  ~ Connected to jdbc:h2:mem:play;MODE=MYSQL
+10:39:50,635 INFO  ~ Registered Identity Provider: google
+10:39:50,635 INFO  ~ Registered Identity Provider: facebook
+10:39:50,635 INFO  ~ Registered Identity Provider: twitter
+10:39:50,635 INFO  ~ Registered Identity Provider: myopenid
+10:39:50,636 INFO  ~ Registered Identity Provider: userpass
+10:39:50,637 INFO  ~ Using default user service
+10:39:50,639 INFO  ~ Using concrete password hasher of type securesocial.utils.PlayCryptoHasher
+10:39:50,639 INFO  ~ Application 'beautify.me' is now started !

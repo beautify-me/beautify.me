@@ -22,6 +22,7 @@ import notifiers.Mails;
 import play.Logger;
 import play.data.validation.Email;
 import play.data.validation.Equals;
+import play.data.validation.IsTrue;
 import play.data.validation.Required;
 import play.i18n.Messages;
 import play.mvc.Controller;
@@ -60,12 +61,13 @@ public class UsernamePasswordController extends Controller
      * Creates an account
      *
      * @param userName      The username
-     * @param name   The user's first name
+     * @param name   		The user's first name
      * @param lastName   	The user's last name
      * @param gender	   	The user's gender
      * @param email         The email
      * @param password      The password
      * @param password2     The password verification
+     * @param termsOfUse 	The check that determins that the user accepted the site's terms
      */
     public static void createAccount(@Required(message = "securesocial.required") String userName,
                                      @Required String name,
@@ -74,12 +76,11 @@ public class UsernamePasswordController extends Controller
                                      @Required @Email(message = "securesocial.invalidEmail") String email,
                                      @Required String password,
                                      @Required @Equals(message = "securesocial.passwordsMustMatch", value = "password") String password2,
-                                     @Required @Equals(message = "securesocial.acceptTermsOfUse", value = "true") String termsOfUse
+                                     @Required @IsTrue(message = "securesocial.acceptTermsOfUse") boolean termsOfUse
     		) {
         if ( validation.hasErrors() ) {
             tryAgain(userName, name, lastName, email);
         }
-
         UserId id = new UserId();
         id.id = userName;
         id.provider = ProviderType.userpass;
@@ -89,7 +90,7 @@ public class UsernamePasswordController extends Controller
             tryAgain(userName, name,lastName,  email);
         }
         User user = new User();
-        user.id = id;
+        user.idUser = id;
         user.name = name;
         user.lastName = lastName;
         user.email = email;

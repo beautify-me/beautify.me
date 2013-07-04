@@ -86,8 +86,8 @@ public abstract class IdentityProvider {
      */
     protected User createUser() {
         User user = new User();
-        user.id = new UserId();
-        user.id.provider = type;
+        user.idUser = new UserId();
+        user.idUser.provider = type;
         user.authMethod = authMethod;                
         return user;
     }

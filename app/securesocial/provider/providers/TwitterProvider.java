@@ -48,7 +48,7 @@ public class TwitterProvider extends OAuth1Provider
             Logger.error("Error retrieving profile information from Twitter. Error: %s", me.get(ERROR).getAsString());
             throw new AuthenticationException();
         }
-        user.id.id = me.get(ID).getAsString();
+        user.idUser.id = me.get(ID).getAsString();
         user.name = me.get(NAME).getAsString();
         user.avatarUrl = me.get(PROFILE_IMAGE_URL).getAsString();
 

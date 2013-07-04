@@ -1,7 +1,13 @@
 package models;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import javax.persistence.*;
 
+import play.data.validation.Required;
 import play.db.jpa.*;
 
 import javax.persistence.ManyToOne;
@@ -16,11 +22,16 @@ public class Accessory extends Model {
 	public static final int TYPE_HAT = 12;
 	public static final int TYPE_GLASSES = 13;
 	
+	@Required
 	public String articleName;
-	public int type;
-	public int gender;
-	//public String color;
 	
+	@Required
+	public int type;
+	
+	@Required
+	public int gender;
+	
+	@Required
 	public Blob image;  //how to store images https://gist.github.com/steren/660937
 	// http://blog.lunatech.com/2011/04/26/playframework-file-upload-blob
 	

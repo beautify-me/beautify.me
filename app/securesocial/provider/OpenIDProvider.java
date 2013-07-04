@@ -107,7 +107,7 @@ public abstract class OpenIDProvider extends IdentityProvider
         }
         authContext.put(USER_INFO, verifiedUser);
         User user = createUser();
-        user.id.id = verifiedUser.id;
+        user.idUser.id = verifiedUser.id;
         return user;
     }
 
