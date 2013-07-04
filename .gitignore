@@ -41,5 +41,13 @@ Thumbs.db
 
 tmp/
 eclipse/
+<<<<<<< HEAD
 logs/
 *.pid
+=======
+modules/
+out/
+.idea/
+*.iml
+*.ipr
+>>>>>>> feature/webcam
