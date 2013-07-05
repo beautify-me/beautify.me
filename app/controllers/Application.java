@@ -64,7 +64,7 @@ public class Application extends Controller {
     	renderBinary(image.get());
     }
        
-    /*  public static void top(){
+    public static void top(){
 	List<User> users= User.findAll();
 	Map<Accessory, Integer> allAccessories = new HashMap<Accessory,Integer>();
 	
@@ -84,7 +84,7 @@ public class Application extends Controller {
     	}
     }
     render();
-}*/
+}
     
     public static void mystuff() {
 //    	User user = User.findById(params.get("id"));
