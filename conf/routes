@@ -6,6 +6,10 @@
 # Home page
 GET     /                                       Application.index
 
+
+#Import Crud routes
+* 		/admin									module:crud
+
 # Home page
 GET     /accessories                            Application.accessories
 
@@ -73,8 +77,8 @@ GET     /favicon.ico                            404
 # Map static resources from the /app/public folder to the /public path
 GET     /public/                                staticDir:public
 
+
+
 # Catch all
 *       /{controller}/{action}                  {controller}.{action}
 
-#Import Crud routes
-* 		/admin									module:crud
