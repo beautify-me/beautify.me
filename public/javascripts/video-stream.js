@@ -7,7 +7,7 @@ function successCallback(stream) {
 	window.stream = stream; // stream available to console
 	
 	try {
-		video.src = window.URL.createObjectURL(stream);
+		v.src = window.URL.createObjectURL(stream);
 	} catch (e){
 		v.src = stream;
 	}  
