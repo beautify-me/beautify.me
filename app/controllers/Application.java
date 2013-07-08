@@ -65,7 +65,7 @@ public class Application extends Controller {
     }
        
     public static void top(){
-	List<User> users= User.findAll();
+	List<User> users = User.findAll();
 	Map<Accessory, Integer> allAccessories = new HashMap<Accessory,Integer>();
 	
 	for (Iterator iterator = users.iterator(); iterator.hasNext();) {
@@ -83,6 +83,37 @@ public class Application extends Controller {
 	    	}
     	}
     }
+	
+	Map<Integer, Accessory> turnedAccessories = new HashMap<Integer, Accessory>();
+	List<Accessory> sortedAccessories = new ArrayList<>();
+	for(Map.Entry<Accessory, Integer> entry : allAccessories.entrySet()){
+		int x = entry.getValue();
+		if(turnedAccessories.get(x) != null){
+			while(turnedAccessories.get(x) != null){
+				x++;
+			}
+			turnedAccessories.put(x, entry.getKey());
+			
+		}
+		else {
+			turnedAccessories.put(entry.getValue(), entry.getKey());
+		}
+		
+		/*from turnedAccessories each should have a unique key and then you can sort after key
+		* in a sorted List. iterate over list and match key from sorted list to turnedAccessories
+		* and add there to a new list.
+		* Collection?!
+		* turned map
+		* key list
+		* sort key list
+		* match turned map and key list
+		* new list with accessories
+		*
+		*/
+		sortedAccessories = (List<Accessory>) turnedAccessories.values();
+
+	}
+	
     render();
 }
     
