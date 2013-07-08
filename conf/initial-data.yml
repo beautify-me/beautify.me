@@ -15,360 +15,420 @@ Accessory(hat):
     gender: 1
     type: 12
     provider: hm
+    likes: 100
         
 Accessory(hat2):
     articleName: Super-shiny-hat
     gender: 1
     type: 12
     provider: hm
+    likes: 20
     
 Accessory(hat3):
     articleName: Super-shiny-hat
     gender: 1
     type: 12
     provider: hm
+    likes: 4
     
 Accessory(hat4):
     articleName: Super-shiny-hat
     gender: 1
     type: 12
     provider: hm
+    likes: 7
     
 Accessory(hat5):
     articleName: Super-shiny-hat
     gender: 1
     type: 12
     provider: hm
+    likes: 23
     
 Accessory(hat6):
     articleName: Super-shiny-hat
     gender: 1
     type: 12
     provider: hm
+    likes: 17
        
 Accessory(hat7):
     articleName: Super-shiny-hat
     gender: 1
     type: 12
     provider: hm
+    likes: 8
        
 Accessory(hat8):
     articleName: Super-shiny-hat
     gender: 1
     type: 12
     provider: hm
+    likes: 8
         
 Accessory(hat9):
     articleName: Super-shiny-hat
     gender: 1
     type: 12
     provider: hm
+    likes: 15
     
 Accessory(hat10):
     articleName: Super-shiny-hat
     gender: 1
     type: 12
     provider: hm
+    likes: 15
     
 Accessory(hat11):
     articleName: Super-shiny-hat
     gender: 1
     type: 12
     provider: hm
+    likes: 15
     
 Accessory(hat12):
     articleName: Super-shiny-hat
     gender: 1
     type: 12
     provider: hm
+    likes: 15
         
 Accessory(hat13):
     articleName: Super-shiny-hat
     gender: 1
     type: 12
     provider: hm
+    likes: 15
     
 Accessory(hat14):
     articleName: Super-shiny-hat
     gender: 1
     type: 12
     provider: hm
+    likes: 15
     
 Accessory(hat15):
     articleName: Super-shiny-hat
     gender: 1
     type: 12
     provider: hm
+    likes: 15
         
 Accessory(hat16):
     articleName: Super-shiny-hat
     gender: 1
     type: 12
     provider: hm
+    likes: 15
     
 Accessory(hat17):
     articleName: Super-shiny-hat
     gender: 1
     type: 12
     provider: hm
+    likes: 15
     
 Accessory(hat18):
     articleName: Super-shiny-hat
     gender: 1
     type: 12
     provider: hm
+    likes: 15
     
 Accessory(hat19):
     articleName: Super-shiny-hat
     gender: 1
     type: 12
     provider: hm
+    likes: 15
     
 Accessory(hat20):
     articleName: Super-shiny-hat
     gender: 1
     type: 12
     provider: hm
+    likes: 15
 
 Accessory(hat21):
     articleName: Red-round-hat
     gender: 1
     type: 12
     provider: zara
+    likes: 15
        
 Accessory(hat22):
     articleName: Red-round-hat
     gender: 1
     type: 12
     provider: zara
+    likes: 15
     
 Accessory(hat23):
     articleName: Red-round-hat
     gender: 1
     type: 12
     provider: zara
+    likes: 40
     
 Accessory(hat24):
     articleName: Red-round-hat
     gender: 1
     type: 12
     provider: zara
+    likes: 15
     
 Accessory(hat25):
     articleName: Red-round-hat
     gender: 1
     type: 12
     provider: zara
+    likes: 33
     
 Accessory(hat26):
     articleName: Red-round-hat
     gender: 1
     type: 12
     provider: zara
+    likes: 33
        
 Accessory(hat27):
     articleName: Red-round-hat
     gender: 1
     type: 12
     provider: zara
+    likes: 33
        
 Accessory(hat28):
     articleName: Red-round-hat
     gender: 1
     type: 12
     provider: zara
+    likes: 33
         
 Accessory(hat29):
     articleName: Red-round-hat
     gender: 1
     type: 12
     provider: zara
+    likes: 33
     
 Accessory(hat30):
     articleName: Red-round-hat
     gender: 1
     type: 12
     provider: zara
+    likes: 33
     
 Accessory(hat31):
     articleName: Red-round-hat
     gender: 1
     type: 12
     provider: zara
+    likes: 33
     
 Accessory(hat32):
     articleName: Red-round-hat
     gender: 1
     type: 12
     provider: zara
+    likes: 33
         
 Accessory(hat33):
     articleName: Red-round-hat
     gender: 1
     type: 12
     provider: zara
+    likes: 33
     
 Accessory(hat34):
     articleName: Red-round-hat
     gender: 1
     type: 12
     provider: zara
+    likes: 33
     
 Accessory(hat35):
     articleName: Red-round-hat
     gender: 1
     type: 12
     provider: zara
+    likes: 22
         
 Accessory(hat36):
     articleName: Red-round-hat
     gender: 1
     type: 12
     provider: zara
+    likes: 22
     
 Accessory(hat37):
     articleName: Red-round-hat
     gender: 1
     type: 12
     provider: zara
+    likes: 22
     
 Accessory(hat38):
     articleName: Red-round-hat
     gender: 1
     type: 12
     provider: zara
+    likes: 22
     
 Accessory(hat39):
     articleName: Red-round-hat
     gender: 1
     type: 12
     provider: zara
+    likes: 22
     
 Accessory(hat40):
     articleName: Red-round-hat
     gender: 1
     type: 12
     provider: zara
+    likes: 22
 
 Accessory(hat61):
     articleName: Red-round-hat
     gender: 1
     type: 12
     provider: newyorker
+    likes: 22
        
 Accessory(hat62):
     articleName: Red-round-hat
     gender: 1
     type: 12
     provider: newyorker
+    likes: 22
     
 Accessory(hat63):
     articleName: Red-round-hat
     gender: 1
     type: 12
     provider: newyorker
+    likes: 39
     
 Accessory(hat64):
     articleName: Red-round-hat
     gender: 1
     type: 12
     provider: newyorker
+    likes: 22
     
 Accessory(hat65):
     articleName: Red-round-hat
     gender: 1
     type: 12
     provider: newyorker
+    likes: 22
     
 Accessory(hat66):
     articleName: Red-round-hat
     gender: 1
     type: 12
     provider: newyorker
+    likes: 22
        
 Accessory(hat67):
     articleName: Red-round-hat
     gender: 1
     type: 12
     provider: newyorker
+    likes: 22
        
 Accessory(hat68):
     articleName: Red-round-hat
     gender: 1
     type: 12
     provider: newyorker
+    likes: 22
         
 Accessory(hat69):
     articleName: Red-round-hat
     gender: 1
     type: 12
     provider: newyorker
+    likes: 22
     
 Accessory(hat50):
     articleName: Red-round-hat
     gender: 1
     type: 12
     provider: newyorker
+    likes: 22
     
 Accessory(hat51):
     articleName: Red-round-hat
     gender: 1
     type: 12
     provider: newyorker
+    likes: 22
     
 Accessory(hat52):
     articleName: Red-round-hat
     gender: 1
     type: 12
     provider: newyorker
+    likes: 22
         
 Accessory(hat53):
     articleName: Red-round-hat
     gender: 1
     type: 12
     provider: newyorker
+    likes: 22
     
 Accessory(hat54):
     articleName: Red-round-hat
     gender: 1
     type: 12
     provider: newyorker
+    likes: 22
     
 Accessory(hat55):
     articleName: Red-round-hat
     gender: 1
     type: 12
     provider: newyorker
+    likes: 22
         
 Accessory(hat56):
     articleName: Red-round-hat
     gender: 1
     type: 12
     provider: newyorker
+    likes: 22
     
 Accessory(hat57):
     articleName: Red-round-hat
     gender: 1
     type: 12
     provider: newyorker
+    likes: 22
     
 Accessory(hat58):
     articleName: Red-round-hat
     gender: 1
     type: 12
     provider: newyorker
+    likes: 11
     
 Accessory(hat59):
     articleName: Red-round-hat
     gender: 1
     type: 12
     provider: newyorker
+    likes: 11
     
 Accessory(hat60):
     articleName: Red-round-hat
     gender: 1
     type: 12
     provider: newyorker
+    likes: 11
     
 Pic(pic1):
     name: Girl

@@ -1,5 +1,6 @@
 package controllers;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
@@ -86,25 +87,29 @@ public class Application extends Controller {
     }
        
     public static void top(){
-    	List<User> users= User.findAll();
-    	Map<Accessory, Integer> allAccessories = new HashMap<Accessory,Integer>();
     	
-    	for (Iterator iterator = users.iterator(); iterator.hasNext();) {
-	    	User user = (User) iterator.next();
-	    	List<Accessory> userAccessories = user.myAccesories;
-	    	for (Iterator iterator2 = userAccessories.iterator(); iterator2.hasNext();) {
-		    	Accessory accessory = (Accessory) iterator2.next();
-		    	if(allAccessories.containsKey(accessory)){
-		    		int value = allAccessories.get(accessory);
-		    		allAccessories.put(accessory, value++);
-		    	}
-		    	else
-		    	{
-		    		allAccessories.put(accessory, 1);
-		    	}
-	    	}
-	    }
-    	render();
+    	
+    	List<Accessory> accessories = Accessory.find("select a from Accessory a Order By a.likes desc").fetch(20);
+    	
+//    	List<User> users= User.findAll();
+//    	Map<Accessory, Integer> allAccessories = new HashMap<Accessory,Integer>();
+//    	
+//    	for (Iterator iterator = users.iterator(); iterator.hasNext();) {
+//	    	User user = (User) iterator.next();
+//	    	List<Accessory> userAccessories = user.myAccesories;
+//	    	for (Iterator iterator2 = userAccessories.iterator(); iterator2.hasNext();) {
+//		    	Accessory accessory = (Accessory) iterator2.next();
+//		    	if(allAccessories.containsKey(accessory)){
+//		    		int value = allAccessories.get(accessory);
+//		    		allAccessories.put(accessory, value++);
+//		    	}
+//		    	else
+//		    	{
+//		    		allAccessories.put(accessory, 1);
+//		    	}
+//	    	}
+//	    }
+    	render(accessories);
     }
     
     

@@ -37,12 +37,16 @@ public class Accessory extends Model {
 	
 	@ManyToOne
 	public Provider provider;
+	
+	@Column(name="likes")
+	public int likes;
 
-	public Accessory(String name, int type, int gender, Blob image, Provider provider) {
+	public Accessory(String name, int type, int gender, Blob image, Provider provider, int likes) {
 		this.articleName = name;
 		this.type = type;
 		this.gender = gender;
 		this.image = image;
 		this.provider = provider;
+		this.likes = likes;
 	}
 }

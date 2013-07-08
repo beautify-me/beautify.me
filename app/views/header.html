@@ -5,10 +5,10 @@
         <ul class="navigation left">
             <li><a href="/">Start</a></li>
             <li><a href="@{Application.accessories}">Accessories </a></li>
-        #{if session.securesocial_user}
-            <li><a href="@{Application.top}">Top</a></li>
+            <li><a href="@{Application.top}">Top20</a></li>
+            #{if session.securesocial_user}
             <li><a href="@{Application.mystuff}">MyStuff</a></li>
-        #{/if}
+            #{/if}
         </ul>
 
         <ul class="navigation right">
