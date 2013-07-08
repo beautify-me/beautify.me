@@ -1,43 +1,28 @@
 package controllers;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-
 import models.Accessory;
 import models.Pic;
 import models.User;
 import play.Logger;
 import play.Play;
-import play.data.validation.Email;
-import play.data.validation.Equals;
-import play.data.validation.IsTrue;
-import play.data.validation.MinSize;
-import play.data.validation.Required;
-import play.data.validation.Validation;
 import play.db.jpa.Blob;
 import play.i18n.Messages;
 import play.libs.OAuth;
 import play.mvc.Controller;
-import securesocial.provider.AuthenticationMethod;
-import securesocial.provider.IdentityProvider;
-import securesocial.provider.OAuth1Provider;
-import securesocial.provider.OpenIDOAuthHybridProvider;
-import securesocial.provider.ProviderRegistry;
-import securesocial.provider.ProviderType;
-import securesocial.provider.UserId;
-import securesocial.provider.UserService;
+import securesocial.provider.*;
+
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
 
 
 public class Application extends Controller {
-	
-	/**--------------------------------------
-	 * Attributes for secure social
-	 ----------------------------------------*/
+
+    /**
+     * --------------------------------------
+     * Attributes for secure social
+     * ----------------------------------------
+     */
 
     private static final String USER_COOKIE = "securesocial_user";
     private static final String NETWORK_COOKIE = "securesocial_network";
@@ -60,37 +45,42 @@ public class Application extends Controller {
     public static final String CURRENT_PASSWORD = "currentPassword";
 
     public static void index() {
-      	render();
+        List<Accessory> accessoryList = Accessories.getAccesories(Accessory.TYPE_HAT, Accessory.FEMALE);
+        int type = Accessory.UNISEX;
+        int gender = Accessory.TYPE_HAT;
+//        System.out.println(accessoryList);
+//        System.out.println("!!!!!!!!!!!!1");
+//        System.out.println(Accessories.getAccesoriesByGender(accessoryList, Constants.GENDER_FEMALE));
+        render(accessoryList, type, gender);
     }
-   
+
     public static void accessories() {
         List<Accessory> accessories = Accessory.findAll();
         Collections.shuffle(accessories); // shuffle for dummy display to be shuffled
-         render(accessories);
+        render(accessories);
     }
-    
+
     public static void getAccessory(Long id) {
-    	Accessory a = Accessory.findById(id);
-    	/*Pic im = a.image;
+        Accessory a = Accessory.findById(id);        /*Pic im = a.image;
     	response.setContentTypeIfNotSet(im.image.type());
     	renderBinary(im.image.get());*/
-    	Blob image = a.image;
-    	response.setContentTypeIfNotSet(image.type());
-    	renderBinary(image.get());
+        Blob image = a.image;
+        response.setContentTypeIfNotSet(image.type());
+        renderBinary(image.get());
     }
-    
+
     public static void getPic(Long id) {
-    	Pic p = Pic.findById(id);
-    	Blob image = p.image;
-    	response.setContentTypeIfNotSet(image.type());
-    	renderBinary(image.get());
+        Pic p = Pic.findById(id);
+        Blob image = p.image;
+        response.setContentTypeIfNotSet(image.type());
+        renderBinary(image.get());
     }
-       
-    public static void top(){
-    	
-    	
-    	List<Accessory> accessories = Accessory.find("select a from Accessory a Order By a.likes desc").fetch(20);
-    	
+
+    public static void top() {
+
+
+        List<Accessory> accessories = Accessory.find("select a from Accessory a Order By a.likes desc").fetch(20);
+
 //    	List<User> users= User.findAll();
 //    	Map<Accessory, Integer> allAccessories = new HashMap<Accessory,Integer>();
 //    	
@@ -109,53 +99,54 @@ public class Application extends Controller {
 //		    	}
 //	    	}
 //	    }
-    	render(accessories);
+        render(accessories);
     }
-    
-    
+
+
     public static void mystuff() {
 //    	User user = User.findById(params.get("id"));
 //    	Map<Long, Pic> userpics = user.myPics;
 //    	Map<Long, Accessory> useraccessories = user.myAccesories;
-    	List<Pic> userpics = Pic.findAll();
-    	List<Accessory> useraccessories = Accessory.findAll();
+        List<Pic> userpics = Pic.findAll();
+        List<Accessory> useraccessories = Accessory.findAll();
         render(userpics, useraccessories);
     }
+
     public static void termsofuse() {
         render();
     }
+
     public static void privacy() {
         render();
     }
+
     public static void about() {
         render();
     }
-      
+
     /**
      * Checks if there is a user logged in and redirects to the login page if not.
      */
     //@Before//(unless={"login", "authenticate", "authByPost", "logout"})
-    static void checkAccess() throws Throwable
-    {
+    static void checkAccess() throws Throwable {
         final UserId userId = getUserId();
-        if ( userId == null ) {
+        if (userId == null) {
             final String originalUrl = request.method.equals(GET) ? request.url : ROOT;
             flash.put(ORIGINAL_URL, originalUrl);
             //login();
         } else {
             final User user = loadCurrentUser(userId);
-            if ( user == null ) {
-               // the user had the cookies but the UserService can't find it ...
-               // it must have been erased, redirect to login again.
-               clearUserId();
-               //login();
-           }
+            if (user == null) {
+                // the user had the cookies but the UserService can't find it ...
+                // it must have been erased, redirect to login again.
+                clearUserId();
+                //login();
+            }
         }
     }
-    
-    public static void shareOnNetwork()
-    {
-    	
+
+    public static void shareOnNetwork() {
+
     }
 
     static User loadCurrentUser() {
@@ -167,16 +158,16 @@ public class Application extends Controller {
     private static User loadCurrentUser(UserId userId) {
         User user = UserService.find(userId);
 
-        if ( user != null ) {
+        if (user != null) {
             // if the user is using OAUTH1 or OPENID HYBRID OAUTH set the ServiceInfo
             // so the app using this module can access it easily to invoke the APIs.
-            if ( user.authMethod == AuthenticationMethod.OAUTH1 || user.authMethod == AuthenticationMethod.OPENID_OAUTH_HYBRID ) {
+            if (user.authMethod == AuthenticationMethod.OAUTH1 || user.authMethod == AuthenticationMethod.OPENID_OAUTH_HYBRID) {
                 final OAuth.ServiceInfo sinfo;
                 IdentityProvider provider = ProviderRegistry.get(user.idUser.provider);
-                if ( user.authMethod == AuthenticationMethod.OAUTH1 ) {
-                    sinfo = ((OAuth1Provider)provider).getServiceInfo();
+                if (user.authMethod == AuthenticationMethod.OAUTH1) {
+                    sinfo = ((OAuth1Provider) provider).getServiceInfo();
                 } else {
-                    sinfo = ((OpenIDOAuthHybridProvider)provider).getServiceInfo();
+                    sinfo = ((OpenIDOAuthHybridProvider) provider).getServiceInfo();
                 }
                 user.serviceInfo = sinfo;
             }
@@ -194,9 +185,9 @@ public class Application extends Controller {
      */
     public static User getCurrentUser() {
         // first, try to get it from the renderArgs since it should be there on secured controllers.
-        User currentUser =  (User) renderArgs.get(USER);
+        User currentUser = (User) renderArgs.get(USER);
 
-        if ( currentUser == null  ) {
+        if (currentUser == null) {
             // the call is being made from an unsecured controller
             // try to provide a current user if there is one in the session
             currentUser = loadCurrentUser();
@@ -206,6 +197,7 @@ public class Application extends Controller {
 
     /**
      * Returns true if there is a user logged in or false otherwise.
+     *
      * @return a boolean
      */
     public static boolean isUserLoggedIn() {
@@ -239,7 +231,7 @@ public class Application extends Controller {
         final String networkId = session.get(NETWORK_COOKIE);
         UserId id = null;
 
-        if ( userId != null && networkId != null ) {
+        if (userId != null && networkId != null) {
             id = new UserId();
             id.id = userId;
             id.provider = ProviderType.valueOf(networkId);
@@ -271,7 +263,7 @@ public class Application extends Controller {
      * This is the entry point for all authentication requests from the login page.
      * The type is used to invoke the right provider.
      *
-     * @param type   The provider type as selected by the user in the login page
+     * @param type The provider type as selected by the user in the login page
      * @see ProviderType
      * @see IdentityProvider
      */
@@ -284,7 +276,7 @@ public class Application extends Controller {
     }
 
     private static void doAuthenticate(ProviderType type) {
-        if ( type == null ) {
+        if (type == null) {
             Logger.error("Provider type was missing in request");
             // just throw a 404 error
             notFound();
@@ -298,34 +290,34 @@ public class Application extends Controller {
             User user = provider.authenticate();
             setUserId(user);
             originalUrl = flash.get(ORIGINAL_URL);
-        } catch ( Exception e ) {
+        } catch (Exception e) {
             e.printStackTrace();
             Logger.error(e, "Error authenticating user");
-            if ( flash.get(ERROR) == null ) {
+            if (flash.get(ERROR) == null) {
                 flash.error(Messages.get(SECURESOCIAL_AUTH_ERROR));
             }
             flash.keep(ORIGINAL_URL);
             login();
         }
         final String redirectTo = Play.configuration.getProperty(SECURESOCIAL_LOGIN_REDIRECT, ROOT);
-        redirect( originalUrl != null ? originalUrl : redirectTo);
+        redirect(originalUrl != null ? originalUrl : redirectTo);
     }
 
     /**
      * A helper class to integrate SecureSocial with the Deadbolt module.
-     *
+     * <p/>
      * Basically the integration is done by calling SecureSocial.Deadbolt.beforeRoleCheck()
      * within the DeadboltHandler.beforeRoleCheck implementation.
-     *
+     * <p/>
      * Eg:
-     *
+     * <p/>
      * public class MyDeadboltHandler extends Controller implements DeadboltHandler
      * {
-     *      try {
-     *          SecureSocial.DeadboltHelper.beforeRoleCheck();
-     *      } catch ( Throwable t) {
-     *          // handle the exception in an application specific way
-     *      }
+     * try {
+     * SecureSocial.DeadboltHelper.beforeRoleCheck();
+     * } catch ( Throwable t) {
+     * // handle the exception in an application specific way
+     * }
      * }
      */
     public static class DeadboltHelper {
@@ -338,18 +330,18 @@ public class Application extends Controller {
     public static void me() {
         render("@user");
     }
-	
-    public static void contact(String address, String message) {  
+
+    public static void contact(String address, String message) {
         Mails mail = new Mails();
         mail.message(address, message);
         render();
     }
-    
-    public static void addFavorite(Long accessoryID){
-    	User currentUser = getCurrentUser(); 
-    	Accessory currentAccessory = Accessory.findById(accessoryID);
-    	currentUser.addToMyAccesories(currentAccessory);
-    	currentUser.save();
+
+    public static void addFavorite(Long accessoryID) {
+        User currentUser = getCurrentUser();
+        Accessory currentAccessory = Accessory.findById(accessoryID);
+        currentUser.addToMyAccesories(currentAccessory);
+        currentUser.save();
     }
-    
+
 }

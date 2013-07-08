@@ -1,3 +1,3 @@
-var width = 800;
-var height = 600;
+var width = 700;
+var height = 500;
 var layer;

@@ -31,4 +31,21 @@ public class Accessories extends CRUD {
         response.setContentTypeIfNotSet(image.type());
         renderBinary(image.get());
     }
+
+    public static List<Accessory> getAccesories(int type, int gender) {
+
+        //building query string for searching items
+        String query = (gender <0 ) ? "? < 0" : "gender = ?";
+        query += " and " + ((type < 0) ? "? < 0" : "type = ?");
+
+        return Accessory.find(query, gender, type).fetch();
+
+    }
+
+    public static void getPic(long id) {
+        Accessory a = Accessory.findById(id);
+        Blob image = a.image;
+        response.setContentTypeIfNotSet(image.type());
+        renderBinary(image.get());
+    }
 }

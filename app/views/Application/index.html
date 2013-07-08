@@ -16,11 +16,11 @@
 
 
 <div id="items">
-    <a href="#"><img height="100" width="100" src="@{Application.getPic(1)}"/></a>
-    <a href="#"><img height="100" width="100" src="@{Application.getPic(10)}"/></a>
-    <a href="#"><img height="100" width="100" src="@{Application.getPic(20)}"/></a>
-    <a href="#"><img height="100" width="100" src="@{Application.getPic(40)}"/></a>
-    <a href="#"><img height="100" width="100" src="@{Application.getPic(50)}"/></a>
+#{list items:accessoryList, as:'accessory'}
+
+    <a href="#"><img height="100" width="100" src="@{Accessories.getPic(accessory.id)}"/></a>
+
+#{/list}
 </div>
 
 <script src="@{'/public/javascripts/kinetic-v4.5.4.min.js'}"></script>
