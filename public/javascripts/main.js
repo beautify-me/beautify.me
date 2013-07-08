@@ -1,3 +1,6 @@
-var width = 700;
-var height = 500;
-var layer;
+
+    var page_width = $(window).width();
+    var page_height = $(window).height();
+    width = page_width * 0.55;
+    height = width *0.75;
+    var layer;
