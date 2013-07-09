@@ -18,9 +18,11 @@
 
 
     #{if accessories}
+    
+    
      <table>
      <tr>
-            #{list items:accessories, as:'accessory'}           
+             #{list items:accessories, as:'accessory'}           
 		     #{if accessory_index.minus(1).divisibleBy(10)}
 		     </tr>
 		     #{ifnot accessory_isLast}
@@ -29,6 +31,9 @@
 		     #{/if}
             	<td>
                 <div class="accessory">
+                       	<input type="image" style=position:absolute src="#"; height="20" width="20" name="imgLike" value="like">
+    					<input type="image" style=position:absolute src="#" height="20" width="20" name="imgDislike" value="dislike">
+    					
                         <a href="#"><img height="100" width="100" src="@{Application.getAccessory(accessory.id)}"/></a>
                          *{<div class="span1" >${accessory.articleName}  by  ${accessory.provider.name}</div>}*
 				</div>

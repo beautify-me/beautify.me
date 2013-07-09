@@ -6,6 +6,8 @@ import play.db.jpa.Blob;
 import java.util.Collections;
 import java.util.List;
 
+import org.hibernate.criterion.MatchMode;
+
 /**
  * Created with IntelliJ IDEA.
  * User: D Mak
@@ -41,7 +43,7 @@ public class Accessories extends CRUD {
         return Accessory.find(query, gender, type).fetch();
 
     }
-
+    
     public static void getPic(long id) {
         Accessory a = Accessory.findById(id);
         Blob image = a.image;
@@ -49,6 +51,23 @@ public class Accessories extends CRUD {
         renderBinary(image.get());
     }
     
+    //add a accessory to userprofile
+    public static void likeAccessory(Accessory a){
+    	a.likes++;
+    	a.save();
+    	Application.loadCurrentUser().addToMyAccesories(a);
+    }
+    
+    //remove  a accessory from userprofile
+    public static void dislikeAccessory(Accessory a){
+    	if (a.likes >= 1) {
+    		a.likes--;
+    		a.save();
+    	}
+    	Application.loadCurrentUser().removeFromMyAccessories(a);
+    }
+    
+    //search function for accessory view
 	public static List<Accessory> searchAccessories(String searchString){
 		if (searchString == null) {
 			return null;
@@ -60,8 +79,9 @@ public class Accessories extends CRUD {
 			//List<Accessory> resultList = (List<Accessory>) query.getResultList();
 			//List <Accessory> resultList =  Accessory.find("SELECT a FROM Accessory a " + 
 			//"WHERE a.articleName = '" +  searchString.trim() + "' OR a.type = '" + searchString.trim() + "'").fetch();
-			List <Accessory> resultList = Accessory.find("articleName like ?", "%" + searchString + "%").fetch();
+			List <Accessory> resultList = Accessory.find("upper(articleName) like ?", "%" + searchString.toUpperCase() + "%").fetch();
 			return  resultList;
+			
 		}
 	}
 
