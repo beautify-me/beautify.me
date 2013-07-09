@@ -84,5 +84,17 @@ public class Accessories extends CRUD {
 			
 		}
 	}
+	
+	public static boolean doesContain(Accessory accessory){
+		if(Application.loadCurrentUser().myAccesories.contains(accessory)){
+	
+			return true;
+			
+		}
+		else {
+		
+		return false;
+		}
 
+	}
 }
