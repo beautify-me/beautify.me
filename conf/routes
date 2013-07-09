@@ -6,6 +6,8 @@
 # Home page
 GET     /                                       Application.index
 
+# Home page
+GET     /{<[0-9]+>type}/{<[0-9]+>gender}                                        Application.index
 
 #Import Crud routes
 * 		/admin									module:crud
@@ -25,7 +27,8 @@ GET     /privacy                            	Application.privacy
 GET     /termsofuse                            Application.termsofuse
 # Home page
 GET     /about                            		Application.about
-
+# Home page
+GET     /list/{<[0-9]+>type}/{<[0-9]+>gender}                       Application.accessoryList
 
 #
 # Username Password Controller routes

@@ -44,14 +44,12 @@ public class Application extends Controller {
     public static final String CONFIRM_PASSWORD = "confirmPassword";
     public static final String CURRENT_PASSWORD = "currentPassword";
 
-    public static void index() {
-        List<Accessory> accessoryList = Accessories.getAccesories(Accessory.TYPE_HAT, Accessory.FEMALE);
-        int type = Accessory.UNISEX;
-        int gender = Accessory.TYPE_HAT;
-//        System.out.println(accessoryList);
-//        System.out.println("!!!!!!!!!!!!1");
-//        System.out.println(Accessories.getAccesoriesByGender(accessoryList, Constants.GENDER_FEMALE));
-        render(accessoryList, type, gender);
+    public static void index(int type, int gender) {
+    	//System.out.println("type: " + type + "\ngender: "+ gender);
+    	List<Accessory> accessoryList = Accessory.getAccesories(type, gender);
+    	if (accessoryList == null)
+    		accessoryList = Accessory.all().fetch();
+        render(accessoryList);
     }
 
     public static void accessories(String searchString) {
@@ -59,11 +57,13 @@ public class Application extends Controller {
         //Collections.shuffle(accessories); // shuffle for dummy display to be suffled
         render(accessories);
     }
+    public static List<Accessory> accessoryList(int type, int gender){
+    	List<Accessory> accessoryList = Accessory.getAccesories(type, gender);
+    	 return accessoryList;
+    }
 
     public static void getAccessory(Long id) {
-        Accessory a = Accessory.findById(id);        /*Pic im = a.image;
-    	response.setContentTypeIfNotSet(im.image.type());
-    	renderBinary(im.image.get());*/
+        Accessory a = Accessory.findById(id); 
         Blob image = a.image;
         response.setContentTypeIfNotSet(image.type());
         renderBinary(image.get());
@@ -80,33 +80,11 @@ public class Application extends Controller {
 
 
         List<Accessory> accessories = Accessory.find("select a from Accessory a Order By a.likes desc").fetch(20);
-
-//    	List<User> users= User.findAll();
-//    	Map<Accessory, Integer> allAccessories = new HashMap<Accessory,Integer>();
-//    	
-//    	for (Iterator iterator = users.iterator(); iterator.hasNext();) {
-//	    	User user = (User) iterator.next();
-//	    	List<Accessory> userAccessories = user.myAccesories;
-//	    	for (Iterator iterator2 = userAccessories.iterator(); iterator2.hasNext();) {
-//		    	Accessory accessory = (Accessory) iterator2.next();
-//		    	if(allAccessories.containsKey(accessory)){
-//		    		int value = allAccessories.get(accessory);
-//		    		allAccessories.put(accessory, value++);
-//		    	}
-//		    	else
-//		    	{
-//		    		allAccessories.put(accessory, 1);
-//		    	}
-//	    	}
-//	    }
         render(accessories);
     }
 
 
     public static void mystuff() {
-//    	User user = User.findById(params.get("id"));
-//    	Map<Long, Pic> userpics = user.myPics;
-//    	Map<Long, Accessory> useraccessories = user.myAccesories;
         List<Pic> userpics = Pic.findAll();
         List<Accessory> useraccessories = Accessory.findAll();
         render(userpics, useraccessories);
