@@ -10,9 +10,12 @@ import java.io.Serializable;
 import java.util.Date;
 
 import models.*;
+import models.deadbolt.Role;
+import models.deadbolt.RoleHolder;
 import controllers.*;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -24,7 +27,7 @@ import javax.persistence.*;
  * A class representing a conected user and its authentication details.
  */
 @Entity
-public class User extends Model{
+public class User extends Model  implements RoleHolder {
 	
     /**
      * The user id
@@ -101,10 +104,12 @@ public class User extends Model{
      */
     public boolean isEmailVerified;
     
-	/**
-	 * A boolean indicating if the user is an administrator
-	 */
-	public boolean isAdmin = false;
+    /**
+     * The role that the user has. Can be admin or user
+     */
+    @Required
+    @ManyToOne
+    public MyRole role;
 	
 	@Required
 	@ManyToMany(cascade = {CascadeType.ALL})
@@ -134,5 +139,10 @@ public class User extends Model{
 	
 	public void removePic(Pic pic){
 		myPics.remove(pic);
+	}
+
+	@Override
+	public List<Role> getRoles() {
+		return Arrays.asList((Role)role);
 	}
 }

@@ -2,11 +2,16 @@ package controllers;
 
 import models.Accessory;
 import play.db.jpa.Blob;
+import play.mvc.With;
 
 import java.util.Collections;
 import java.util.List;
 
 import org.hibernate.criterion.MatchMode;
+
+import controllers.deadbolt.Deadbolt;
+import controllers.deadbolt.Restrict;
+import controllers.deadbolt.Restrictions;
 
 /**
  * Created with IntelliJ IDEA.
@@ -16,6 +21,8 @@ import org.hibernate.criterion.MatchMode;
  * To change this template use File | Settings | File Templates.
  */
 @CRUD.For(Accessory.class)
+@With(Deadbolt.class)
+@Restrictions({@Restrict("admin")})
 public class Accessories extends CRUD {
 
     public static void accessories() {

@@ -17,6 +17,7 @@
  */
 package controllers;
 
+import models.MyRole;
 import models.User;
 import notifiers.Mails;
 import play.Logger;
@@ -95,6 +96,7 @@ public class UsernamePasswordController extends Controller
         user.lastName = lastName;
         user.email = email;
         user.gender = gender;
+        user.role = new MyRole(MyRole.USER_ROLE);
         user.password = SecureSocialPasswordHasher.passwordHash(password);
         // the user will remain inactive until the email verification is done.
         user.isEmailVerified = false;
@@ -152,7 +154,7 @@ public class UsernamePasswordController extends Controller
         user.password = SecureSocialPasswordHasher.passwordHash(password);
         // the user is automatically active
         user.isEmailVerified = true;
-        user.isAdmin = true;
+        user.role = new MyRole(MyRole.ADMIN_ROLE);
         user.authMethod = AuthenticationMethod.USER_PASSWORD;
 
         try {

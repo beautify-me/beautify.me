@@ -1,4 +1,3 @@
-
 import java.util.List;
 
 import controllers.UsernamePasswordController;
@@ -21,17 +20,43 @@ import models.*;
 public class Bootstrap extends Job {
 
 	public void doJob() {
+
+		Fixtures.delete();
+		Fixtures.loadModels("initial-data.yml");
+
+		createRoles();
+		createUsers();
+		createAccessories();
+		createPics();
+	}
+
+	private void createRoles() {
+		if (MyRole.getByName("admin") == null) {
+			new MyRole("admin").save();
+		}
+		if (MyRole.getByName("user") == null) {
+			new MyRole("user").save();
+		}
+	}
+
+	private void createPics() {
+
+		// Checks for pics, if emty it adds them
+		if (Pic.count() == 0) {
+			List<Pic> allPics = Pic.findAll();
+
+			for (Pic p : allPics) {
+
+				DB.execute("UPDATE `Pic` SET image='girl.jpg|image/jpg' WHERE id="
+						+ p.getId());
+			}
+		}
+
+	}
+
+	private void createAccessories() {
 		// Check if the database is empty
 		if (Accessory.count() == 0) {
-			Fixtures.delete();
-			Fixtures.loadModels("initial-data.yml");
-
-			createAdminAccount("admin", "beautify", "me",
-					"admin@beautify-me.com", "asdf");
-
-			createAdminAccount("annsofi", "Annsofi", "Pettersson",
-					"a@hej.se", "zxcvbn");
-			
 			List<Accessory> allItems = Accessory.findAll();
 
 			for (Accessory a : allItems) {
@@ -40,14 +65,17 @@ public class Bootstrap extends Job {
 						+ ".png|image/png' WHERE id=" + a.getId());
 
 			}
+		}
+	}
 
-			List<Pic> allPics = Pic.findAll();
+	private void createUsers() {
 
-			for (Pic p : allPics) {
-
-				DB.execute("UPDATE `Pic` SET image='girl.jpg|image/jpg' WHERE id="
-						+ p.getId());
-			}
+		// Checks for users, if emty it adds them
+		if (User.count() == 0) {
+			createAdminAccount("admin", "beautify", "me",
+					"admin@beautify-me.com", "asdf");
+			createAdminAccount("annsofi", "Annsofi", "Pettersson", "a@hej.se",
+					"zxcvbn");
 		}
 	}
 
@@ -84,9 +112,9 @@ public class Bootstrap extends Job {
 		user.password = SecureSocialPasswordHasher.passwordHash(password);
 		// the user is automatically active
 		user.isEmailVerified = true;
-		user.isAdmin = true;
+		user.role = MyRole.getByName(MyRole.ADMIN_ROLE);
 		user.authMethod = AuthenticationMethod.USER_PASSWORD;
-
+		
 		try {
 			UserService.save(user);
 		} catch (Throwable e) {
@@ -95,6 +123,7 @@ public class Bootstrap extends Job {
 
 		// create an activation id
 		UserService.activate(UserService.createActivation(user));
+		user.save();
 	}
 
 }

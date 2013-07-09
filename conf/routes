@@ -65,12 +65,6 @@ POST    /p                      Application.authByPost
 #
 GET     /public/                staticDir:public
 
-# Registration page
-#GET 	/registration							Registration.registration
-
-# SignIn Page
-#GET 	/signin									Registration.signin
-
 # Ignore favicon requests
 GET     /favicon.ico                            404
 

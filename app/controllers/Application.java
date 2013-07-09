@@ -3,11 +3,13 @@ package controllers;
 import models.Accessory;
 import models.Pic;
 import models.User;
+import notifiers.Mails;
 import play.Logger;
 import play.Play;
 import play.db.jpa.Blob;
 import play.i18n.Messages;
 import play.libs.OAuth;
+import play.mvc.Before;
 import play.mvc.Controller;
 import securesocial.provider.*;
 
@@ -125,7 +127,7 @@ public class Application extends Controller {
     }
 
     /**
-     * Checks if there is a user logged in and redirects to the login page if not.
+     * Checks if there is a user logged in
      */
     //@Before//(unless={"login", "authenticate", "authByPost", "logout"})
     static void checkAccess() throws Throwable {
@@ -145,6 +147,27 @@ public class Application extends Controller {
         }
     }
 
+    /**
+     * Checks if there is a user logged in and redirects to the login page if not.
+     */
+    //@Before(unless={"login", "authenticate", "authByPost", "logout"})
+    static void checkAccessRedirect() throws Throwable {
+        final UserId userId = getUserId();
+        if (userId == null) {
+            final String originalUrl = request.method.equals(GET) ? request.url : ROOT;
+            flash.put(ORIGINAL_URL, originalUrl);
+            login();
+        } else {
+            final User user = loadCurrentUser(userId);
+            if (user == null) {
+                // the user had the cookies but the UserService can't find it ...
+                // it must have been erased, redirect to login again.
+                clearUserId();
+                login();
+            }
+        }
+    }
+    
     public static void shareOnNetwork() {
 
     }
@@ -322,7 +345,7 @@ public class Application extends Controller {
      */
     public static class DeadboltHelper {
         public static void beforeRoleCheck() throws Throwable {
-            checkAccess();
+            checkAccessRedirect();
         }
     }
 

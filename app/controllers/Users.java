@@ -1,5 +1,9 @@
 package controllers;
 
+import play.mvc.With;
+import controllers.deadbolt.Deadbolt;
+import controllers.deadbolt.Restrict;
+import controllers.deadbolt.Restrictions;
 import models.User;
 
 /**
@@ -10,5 +14,7 @@ import models.User;
  * To change this template use File | Settings | File Templates.
  */
 @CRUD.For(User.class)
+@With(Deadbolt.class)
+@Restrictions({@Restrict("admin")})
 public class Users extends CRUD {
 }
