@@ -25,8 +25,8 @@ public class ApplicationTest extends FunctionalTest {
         assertStatus(200, response);
     }
     @Test
-    public void testSignin() {
-        Response response = GET("/signin");
+    public void testSignup() {
+        Response response = GET("/signup");
         assertStatus(200, response);
     }
     
