@@ -136,15 +136,4 @@ public class User extends Model{
 		myPics.remove(pic);
 	}
 	
-	public boolean contains(Accessory accessory){
-		if(myAccesories.contains(accessory)){
-			System.out.println(accessory);
-			return true;
-			
-		}
-		else {
-			System.out.println(accessory);
-		return false;
-		}
-	}
 }

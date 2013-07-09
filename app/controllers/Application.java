@@ -85,8 +85,9 @@ public class Application extends Controller {
 
 
     public static void mystuff() {
+    	User user = UserService.find(getUserId());
         List<Pic> userpics = Pic.findAll();
-        List<Accessory> useraccessories = Accessory.findAll();
+        List<Accessory> useraccessories = user.myAccesories;
         render(userpics, useraccessories);
     }
 
