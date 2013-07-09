@@ -1,6 +1,7 @@
 package controllers;
 
 import models.Accessory;
+import models.User;
 import play.db.jpa.Blob;
 
 import java.util.Collections;
@@ -44,19 +45,30 @@ public class Accessories extends CRUD {
     }
     
     //add a accessory to userprofile
-    public static void likeAccessory(Accessory a){
-    	a.likes++;
-    	a.save();
-    	Application.loadCurrentUser().addToMyAccesories(a);
-    }
+    public static void likeAccessory(Long accessoryID){
+    	  User currentUser = Application.loadCurrentUser();
+    	     Accessory currentAccessory = Accessory.findById(accessoryID);
+    	     currentAccessory.likes++;
+    	     currentAccessory.save();
+    	     System.out.println("test " + currentAccessory.articleName +"\n");
+    	     System.out.println("user " + currentUser.password +"\n");
+    	     System.out.println("vorher: " + currentUser.myAccesories.size() +"\n");
+    	     currentUser.addToMyAccesories(currentAccessory);
+    	     System.out.println("nachher: " + currentUser.myAccesories.size() +"\n");
+    	}
     
     //remove  a accessory from userprofile
-    public static void dislikeAccessory(Accessory a){
-    	if (a.likes >= 1) {
-    		a.likes--;
-    		a.save();
-    	}
-    	Application.loadCurrentUser().removeFromMyAccessories(a);
+    public static void dislikeAccessory(Long accessoryID){
+    	 User currentUser = Application.loadCurrentUser();
+         Accessory currentAccessory = Accessory.findById(accessoryID);
+         if (currentAccessory.likes >= 1) {
+          currentAccessory.likes--;
+          currentAccessory.save();
+         }
+         System.out.println("test " + currentAccessory.articleName +"\n");
+         System.out.println("user " + currentUser.password +"\n");
+        
+         currentUser.removeFromMyAccessories(currentAccessory);
     }
     
     //search function for accessory view
