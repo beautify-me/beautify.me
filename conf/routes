@@ -9,6 +9,7 @@ GET     /                                       Application.index
 # Home page
 GET     /{<[0-9]+>type}/{<[0-9]+>gender}                                        Application.index
 
+
 #Import Crud routes
 * 		/admin									module:crud
 

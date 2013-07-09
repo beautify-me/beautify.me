@@ -15,9 +15,9 @@ import javax.persistence.ManyToOne;
 import play.db.jpa.Model;
 @Entity
 public class Accessory extends Model {
-	public static final int MALE = 0;
 	public static final int FEMALE = 1;
-	public static final int UNISEX = 2;
+	public static final int MALE = 2;
+	public static final int UNISEX = 3;
 	
 	public static final int TYPE_HAT = 12;
 	public static final int TYPE_GLASSES = 13;
