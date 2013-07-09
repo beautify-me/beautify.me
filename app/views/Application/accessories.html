@@ -5,9 +5,17 @@
 
 <div class="container">
 
+	#{form @Accessories()}
+
 	<div class="page-header">
 		<h3>Accessories</h3>
 	</div>
+
+	<div class="field">         
+            <input id="searchString" type="text" name="searchString" size="30" value="${params.searchString}" class="#{errorClass 'search' /}" />
+    		<input type="submit" class="submit" value="&{'Search'}" />
+    </div>
+
 
     #{if accessories}
      <table>
@@ -34,6 +42,9 @@
         There is currently nothing to read here.
     </div>
 #{/else}
+
+#{/form}
+
 </div> <!-- /container -->
 
 

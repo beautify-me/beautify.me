@@ -48,4 +48,21 @@ public class Accessories extends CRUD {
         response.setContentTypeIfNotSet(image.type());
         renderBinary(image.get());
     }
+    
+	public static List<Accessory> searchAccessories(String searchString){
+		if (searchString == null) {
+			return null;
+		} else if (searchString.trim().equals("*")){
+			return Accessory.findAll();
+		} else {
+			//Query query = JPA.em().createQuery("SELECT a FROM Accessory a " + 
+			//		"WHERE a.articleName = " +  searchString.trim() + " OR a.type = " + searchString.trim());
+			//List<Accessory> resultList = (List<Accessory>) query.getResultList();
+			//List <Accessory> resultList =  Accessory.find("SELECT a FROM Accessory a " + 
+			//"WHERE a.articleName = '" +  searchString.trim() + "' OR a.type = '" + searchString.trim() + "'").fetch();
+			List <Accessory> resultList = Accessory.find("articleName like ?", "%" + searchString + "%").fetch();
+			return  resultList;
+		}
+	}
+
 }

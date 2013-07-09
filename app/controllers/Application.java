@@ -54,9 +54,9 @@ public class Application extends Controller {
         render(accessoryList, type, gender);
     }
 
-    public static void accessories() {
-        List<Accessory> accessories = Accessory.findAll();
-        Collections.shuffle(accessories); // shuffle for dummy display to be shuffled
+    public static void accessories(String searchString) {
+        List<Accessory> accessories = Accessories.searchAccessories(searchString);
+        //Collections.shuffle(accessories); // shuffle for dummy display to be suffled
         render(accessories);
     }
 
