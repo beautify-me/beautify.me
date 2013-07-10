@@ -15,9 +15,9 @@ import javax.persistence.ManyToOne;
 import play.db.jpa.Model;
 @Entity
 public class Accessory extends Model {
-	public static final int MALE = 0;
 	public static final int FEMALE = 1;
-	public static final int UNISEX = 2;
+	public static final int MALE = 2;
+	public static final int UNISEX = 3;
 	
 	public static final int TYPE_HAT = 12;
 	public static final int TYPE_GLASSES = 13;
@@ -49,4 +49,32 @@ public class Accessory extends Model {
 		this.provider = provider;
 		this.likes = likes;
 	}
+
+/*
+ * 
+ * Rewritten by Annsofi so you can query without either type or gender, no selections..
+ * 
+ * 	
+*/
+    public static List<Accessory> getAccesories(int type, int gender) {
+    	String query="";
+        //building query string for searching items
+    	if(gender > 0 && type > 0){
+    		query = "gender = ? and type = ?";
+    		 return find(query, gender, type).fetch();
+    	}
+    		
+    	else if (gender > 0)
+    	{
+    		query = "gender = ?";	
+    		return find(query, gender).fetch();
+    	}
+    			
+    	else if (type > 0){
+			query = "type = ?";
+			return find(query, type).fetch();
+    	}
+
+        return null;
+    }
 }

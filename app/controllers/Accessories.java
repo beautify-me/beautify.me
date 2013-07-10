@@ -1,6 +1,7 @@
 package controllers;
 
 import models.Accessory;
+import models.User;
 import play.db.jpa.Blob;
 import play.mvc.With;
 
@@ -41,15 +42,7 @@ public class Accessories extends CRUD {
         renderBinary(image.get());
     }
 
-    public static List<Accessory> getAccesories(int type, int gender) {
 
-        //building query string for searching items
-        String query = (gender <0 ) ? "? < 0" : "gender = ?";
-        query += " and " + ((type < 0) ? "? < 0" : "type = ?");
-
-        return Accessory.find(query, gender, type).fetch();
-
-    }
     
     public static void getPic(long id) {
         Accessory a = Accessory.findById(id);
@@ -59,19 +52,30 @@ public class Accessories extends CRUD {
     }
     
     //add a accessory to userprofile
-    public static void likeAccessory(Accessory a){
-    	a.likes++;
-    	a.save();
-    	Application.loadCurrentUser().addToMyAccesories(a);
-    }
+    public static void likeAccessory(Long accessoryID){
+    	  User currentUser = Application.loadCurrentUser();
+    	     Accessory currentAccessory = Accessory.findById(accessoryID);
+    	     currentAccessory.likes++;
+    	     currentAccessory.save();
+    	     System.out.println("test " + currentAccessory.articleName +"\n");
+    	     System.out.println("user " + currentUser.password +"\n");
+    	     System.out.println("vorher: " + currentUser.myAccesories.size() +"\n");
+    	     currentUser.addToMyAccesories(currentAccessory);
+    	     System.out.println("nachher: " + currentUser.myAccesories.size() +"\n");
+    	}
     
     //remove  a accessory from userprofile
-    public static void dislikeAccessory(Accessory a){
-    	if (a.likes >= 1) {
-    		a.likes--;
-    		a.save();
-    	}
-    	Application.loadCurrentUser().removeFromMyAccessories(a);
+    public static void dislikeAccessory(Long accessoryID){
+    	 User currentUser = Application.loadCurrentUser();
+         Accessory currentAccessory = Accessory.findById(accessoryID);
+         if (currentAccessory.likes >= 1) {
+          currentAccessory.likes--;
+          currentAccessory.save();
+         }
+         System.out.println("test " + currentAccessory.articleName +"\n");
+         System.out.println("user " + currentUser.password +"\n");
+        
+         currentUser.removeFromMyAccessories(currentAccessory);
     }
     
     //search function for accessory view
@@ -91,5 +95,17 @@ public class Accessories extends CRUD {
 			
 		}
 	}
+	
+	public static boolean doesContain(Accessory accessory){
+		if(Application.loadCurrentUser().myAccesories.contains(accessory)){
+	
+			return true;
+			
+		}
+		else {
+		
+		return false;
+		}
 
+	}
 }

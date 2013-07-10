@@ -145,4 +145,5 @@ public class User extends Model  implements RoleHolder {
 	public List<Role> getRoles() {
 		return Arrays.asList((Role)role);
 	}
+
 }

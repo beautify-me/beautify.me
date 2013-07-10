@@ -72,10 +72,12 @@ public class Bootstrap extends Job {
 
 		// Checks for users, if emty it adds them
 		if (User.count() == 0) {
-			createAdminAccount("admin", "beautify", "me",
-					"admin@beautify-me.com", "asdf");
-			createAdminAccount("annsofi", "Annsofi", "Pettersson", "a@hej.se",
-					"zxcvbn");
+			createAccount("admin", "beautify", "me", "admin@beautify-me.com",
+					"asdf", true);
+			createAccount("annsofi", "Annsofi", "Pettersson", "a@hej.se",
+					"zxcvbn", true);
+			createAccount("test", "test", "test", "test@test.test", "test",
+					false);
 		}
 	}
 
@@ -93,12 +95,8 @@ public class Bootstrap extends Job {
 	 * @param password
 	 *            The password
 	 */
-	public void createAdminAccount(
-			@Required(message = "securesocial.required") String userName,
-			@Required String name,
-			@Required String lastName,
-			@Required @Email(message = "securesocial.invalidEmail") String email,
-			@Required String password) {
+	public void createAccount(String userName, String name, String lastName,
+			String email, String password, boolean isAdmin) {
 
 		UserId id = new UserId();
 		id.id = userName;
@@ -112,9 +110,10 @@ public class Bootstrap extends Job {
 		user.password = SecureSocialPasswordHasher.passwordHash(password);
 		// the user is automatically active
 		user.isEmailVerified = true;
-		user.role = MyRole.getByName(MyRole.ADMIN_ROLE);
+		user.role = isAdmin ? MyRole.getByName(MyRole.ADMIN_ROLE) : MyRole
+				.getByName(MyRole.USER_ROLE);
 		user.authMethod = AuthenticationMethod.USER_PASSWORD;
-		
+
 		try {
 			UserService.save(user);
 		} catch (Throwable e) {
