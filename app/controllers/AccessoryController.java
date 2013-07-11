@@ -4,8 +4,11 @@ import models.Accessory;
 import models.User;
 import play.db.jpa.Blob;
 import play.mvc.Controller;
+import play.mvc.Http;
+import play.mvc.Http.Header;
 import play.mvc.With;
 
+import java.net.URL;
 import java.util.Collections;
 import java.util.List;
 
@@ -22,6 +25,8 @@ import controllers.deadbolt.Unrestricted;
  */
 public class AccessoryController extends Controller{
 
+	
+	private static final String ORIGINAL_URL = "originalUrl";
 	
 	public static void accessories() {
 		List<Accessory> accessories = Accessory.findAll();
@@ -59,10 +64,32 @@ public class AccessoryController extends Controller{
 		currentAccessory.save();
 		System.out.println("test " + currentAccessory.articleName + "\n");
 		System.out.println("user " + currentUser.password + "\n");
-		System.out.println("vorher: " + currentUser.myAccesories.size() + "\n");
-		currentUser.addToMyAccesories(currentAccessory);
+		System.out.println("vorher: " + currentUser.myAccessories.size() + "\n");
+		currentUser.addToMyAccessories(currentAccessory);
+		currentUser.save();
 		System.out
-				.println("nachher: " + currentUser.myAccesories.size() + "\n");
+				.println("nachher: " + currentUser.myAccessories.size() + "\n");
+		
+		System.out.println(Application.loadCurrentUser().myAccessories.contains(currentAccessory));
+		System.out.println(Application.loadCurrentUser().myAccessories.size());
+		System.out.println(Application.loadCurrentUser().myAccessories.isEmpty());
+
+		
+		try{
+		      Header refererHeader =
+		Http.Request.current().headers.get("referer");
+		      if(refererHeader != null){
+		        List<String> refererList = refererHeader.values;
+		        if(refererList != null){
+		          String callingPageURL = refererList.get(0);
+		          if(callingPageURL != null && callingPageURL.length()>0){
+		            redirect(new URL(callingPageURL).getFile());
+		          }
+		        }
+		      }
+		    } catch (Exception e) { // MalformedURLException and any other
+		      e.printStackTrace();
+		    }
 	}
 
 	// remove a accessory from userprofile
@@ -78,6 +105,28 @@ public class AccessoryController extends Controller{
 		System.out.println("user " + currentUser.password + "\n");
 
 		currentUser.removeFromMyAccessories(currentAccessory);
+		currentUser.save();
+		
+		System.out.println(Application.loadCurrentUser().myAccessories.contains(currentAccessory));
+		System.out.println(Application.loadCurrentUser().myAccessories.size());
+		System.out.println(Application.loadCurrentUser().myAccessories.isEmpty());
+
+		
+		try{
+		      Header refererHeader =
+		Http.Request.current().headers.get("referer");
+		      if(refererHeader != null){
+		        List<String> refererList = refererHeader.values;
+		        if(refererList != null){
+		          String callingPageURL = refererList.get(0);
+		          if(callingPageURL != null && callingPageURL.length()>0){
+		            redirect(new URL(callingPageURL).getFile());
+		          }
+		        }
+		      }
+		    } catch (Exception e) { // MalformedURLException and any other
+		      e.printStackTrace();
+		    } 
 	}
 
 	// search function for accessory view
@@ -107,7 +156,7 @@ public class AccessoryController extends Controller{
 
 	
 	public static boolean doesContain(Accessory accessory) {
-		if (Application.loadCurrentUser().myAccesories.contains(accessory)) {
+		if (Application.loadCurrentUser().myAccessories.contains(accessory)) {
 			return true;
 		} else {
 			return false;

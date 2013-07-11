@@ -42,7 +42,7 @@ public class Bootstrap extends Job {
 	private void createPics() {
 
 		// Checks for pics, if emty it adds them
-		if (Pic.count() == 0) {
+		//if (Pic.count() == 0) {
 			List<Pic> allPics = Pic.findAll();
 
 			for (Pic p : allPics) {
@@ -50,13 +50,13 @@ public class Bootstrap extends Job {
 				DB.execute("UPDATE `Pic` SET image='girl.jpg|image/jpg' WHERE id="
 						+ p.getId());
 			}
-		}
+		//}
 
 	}
 
 	private void createAccessories() {
 		// Check if the database is empty
-		if (Accessory.count() == 0) {
+//		if (Accessory.count() == 0) {
 			List<Accessory> allItems = Accessory.findAll();
 
 			for (Accessory a : allItems) {
@@ -64,7 +64,7 @@ public class Bootstrap extends Job {
 						+ a.provider.name.toLowerCase()
 						+ ".png|image/png' WHERE id=" + a.getId());
 
-			}
+//			}
 		}
 	}
 

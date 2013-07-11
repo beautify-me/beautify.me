@@ -8,6 +8,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
+import groovy.ui.text.FindReplaceUtility;
 import java.util.Collection;
 import java.util.List;
 
@@ -77,6 +78,7 @@ public class Application extends Controller {
 				.searchAccessories(searchString);
 		// Collections.shuffle(accessories); // shuffle for dummy display to be
 		// suffled
+//		List<Accessory> accessories = Accessory.findAll();
 		render(accessories);
 	}
 
@@ -109,7 +111,7 @@ public class Application extends Controller {
 	public static void mystuff() {
 		User user = UserService.find(getUserId());
 		List<Pic> userpics = Pic.findAll();
-		List<Accessory> useraccessories = user.myAccesories;
+		List<Accessory> useraccessories = user.myAccessories;
 		render(userpics, useraccessories);
 	}
 
@@ -421,7 +423,7 @@ public class Application extends Controller {
 	public static void addFavorite(Long accessoryID) {
 		User currentUser = getCurrentUser();
 		Accessory currentAccessory = Accessory.findById(accessoryID);
-		currentUser.addToMyAccesories(currentAccessory);
+		currentUser.addToMyAccessories(currentAccessory);
 		currentUser.save();
 	}
 
