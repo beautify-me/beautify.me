@@ -13,6 +13,8 @@ GET     /{<[0-9]+>type}/{<[0-9]+>gender}                                        
 #Import Crud routes
 * 		/admin									module:crud
 
+*     /savePic								Application.savePic
+
 # Home page
 GET     /accessories                            Application.accessories
 

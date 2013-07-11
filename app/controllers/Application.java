@@ -1,7 +1,20 @@
 package controllers;
 
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
 import java.util.Collection;
 import java.util.List;
+
+import javax.xml.bind.DatatypeConverter;
+
+import org.apache.commons.codec.binary.Base64;
+import org.apache.commons.io.IOUtils;
 
 import models.Accessory;
 import models.Pic;
@@ -169,8 +182,7 @@ public class Application extends Controller {
 
 	public static void sendPicByEmail(
 			@Required @Email(message = "securesocial.invalidEmail") String email,
-			String message,
-			@Required String id) {
+			String message, @Required String id) {
 		Long picId = Long.valueOf(id.split("=")[1]);
 		if (validation.hasErrors()) {
 			tryAgainSendPicByEmail(email, message, picId);
@@ -223,6 +235,24 @@ public class Application extends Controller {
 			renderArgs.put(USER, user);
 		}
 		return user;
+	}
+
+	/**
+	 * Gets the pic from the camera and adds it to the users pics.
+	 */
+	public static void savePic() {		
+		String strBase64Pic = request.params.get("thePic");
+		//byte[] decoded = DatatypeConverter.parseBase64Binary(strBase64Pic);
+		byte[] decoded = DatatypeConverter.parseBase64Binary(strBase64Pic.split(",")[1]);
+		
+		Blob blob = new Blob();
+		blob.set(new ByteArrayInputStream(decoded),"image/png" );
+		User user = getCurrentUser();
+		Pic pic = new Pic(true,blob,user.name);
+		pic.save();
+		user.addPic(pic);
+		user.save();
+		shareOnNetwork(pic.id);
 	}
 
 	/**
