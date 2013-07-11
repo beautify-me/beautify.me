@@ -1,5 +1,7 @@
 package controllers;
 
+import groovy.ui.text.FindReplaceUtility;
+
 import java.util.Collection;
 import java.util.List;
 
@@ -60,10 +62,11 @@ public class Application extends Controller {
 	}
 
 	public static void accessories(String searchString) {
-		List<Accessory> accessories = AccessoryController
-				.searchAccessories(searchString);
+		//List<Accessory> accessories = AccessoryController
+//				.searchAccessories(searchString);
 		// Collections.shuffle(accessories); // shuffle for dummy display to be
 		// suffled
+		List<Accessory> accessories = Accessory.findAll();
 		render(accessories);
 	}
 
