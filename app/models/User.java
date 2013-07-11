@@ -114,7 +114,7 @@ public class User extends Model  implements RoleHolder {
 	@Required
 	@ManyToMany(cascade = {CascadeType.ALL})
     @JoinTable
-	public List<Accessory> myAccesories = new ArrayList<Accessory>();
+	public List<Accessory> myAccessories = new ArrayList<Accessory>();
 	
 	@Required
 	@OneToMany
@@ -130,12 +130,12 @@ public class User extends Model  implements RoleHolder {
 		return idUser.id;
 	}
 	
-	public void addToMyAccesories(Accessory accessory){
-		myAccesories.add(accessory);
+	public void addToMyAccessories(Accessory accessory){
+		myAccessories.add(accessory);
 	}
 	
 	public void removeFromMyAccessories(Accessory accessory){
-		myAccesories.remove(accessory);
+		myAccessories.remove(accessory);
 	}
 	
 	public void addPic(Pic pic){

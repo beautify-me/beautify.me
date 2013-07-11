@@ -30,13 +30,14 @@
             	<td>
                 <div class="accessory">
                 #{if session.securesocial_user}
-                #{if controllers.Accessories.doesContain(accessory)}
-                 #{form @Accessories.dislikeAccessory(accessory.id)}
+                
+                #{if controllers.AccessoryController.doesContain(Accessory)}
+                 #{form @AccessoryController.dislikeAccessory(accessory.id)}
                 	    <input type="image" style=position:absolute src=@{'/public/images/minus.gif'} height="20" width="20" name="imgDislike" value="dislike">
                  #{/form}
                 #{/if}
                 #{else}
-                 #{form @Accessories.likeAccessory(accessory.id)}       	
+                 #{form @AccessoryController.likeAccessory(accessory.id)}       	
                        	<input type="image" style=position:absolute src=@{'/public/images/plus.gif'} height="20" width="20" name="imgLike" value="like">
     			 #{/form}
     			#{/else}		

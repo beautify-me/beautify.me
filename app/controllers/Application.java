@@ -96,7 +96,7 @@ public class Application extends Controller {
 	public static void mystuff() {
 		User user = UserService.find(getUserId());
 		List<Pic> userpics = Pic.findAll();
-		List<Accessory> useraccessories = user.myAccesories;
+		List<Accessory> useraccessories = user.myAccessories;
 		render(userpics, useraccessories);
 	}
 
@@ -391,7 +391,7 @@ public class Application extends Controller {
 	public static void addFavorite(Long accessoryID) {
 		User currentUser = getCurrentUser();
 		Accessory currentAccessory = Accessory.findById(accessoryID);
-		currentUser.addToMyAccesories(currentAccessory);
+		currentUser.addToMyAccessories(currentAccessory);
 		currentUser.save();
 	}
 
