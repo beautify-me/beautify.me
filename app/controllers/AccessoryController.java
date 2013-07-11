@@ -66,6 +66,7 @@ public class AccessoryController extends Controller{
 		System.out.println("user " + currentUser.password + "\n");
 		System.out.println("vorher: " + currentUser.myAccessories.size() + "\n");
 		currentUser.addToMyAccessories(currentAccessory);
+		currentUser.save();
 		System.out
 				.println("nachher: " + currentUser.myAccessories.size() + "\n");
 		
@@ -104,6 +105,7 @@ public class AccessoryController extends Controller{
 		System.out.println("user " + currentUser.password + "\n");
 
 		currentUser.removeFromMyAccessories(currentAccessory);
+		currentUser.save();
 		
 		System.out.println(Application.loadCurrentUser().myAccessories.contains(currentAccessory));
 		System.out.println(Application.loadCurrentUser().myAccessories.size());
