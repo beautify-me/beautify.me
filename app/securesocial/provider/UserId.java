@@ -35,6 +35,7 @@ public class UserId implements java.io.Serializable {
 	/**
 	 * The provider this user belongs to.
 	 */
+	@Transient
 	public ProviderType provider;
 
 	/**

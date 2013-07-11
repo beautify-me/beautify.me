@@ -22,6 +22,12 @@ GET     /top                                    Application.top
 # Home page
 GET     /mystuff                           		Application.mystuff
 
+GET   /shareOnNetwork                       Application.shareOnNetwork(pic: Long)
+
+GET   /shareOnNetwork/:pic                       Application.shareOnNetwork(pic: Long)  
+
+#GET     /sendpicbyemail							Application.sendPicByEmail
+
 # Home page
 GET     /privacy                            	Application.privacy
 # Home page

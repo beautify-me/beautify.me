@@ -34,14 +34,14 @@
       			</div>
       		#{/list}
       	</div>
-      	<form action="@{Application.shareOnNetwork()}" method="GET">
+      	<!-- <form action="@{Application.shareOnNetwork()}/" method="GET"> -->
       	<div class="span6">
       	    #{list items: userpics, as:'pic'}
       	    	<div class="span6">
-      	    		<a href="#"><img height="15000" width="15000" src="@{Application.getPic(pic.id)}"/></a>
+      	    		<a href="@{Application.shareOnNetwork}?id=&{pic.id}"><img height="15000" width="15000" src="@{Application.getPic(pic.id)}"/></a>
       	    		${pic.name}
       	    	<!-- <input id="pic" type="image" src="@{Application.getPic(pic.id)}" value="${params.picture}"/>  -->
-					<input id="googlebutton" type="image" src="@{'/public/images/google.png'}" value="${params.button}"/>
+					<input id="emailbutton" type="image" src="@{'/public/images/mail_envelope.png'}" value="${params.button}"/>
       	    		<input id="facebookbutton" type="image" src="@{'/public/images/facebook.png'}" value="${params.button}"/>
       	    		<input id="twitterbutton" type="image" src="@{'/public/images/twitter.png'}" value="${params.button}"/>
       	    	</div>      	
@@ -49,7 +49,7 @@
       	
       	
       	</div>
-      	</form>
+      	<!--</form>-->
       
       
       

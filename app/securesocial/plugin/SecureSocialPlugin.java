@@ -84,9 +84,11 @@ public class SecureSocialPlugin extends PlayPlugin {
         } else if (classesFound == 2) {
             // a custom implementation was found.  use it instead of the default
             Class clazz = classes.get(0);
-            if (clazz.getName().startsWith(SECURESOCIAL)) {
+            if (clazz.getName().startsWith("Default"))
+            	clazz = classes.get(1);
+            /**if (clazz.getName().startsWith(SECURESOCIAL)) {
                 clazz = classes.get(1);
-            }
+            }**/
             service = (UserServiceDelegate) newInstance(clazz);
             Logger.info("Using custom user service: %s", service.getClass());
         } else {

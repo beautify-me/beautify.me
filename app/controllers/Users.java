@@ -1,6 +1,8 @@
 package controllers;
 
 import play.mvc.With;
+import controllers.CRUD;
+import controllers.CRUD.For;
 import controllers.deadbolt.Deadbolt;
 import controllers.deadbolt.Restrict;
 import controllers.deadbolt.Restrictions;
@@ -15,6 +17,9 @@ import models.User;
  */
 @CRUD.For(User.class)
 @With(Deadbolt.class)
-@Restrictions({@Restrict("admin")})
+@Restrict("admin")
 public class Users extends CRUD {
+	
+	
+	
 }

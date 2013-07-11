@@ -1,0 +1,52 @@
+#{extends 'main.html' /}
+#{set title:'beautify.me - Send Pic' /}
+
+
+
+    <div class="container">
+	<div class="page-header">
+		<h1>Share by email!</h1>
+	</div>
+	
+		   #{form @sendPicByEmail(), class:'form-horizontal'}
+		   <div class="control-group">
+		<fieldset>
+                <div class="clearfix #{ifError 'email'} error #{/ifError}">
+                    <label for="email">&{'securesocial.email'}</label>
+                    <div class="field">
+                        <input id="email" type="text" class="large" name="email" value="${flash.email}"/>
+                        <span class="help-inline">
+                            #{ifError 'email'}
+                            #{error 'email'/}
+                            #{/ifError}
+                            #{else}
+                            &{'securesocial.emailHelp'}
+                            #{/else}
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="clearfix">
+                    <label for="message">Message</label>
+                    <div class="field">
+                        <input id="message" type="text" class="large" name="message" value="${flash.userName}"/>
+                    </div>
+                </div>
+            <fieldset>
+				<div class="actions">
+			</p>
+	                <input type="submit" value="Send" class="btn primary">
+	                <a href="@{Application.mystuff}" class="btn">&{'securesocial.cancel'}</input></a>
+	                </p>
+	            </div>
+	    </fieldset>
+	    <fieldset>
+		<div class="span6">
+		<legend></legend>
+			<input type="hidden" name="id" id="id" value="@{Application.getPic(pic)}" />
+		    <img height="15000" width="15000" src="@{Application.getPic(pic)}"/>
+		</div>
+		 </fieldset>
+		 #{/form}
+    </div>
+    </div> <!-- /container -->

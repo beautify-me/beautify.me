@@ -28,7 +28,10 @@ import play.data.validation.Required;
 import play.i18n.Messages;
 import play.mvc.Controller;
 import play.mvc.Router;
-import securesocial.provider.*;
+import securesocial.provider.AuthenticationMethod;
+import securesocial.provider.ProviderType;
+import securesocial.provider.UserId;
+import securesocial.provider.UserService;
 import securesocial.utils.SecureSocialPasswordHasher;
 
 /**

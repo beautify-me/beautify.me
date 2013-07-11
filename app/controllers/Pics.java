@@ -6,7 +6,7 @@ import controllers.CRUD.For;
 import controllers.deadbolt.Deadbolt;
 import controllers.deadbolt.Restrict;
 import controllers.deadbolt.Restrictions;
-import models.Provider;
+import models.Pic;
 
 /**
  * Created with IntelliJ IDEA.
@@ -15,8 +15,11 @@ import models.Provider;
  * Time: 22:42
  * To change this template use File | Settings | File Templates.
  */
-@CRUD.For(Provider.class)
+@CRUD.For(Pic.class)
 @With(Deadbolt.class)
 @Restrict("admin")
-public class Providers extends CRUD {
+public class Pics extends CRUD {
+	
+	
+	
 }

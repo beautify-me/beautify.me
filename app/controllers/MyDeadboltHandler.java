@@ -1,17 +1,16 @@
 package controllers;
 
-import controllers.deadbolt.DeadboltHandler;
-import controllers.deadbolt.ExternalizedRestrictionsAccessor;
-import controllers.deadbolt.RestrictedResourcesHandler;
-import models.MyRole;
+import java.util.ArrayList;
+import java.util.List;
+
 import models.MyRoleHolder;
 import models.User;
 import models.deadbolt.Role;
 import models.deadbolt.RoleHolder;
 import play.mvc.Controller;
-
-import java.util.ArrayList;
-import java.util.List;
+import controllers.deadbolt.DeadboltHandler;
+import controllers.deadbolt.ExternalizedRestrictionsAccessor;
+import controllers.deadbolt.RestrictedResourcesHandler;
 
 /**
  * A sample handler to show SecureSocial and Deadbolt integration

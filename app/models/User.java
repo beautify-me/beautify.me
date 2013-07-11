@@ -119,6 +119,11 @@ public class User extends Model  implements RoleHolder {
 	@Required
 	@OneToMany
 	public List<Pic> myPics = new ArrayList<Pic>();
+
+	/**
+	 * Activation uuid
+	 */
+	public String uuid;
 	
 
 	public String toString(){
